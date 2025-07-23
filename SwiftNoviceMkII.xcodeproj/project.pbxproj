@@ -6,6 +6,16 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		40D19EB42E30CFBF008D9669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D19EA92E30CFBF008D9669 /* Assets.xcassets */; };
+		40D19EB62E30CFBF008D9669 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40D19EAC2E30CFBF008D9669 /* LaunchScreen.storyboard */; };
+		40D19EB72E30CFBF008D9669 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40D19EAE2E30CFBF008D9669 /* Main.storyboard */; };
+		40D19EB82E30CFBF008D9669 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EA82E30CFBF008D9669 /* AppDelegate.swift */; };
+		40D19EB92E30CFBF008D9669 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EAF2E30CFBF008D9669 /* SceneDelegate.swift */; };
+		40D19EBA2E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EB02E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodeld */; };
+		40D19EBB2E30CFBF008D9669 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EB12E30CFBF008D9669 /* ViewController.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		40D19E8B2E30CF7B008D9669 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,27 +37,17 @@
 		40D19E712E30CF51008D9669 /* SwiftNoviceMkII.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftNoviceMkII.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40D19E8A2E30CF7B008D9669 /* SwiftNoviceMkIITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftNoviceMkIITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40D19E942E30CF7C008D9669 /* SwiftNoviceMkIIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftNoviceMkIIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		40D19EA82E30CFBF008D9669 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		40D19EA92E30CFBF008D9669 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		40D19EAA2E30CFBF008D9669 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40D19EAB2E30CFBF008D9669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		40D19EAD2E30CFBF008D9669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		40D19EAF2E30CFBF008D9669 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		40D19EB12E30CFBF008D9669 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		40D19EB32E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwiftNoviceMkII.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		40D19E9C2E30CF7C008D9669 /* Exceptions for "SwiftNoviceMkII" folder in "SwiftNoviceMkII" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 40D19E702E30CF51008D9669 /* SwiftNoviceMkII */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		40D19E732E30CF51008D9669 /* SwiftNoviceMkII */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				40D19E9C2E30CF7C008D9669 /* Exceptions for "SwiftNoviceMkII" folder in "SwiftNoviceMkII" target */,
-			);
-			path = SwiftNoviceMkII;
-			sourceTree = "<group>";
-		};
 		40D19E8D2E30CF7B008D9669 /* SwiftNoviceMkIITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SwiftNoviceMkIITests;
@@ -88,7 +88,7 @@
 		40D19E682E30CF51008D9669 = {
 			isa = PBXGroup;
 			children = (
-				40D19E732E30CF51008D9669 /* SwiftNoviceMkII */,
+				40D19EB22E30CFBF008D9669 /* SwiftNoviceMkII */,
 				40D19E8D2E30CF7B008D9669 /* SwiftNoviceMkIITests */,
 				40D19E972E30CF7C008D9669 /* SwiftNoviceMkIIUITests */,
 				40D19E722E30CF51008D9669 /* Products */,
@@ -105,6 +105,29 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		40D19EB22E30CFBF008D9669 /* SwiftNoviceMkII */ = {
+			isa = PBXGroup;
+			children = (
+				40D19EBC2E30CFD2008D9669 /* Support */,
+				40D19EAA2E30CFBF008D9669 /* Info.plist */,
+				40D19EB12E30CFBF008D9669 /* ViewController.swift */,
+			);
+			path = SwiftNoviceMkII;
+			sourceTree = "<group>";
+		};
+		40D19EBC2E30CFD2008D9669 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				40D19EA82E30CFBF008D9669 /* AppDelegate.swift */,
+				40D19EAF2E30CFBF008D9669 /* SceneDelegate.swift */,
+				40D19EAC2E30CFBF008D9669 /* LaunchScreen.storyboard */,
+				40D19EAE2E30CFBF008D9669 /* Main.storyboard */,
+				40D19EA92E30CFBF008D9669 /* Assets.xcassets */,
+				40D19EB02E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodeld */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -119,9 +142,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				40D19E732E30CF51008D9669 /* SwiftNoviceMkII */,
 			);
 			name = SwiftNoviceMkII;
 			packageProductDependencies = (
@@ -225,6 +245,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40D19EB42E30CFBF008D9669 /* Assets.xcassets in Resources */,
+				40D19EB62E30CFBF008D9669 /* LaunchScreen.storyboard in Resources */,
+				40D19EB72E30CFBF008D9669 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +272,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40D19EB82E30CFBF008D9669 /* AppDelegate.swift in Sources */,
+				40D19EB92E30CFBF008D9669 /* SceneDelegate.swift in Sources */,
+				40D19EBA2E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodeld in Sources */,
+				40D19EBB2E30CFBF008D9669 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +307,25 @@
 			targetProxy = 40D19E952E30CF7C008D9669 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		40D19EAC2E30CFBF008D9669 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				40D19EAB2E30CFBF008D9669 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		40D19EAE2E30CFBF008D9669 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				40D19EAD2E30CFBF008D9669 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		40D19E9E2E30CF7C008D9669 /* Debug */ = {
@@ -571,6 +617,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		40D19EB02E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				40D19EB32E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodel */,
+			);
+			currentVersion = 40D19EB32E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodel */;
+			path = SwiftNoviceMkII.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 40D19E692E30CF51008D9669 /* Project object */;
 }
