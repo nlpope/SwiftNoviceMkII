@@ -4,13 +4,52 @@
 
 import UIKit
 
-class HomeCoursesVC: UIViewController {
-
-    override func viewDidLoad() {
+class HomeCoursesVC: SNDataLoadingVC
+{
+    enum Section { case main }
+    
+    var courses = [SNCourse]()
+    var filteredCourses = [SNCourse]()
+    var completedCourses = [SNCourse]()
+    var dataSource: UICollectionViewDiffableDataSource<Section, SNCourse>!
+    var logoLauncher: SNLogoLauncher!
+    
+    
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        PersistenceManager.isFirstVisitPostDismissal = true
+        // all config calls go here
     }
-
-
+    
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        logoLauncher = SNLogoLauncher(targetVC: self)
+        if PersistenceManager.fetchFirstVisitPostDismissalStatus() {
+            logoLauncher.configLogoLauncher()
+        } else {
+            fetchCoursesFromServer(); loadProgressFromCloudKit()
+        }
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) { logoLauncher = nil }
+    
+    
+    deinit { logoLauncher.removeAllAVPlayerLayers() }
+    
+    //-------------------------------------//
+    // MARK: - CONFIGURATION
+    
+    func fetchCoursesFromServer()
+    {
+        
+    }
+    
+    
+    func loadProgressFromCloudKit()
+    {
+        
+    }
 }
-

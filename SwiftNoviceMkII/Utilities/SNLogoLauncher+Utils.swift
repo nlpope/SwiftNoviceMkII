@@ -2,74 +2,8 @@
 //  Project: Project32-SwiftSearcher
 //  Created by: Noah Pope on 6/3/25.
 
-//  * ADD THE MP4 FLICKER LOGO FILE
-//  * ADD THE AVPLAYER+EXT FILE
-//  * BE SURE 'FORRESOURCE' NAME IN CONTANTS MATCHES LAUNCHSCREEN.MP4 FILE
-//  * (OPT) SEE IOS NOTES CLONE & MultiBrowser FOR REFERENCES
-
 /**
- SCENE DELEGATE
- func sceneWillResignActive(_ scene: UIScene) { PersistenceManager.isFirstVisitStatus = true }
- ----------------------------------
- AVPLAYER+EXT
- import AVKit
- import AVFoundation
-
- extension AVPlayer
- {
-     var isPlaying: Bool { return rate != 0 && error == nil }
- }
- ----------------------------------
- CONSTANTS
- enum SaveKeys
- {
-     static let isFirstVisit = "isFirstVisitStatus"
- }
-
- enum VideoKeys
- {
- static let launchScreen = "launchscreen"
- static let playerLayerName = "PlayerLayerName"
- }
- ----------------------------------
- PERSISTENCE MANAGER
- enum PersistenceManager
- {
-    static private let defaults = UserDefaults.standard
-    static var isFirstVisitStatus: Bool! = fetchFirstVisitStatus() {
-        didSet { PersistenceManager.saveFirstVisitStatus(status: self.isFirstVisitStatus) }
-    }
  
- //-------------------------------------//
- // MARK: - SAVE / FETCH FIRST VISIT STATUS (FOR LOGO LAUNCHER)
- 
-     static func saveFirstVisitStatus(status: Bool)
-     {
-         do {
-             let encoder = JSONEncoder()
-             let encodedStatus = try encoder.encode(status)
-             defaults.set(encodedStatus, forKey: SaveKeys.isFirstVisit)
-         } catch {
-             print("failed ato save visit status"); return
-         }
-     }
-     
-     
-     static func fetchFirstVisitStatus() -> Bool
-     {
-         guard let visitStatusData = defaults.object(forKey: SaveKeys.isFirstVisit) as? Data
-         else { return true }
-         
-         do {
-             let decoder = JSONDecoder()
-             let fetchedStatus = try decoder.decode(Bool.self, from: visitStatusData)
-             return fetchedStatus
-         } catch {
-             print("unable to load first visit status")
-             return true
-         }
-     }
- }
  ----------------------------------
  HOMEVC
  override func viewDidLoad()
@@ -173,11 +107,17 @@ class SNLogoLauncher
         targetVC.navigationController?.isNavigationBarHidden = false
         targetVC.view.backgroundColor = .systemBackground
         
-        PersistenceManager.isFirstVisitStatus = false
+        if #available(iOS 18.0, *) {
+            targetVC.tabBarController?.isTabBarHidden = false
+        } else {
+            print("cannot hide tab bar")
+        }
+        
+        PersistenceManager.isVeryFirstVisit = false
         removeAllAVPlayerLayers()
     
-        targetVC.fetchProjects()
-        targetVC.fetchFavorites()
+        targetVC.fetchCoursesFromServer()
+        targetVC.loadProgressFromCloudKit()
     }
     
     
@@ -196,7 +136,7 @@ class SNLogoLauncher
     
     @objc func reinitializePlayerLayer()
     {
-        guard PersistenceManager.isFirstVisitStatus else { return }
+        guard PersistenceManager.isFirstVisitPostDismissal else { return }
         if let player = player {
             playerLayer = AVPlayerLayer(player: player)
             playerLayer?.name = VideoKeys.playerLayerName

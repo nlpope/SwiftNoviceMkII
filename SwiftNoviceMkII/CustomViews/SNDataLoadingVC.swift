@@ -4,7 +4,7 @@
 
 import UIKit
 
-class SNDataLoadingVC: UITableViewController
+class SNDataLoadingVC: UIViewController
 {
     var containerView: UIView!
 

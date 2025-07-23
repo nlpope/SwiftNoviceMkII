@@ -13,7 +13,17 @@
 		40D19EB82E30CFBF008D9669 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EA82E30CFBF008D9669 /* AppDelegate.swift */; };
 		40D19EB92E30CFBF008D9669 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EAF2E30CFBF008D9669 /* SceneDelegate.swift */; };
 		40D19EBA2E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EB02E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodeld */; };
-		40D19EBB2E30CFBF008D9669 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EB12E30CFBF008D9669 /* ViewController.swift */; };
+		40D19EBB2E30CFBF008D9669 /* HomeCoursesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EB12E30CFBF008D9669 /* HomeCoursesVC.swift */; };
+		40D19EC42E30D362008D9669 /* SNDataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EC32E30D362008D9669 /* SNDataLoadingVC.swift */; };
+		40D19ECA2E30D3E7008D9669 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EC92E30D3E7008D9669 /* UIViewController+Ext.swift */; };
+		40D19ECC2E30D6D1008D9669 /* SNUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ECB2E30D6D1008D9669 /* SNUser.swift */; };
+		40D19ECE2E30D6DF008D9669 /* SNCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ECD2E30D6DF008D9669 /* SNCourse.swift */; };
+		40D19ED02E30D6FD008D9669 /* SNCourseProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ECF2E30D6FD008D9669 /* SNCourseProject.swift */; };
+		40D19ED42E30F60C008D9669 /* SNLogoLauncher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ED32E30F60C008D9669 /* SNLogoLauncher+Utils.swift */; };
+		40D19ED62E30F827008D9669 /* launchscreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 40D19ED52E30F827008D9669 /* launchscreen.mp4 */; };
+		40D19ED82E30F899008D9669 /* Constants+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ED72E30F899008D9669 /* Constants+Utils.swift */; };
+		40D19EDA2E30F983008D9669 /* AVPlayer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ED92E30F983008D9669 /* AVPlayer+Ext.swift */; };
+		40D19EDC2E30F9E3008D9669 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EDB2E30F9E3008D9669 /* PersistenceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,8 +53,18 @@
 		40D19EAB2E30CFBF008D9669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		40D19EAD2E30CFBF008D9669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		40D19EAF2E30CFBF008D9669 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		40D19EB12E30CFBF008D9669 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		40D19EB12E30CFBF008D9669 /* HomeCoursesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoursesVC.swift; sourceTree = "<group>"; };
 		40D19EB32E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwiftNoviceMkII.xcdatamodel; sourceTree = "<group>"; };
+		40D19EC32E30D362008D9669 /* SNDataLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNDataLoadingVC.swift; sourceTree = "<group>"; };
+		40D19EC92E30D3E7008D9669 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		40D19ECB2E30D6D1008D9669 /* SNUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNUser.swift; sourceTree = "<group>"; };
+		40D19ECD2E30D6DF008D9669 /* SNCourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNCourse.swift; sourceTree = "<group>"; };
+		40D19ECF2E30D6FD008D9669 /* SNCourseProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNCourseProject.swift; sourceTree = "<group>"; };
+		40D19ED32E30F60C008D9669 /* SNLogoLauncher+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SNLogoLauncher+Utils.swift"; sourceTree = "<group>"; };
+		40D19ED52E30F827008D9669 /* launchscreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = launchscreen.mp4; sourceTree = "<group>"; };
+		40D19ED72E30F899008D9669 /* Constants+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constants+Utils.swift"; sourceTree = "<group>"; };
+		40D19ED92E30F983008D9669 /* AVPlayer+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayer+Ext.swift"; sourceTree = "<group>"; };
+		40D19EDB2E30F9E3008D9669 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -108,9 +128,14 @@
 		40D19EB22E30CFBF008D9669 /* SwiftNoviceMkII */ = {
 			isa = PBXGroup;
 			children = (
+				40D19EC72E30D394008D9669 /* Managers */,
+				40D19EC02E30D21E008D9669 /* Extensions */,
+				40D19EC82E30D39E008D9669 /* Utilities */,
+				40D19EC62E30D38A008D9669 /* Models */,
+				40D19EC52E30D378008D9669 /* CustomViews */,
+				40D19EBD2E30D115008D9669 /* Screens */,
 				40D19EBC2E30CFD2008D9669 /* Support */,
 				40D19EAA2E30CFBF008D9669 /* Info.plist */,
-				40D19EB12E30CFBF008D9669 /* ViewController.swift */,
 			);
 			path = SwiftNoviceMkII;
 			sourceTree = "<group>";
@@ -123,9 +148,62 @@
 				40D19EAC2E30CFBF008D9669 /* LaunchScreen.storyboard */,
 				40D19EAE2E30CFBF008D9669 /* Main.storyboard */,
 				40D19EA92E30CFBF008D9669 /* Assets.xcassets */,
+				40D19ED52E30F827008D9669 /* launchscreen.mp4 */,
 				40D19EB02E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodeld */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		40D19EBD2E30D115008D9669 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				40D19EB12E30CFBF008D9669 /* HomeCoursesVC.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		40D19EC02E30D21E008D9669 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				40D19EC92E30D3E7008D9669 /* UIViewController+Ext.swift */,
+				40D19ED92E30F983008D9669 /* AVPlayer+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		40D19EC52E30D378008D9669 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				40D19EC32E30D362008D9669 /* SNDataLoadingVC.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		40D19EC62E30D38A008D9669 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				40D19ECB2E30D6D1008D9669 /* SNUser.swift */,
+				40D19ECD2E30D6DF008D9669 /* SNCourse.swift */,
+				40D19ECF2E30D6FD008D9669 /* SNCourseProject.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		40D19EC72E30D394008D9669 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				40D19EDB2E30F9E3008D9669 /* PersistenceManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		40D19EC82E30D39E008D9669 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				40D19ED72E30F899008D9669 /* Constants+Utils.swift */,
+				40D19ED32E30F60C008D9669 /* SNLogoLauncher+Utils.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,6 +325,7 @@
 			files = (
 				40D19EB42E30CFBF008D9669 /* Assets.xcassets in Resources */,
 				40D19EB62E30CFBF008D9669 /* LaunchScreen.storyboard in Resources */,
+				40D19ED62E30F827008D9669 /* launchscreen.mp4 in Resources */,
 				40D19EB72E30CFBF008D9669 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,10 +351,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40D19ED02E30D6FD008D9669 /* SNCourseProject.swift in Sources */,
+				40D19EDA2E30F983008D9669 /* AVPlayer+Ext.swift in Sources */,
+				40D19ED82E30F899008D9669 /* Constants+Utils.swift in Sources */,
 				40D19EB82E30CFBF008D9669 /* AppDelegate.swift in Sources */,
+				40D19EC42E30D362008D9669 /* SNDataLoadingVC.swift in Sources */,
+				40D19EDC2E30F9E3008D9669 /* PersistenceManager.swift in Sources */,
+				40D19ECA2E30D3E7008D9669 /* UIViewController+Ext.swift in Sources */,
+				40D19ED42E30F60C008D9669 /* SNLogoLauncher+Utils.swift in Sources */,
+				40D19ECE2E30D6DF008D9669 /* SNCourse.swift in Sources */,
 				40D19EB92E30CFBF008D9669 /* SceneDelegate.swift in Sources */,
 				40D19EBA2E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodeld in Sources */,
-				40D19EBB2E30CFBF008D9669 /* ViewController.swift in Sources */,
+				40D19ECC2E30D6D1008D9669 /* SNUser.swift in Sources */,
+				40D19EBB2E30CFBF008D9669 /* HomeCoursesVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
