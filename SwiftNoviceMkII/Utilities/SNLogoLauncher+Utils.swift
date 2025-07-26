@@ -2,37 +2,6 @@
 //  Project: Project32-SwiftSearcher
 //  Created by: Noah Pope on 6/3/25.
 
-/**
- 
- ----------------------------------
- HOMEVC
- override func viewDidLoad()
- {
-     super.viewDidLoad()
-     PersistenceManager.isFirstVisitStatus = true
-     // all config calls go here
- }
- 
- 
- override func viewWillAppear(_ animated: Bool)
- {
-     logoLauncher = SNLogoLauncher(targetVC: self)
-     if PersistenceManager.fetchFirstVisitStatus() {
-         logoLauncher.configLogoLauncher()
-     } else {
-         fetchProjects()
-     }
- }
- 
- 
- override func viewWillDisappear(_ animated: Bool) { logoLauncher = nil }
- 
- 
- deinit { logoLauncher.removeAllAVPlayerLayers() }
- ----------------------------------
- 
- */
-
 import UIKit
 import AVKit
 import AVFoundation
