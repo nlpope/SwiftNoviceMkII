@@ -105,18 +105,18 @@ enum PersistenceManager
     {
         switch actionType {
         case .complete:
-            courses.removeAll { $0.title == course.title }
+            courses.removeAll { $0.name == course.name }
             courses.append(course)
         /**--------------------------------------------------------------------------**/
         case .incomplete:
-            courses.removeAll { $0.title == course.title }
+            courses.removeAll { $0.name == course.name }
         }
     }
     
     
     static func fetchCourseProgress(completed: @escaping (Result<[SNCourse], SNError>) -> Void)
     {
-        guard let completedCoursesData = defaults.object(forKey: PersistenceKeys.courseProgress) as? Data else {
+        guard let completedCoursesData = defaults.object(forKey: PersistenceKeys.completedCourses) as? Data else {
             completed(.success([]))
             return
         }
@@ -136,7 +136,7 @@ enum PersistenceManager
         do {
             let encoder = JSONEncoder()
             let encodedCompletedCourses = try encoder.encode(courses)
-            defaults.setValue(encodedCompletedCourses, forKey: PersistenceKeys.courseProgress)
+            defaults.setValue(encodedCompletedCourses, forKey: PersistenceKeys.completedCourses)
             return nil
         } catch {
             return .failedToSaveProgress

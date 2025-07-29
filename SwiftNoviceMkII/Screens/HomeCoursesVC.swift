@@ -25,6 +25,7 @@ class HomeCoursesVC: SNDataLoadingVC
     
     override func viewWillAppear(_ animated: Bool)
     {
+        print("view will appear triggered")
         logoLauncher = SNLogoLauncher(targetVC: self)
         if PersistenceManager.fetchFirstVisitPostDismissalStatus() {
             logoLauncher.configLogoLauncher()

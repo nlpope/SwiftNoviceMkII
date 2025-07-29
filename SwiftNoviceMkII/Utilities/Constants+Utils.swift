@@ -20,8 +20,10 @@ enum SFSymbols
 
 enum PersistenceKeys
 {
-    static let isFirstVisitPostDismissalStatus = "isFirstVisitPostDismissalStatus"
     static var isVeryFirstVisitStatus = "isVeryFirstVisitStatus"
+    static let isFirstVisitPostDismissalStatus = "isFirstVisitPostDismissalStatus"
+    static let isLoggedIn = "isLoggedIn"
+    static let completedCourses = "completedCourses"
 }
 
 enum SaveKeys
