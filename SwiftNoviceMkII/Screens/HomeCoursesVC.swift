@@ -11,14 +11,18 @@ class HomeCoursesVC: SNDataLoadingVC
     var courses = [SNCourse]()
     var filteredCourses = [SNCourse]()
     var completedCourses = [SNCourse]()
-    var dataSource: UICollectionViewDiffableDataSource<Section, SNCourse>!
     var logoLauncher: SNLogoLauncher!
+    
+    var collectionView: UICollectionView!
+    var dataSource: UICollectionViewDiffableDataSource<Section, SNCourse>!
+
     
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         PersistenceManager.isFirstVisitPostDismissal = true
+        configureCollectionView()
         // all config calls go here
     }
     
@@ -45,12 +49,20 @@ class HomeCoursesVC: SNDataLoadingVC
     
     func fetchCoursesFromServer()
     {
-        
+        let testCourse = SNCourse(name: "new course", instructor: "james brown", bio: "sing it today", avatarURL: "avatar.jpg", index: 1, courseProjects: nil)
+        courses.append(testCourse)
     }
     
     
     func loadProgressFromCloudKit()
     {
+        
+    }
+    
+    
+    func configureCollectionView()
+    {
+        collectionView = UICollectionView(frame: view.bounds)
         
     }
 }
