@@ -51,7 +51,7 @@ class HomeCoursesVC: SNDataLoadingVC
     {
         dataSource = UICollectionViewDiffableDataSource<Section, SNCourse>(collectionView: collectionView) { (collectionView, indexPath, course) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! SNCourseCell
-            #warning("TBC: add .set method for SNCourseCell like in GHFollowers > see avatar image view notes")
+            #warning("TBC: add .set method for SNCourseCell like in GHFollowers > see avatar image view notes. Manual bookmark = UICollectionViewDiffableDataSource @ 'Then you generate the current state of the data' ")
             
             return cell
         }
