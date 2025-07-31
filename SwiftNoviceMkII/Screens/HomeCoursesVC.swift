@@ -47,6 +47,17 @@ class HomeCoursesVC: SNDataLoadingVC
     //-------------------------------------//
     // MARK: - CONFIGURATION
     
+    func configureCollectionView()
+    {
+        dataSource = UICollectionViewDiffableDataSource<Section, SNCourse>(collectionView: collectionView) { (collectionView, indexPath, course) -> UICollectionViewCell? in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! SNCourseCell
+            #warning("TBC: add .set method for SNCourseCell like in GHFollowers > see avatar image view notes")
+            
+            return cell
+        }
+    }
+    
+    
     func fetchCoursesFromServer()
     {
         let testCourse = SNCourse(name: "new course", instructor: "james brown", bio: "sing it today", avatarURL: "avatar.jpg", index: 1, courseProjects: nil)
@@ -56,13 +67,6 @@ class HomeCoursesVC: SNDataLoadingVC
     
     func loadProgressFromCloudKit()
     {
-        
-    }
-    
-    
-    func configureCollectionView()
-    {
-        collectionView = UICollectionView(frame: view.bounds)
         
     }
 }

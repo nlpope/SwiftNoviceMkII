@@ -15,6 +15,8 @@ enum UIHelper
         let itemWidth = availableWidth / 3
         
         let layout = UICollectionViewLayout()
-        layout.collectionViewContentSize = CGSize(width: width, height: itemWidth)
+        layout.collectionView?.contentSize = CGSize(width: itemWidth, height: itemWidth + 40)
+//        layout.collectionView?.dataSource
+        return layout
     }
 }

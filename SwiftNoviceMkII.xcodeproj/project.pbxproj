@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		408116932E3B7C2A00515626 /* SNCourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408116922E3B7C2A00515626 /* SNCourseCell.swift */; };
+		408116982E3B7D2100515626 /* SNAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408116972E3B7D2100515626 /* SNAvatarImageView.swift */; };
 		4096DAD02E385CAD00E6C5F5 /* SNError+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096DACF2E385CAD00E6C5F5 /* SNError+Utils.swift */; };
 		40BFB2072E3A22B200A3E83E /* UIHelper+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BFB2062E3A22B200A3E83E /* UIHelper+Utils.swift */; };
 		40D19EB42E30CFBF008D9669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D19EA92E30CFBF008D9669 /* Assets.xcassets */; };
@@ -46,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		408116922E3B7C2A00515626 /* SNCourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNCourseCell.swift; sourceTree = "<group>"; };
+		408116972E3B7D2100515626 /* SNAvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNAvatarImageView.swift; sourceTree = "<group>"; };
 		4096DACF2E385CAD00E6C5F5 /* SNError+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SNError+Utils.swift"; sourceTree = "<group>"; };
 		40BFB2062E3A22B200A3E83E /* UIHelper+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIHelper+Utils.swift"; sourceTree = "<group>"; };
 		40D19E712E30CF51008D9669 /* SwiftNoviceMkII.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftNoviceMkII.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +113,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		408116942E3B7CCC00515626 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				408116922E3B7C2A00515626 /* SNCourseCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		408116952E3B7CE600515626 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				40D19EC32E30D362008D9669 /* SNDataLoadingVC.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		408116962E3B7CF300515626 /* ImageViews */ = {
+			isa = PBXGroup;
+			children = (
+				408116972E3B7D2100515626 /* SNAvatarImageView.swift */,
+			);
+			path = ImageViews;
+			sourceTree = "<group>";
+		};
 		40D19E682E30CF51008D9669 = {
 			isa = PBXGroup;
 			children = (
@@ -178,7 +206,9 @@
 		40D19EC52E30D378008D9669 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				40D19EC32E30D362008D9669 /* SNDataLoadingVC.swift */,
+				408116952E3B7CE600515626 /* ViewControllers */,
+				408116942E3B7CCC00515626 /* Cells */,
+				408116962E3B7CF300515626 /* ImageViews */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -365,10 +395,12 @@
 				40D19EC42E30D362008D9669 /* SNDataLoadingVC.swift in Sources */,
 				40D19EDC2E30F9E3008D9669 /* PersistenceManager.swift in Sources */,
 				40D19ECA2E30D3E7008D9669 /* UIViewController+Ext.swift in Sources */,
+				408116982E3B7D2100515626 /* SNAvatarImageView.swift in Sources */,
 				40D19ED42E30F60C008D9669 /* SNLogoLauncher+Utils.swift in Sources */,
 				40D19ECE2E30D6DF008D9669 /* SNCourse.swift in Sources */,
 				4096DAD02E385CAD00E6C5F5 /* SNError+Utils.swift in Sources */,
 				40D19EB92E30CFBF008D9669 /* SceneDelegate.swift in Sources */,
+				408116932E3B7C2A00515626 /* SNCourseCell.swift in Sources */,
 				40D19EBA2E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodeld in Sources */,
 				40D19ECC2E30D6D1008D9669 /* SNUser.swift in Sources */,
 				40D19EBB2E30CFBF008D9669 /* HomeCoursesVC.swift in Sources */,
