@@ -22,7 +22,7 @@ class HomeCoursesVC: SNDataLoadingVC
     {
         super.viewDidLoad()
         PersistenceManager.isFirstVisitPostDismissal = true
-        configureCollectionView()
+//        configureCollectionView()
         // all config calls go here
     }
     

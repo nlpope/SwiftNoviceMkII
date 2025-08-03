@@ -7,8 +7,8 @@ import UIKit
 class SNCourseCell: UICollectionViewCell
 {
     static let reuseID = "CourseCell"
-    let avatarImageView = UIImageView(frame: .zero)
-    let courseNameLabel: UILabel!
+    let avatarImageView = SNAvatarImageView(frame: .zero)
+    let courseNameLabel = SNTitleLabel(textAlignment: .center, fontSize: 16)
     
     
     func set(course: SNCourse)

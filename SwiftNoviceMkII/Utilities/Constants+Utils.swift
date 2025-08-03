@@ -30,3 +30,8 @@ enum SaveKeys
 {
     static let isFirstVisit = "isFirstVisitStatus"
 }
+
+enum Images
+{
+    static let placeholder = UIImage(named: "avatar-placeholder")
+}
