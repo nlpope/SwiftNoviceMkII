@@ -13,10 +13,6 @@ class SNCourseCell: UICollectionViewCell
     
     func set(course: SNCourse)
     {
-        courseNameLabel.tex
+        courseNameLabel.text = course.name
     }
-}
-func set(follower: Follower) {
-    usernameLabel.text = follower.login
-    avatarImageView.downloadImage(fromURL: follower.avatarUrl)
 }

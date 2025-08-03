@@ -14,7 +14,7 @@ class HomeCoursesVC: SNDataLoadingVC
     var logoLauncher: SNLogoLauncher!
     
     var collectionView: UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<Section, SNCourse>!
+    var collectionViewDataSource: UICollectionViewDiffableDataSource<Section, SNCourse>!
 
     
     
@@ -49,7 +49,7 @@ class HomeCoursesVC: SNDataLoadingVC
     
     func configureCollectionView()
     {
-        dataSource = UICollectionViewDiffableDataSource<Section, SNCourse>(collectionView: collectionView) { (collectionView, indexPath, course) -> UICollectionViewCell? in
+        collectionViewDataSource = UICollectionViewDiffableDataSource<Section, SNCourse>(collectionView: collectionView) { (collectionView, indexPath, course) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! SNCourseCell
             #warning("TBC: add .set method for SNCourseCell like in GHFollowers > see avatar image view notes. Manual bookmark = UICollectionViewDiffableDataSource @ 'Then you generate the current state of the data' ")
             
