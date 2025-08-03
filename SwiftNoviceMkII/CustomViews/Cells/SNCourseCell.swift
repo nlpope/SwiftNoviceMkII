@@ -8,4 +8,15 @@ class SNCourseCell: UICollectionViewCell
 {
     static let reuseID = "CourseCell"
     let avatarImageView = UIImageView(frame: .zero)
+    let courseNameLabel: UILabel!
+    
+    
+    func set(course: SNCourse)
+    {
+        courseNameLabel.tex
+    }
+}
+func set(follower: Follower) {
+    usernameLabel.text = follower.login
+    avatarImageView.downloadImage(fromURL: follower.avatarUrl)
 }
