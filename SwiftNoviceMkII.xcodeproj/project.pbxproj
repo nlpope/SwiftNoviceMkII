@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		408116932E3B7C2A00515626 /* SNCourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408116922E3B7C2A00515626 /* SNCourseCell.swift */; };
 		408116982E3B7D2100515626 /* SNAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408116972E3B7D2100515626 /* SNAvatarImageView.swift */; };
+		408D6CE52E41421000E3B2E2 /* CourseProjectsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408D6CE42E41421000E3B2E2 /* CourseProjectsVC.swift */; };
 		4096DAD02E385CAD00E6C5F5 /* SNError+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096DACF2E385CAD00E6C5F5 /* SNError+Utils.swift */; };
 		409AC4B62E40047F00C3035C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409AC4B52E40047F00C3035C /* NetworkManager.swift */; };
 		409AC4B92E40110500C3035C /* SNTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409AC4B82E40110500C3035C /* SNTitleLabel.swift */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		408116922E3B7C2A00515626 /* SNCourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNCourseCell.swift; sourceTree = "<group>"; };
 		408116972E3B7D2100515626 /* SNAvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNAvatarImageView.swift; sourceTree = "<group>"; };
+		408D6CE42E41421000E3B2E2 /* CourseProjectsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseProjectsVC.swift; sourceTree = "<group>"; };
 		4096DACF2E385CAD00E6C5F5 /* SNError+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SNError+Utils.swift"; sourceTree = "<group>"; };
 		409AC4B52E40047F00C3035C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		409AC4B82E40110500C3035C /* SNTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNTitleLabel.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				40D19EB12E30CFBF008D9669 /* HomeCoursesVC.swift */,
+				408D6CE42E41421000E3B2E2 /* CourseProjectsVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				409AC4B92E40110500C3035C /* SNTitleLabel.swift in Sources */,
 				40D19ECA2E30D3E7008D9669 /* UIViewController+Ext.swift in Sources */,
 				408116982E3B7D2100515626 /* SNAvatarImageView.swift in Sources */,
+				408D6CE52E41421000E3B2E2 /* CourseProjectsVC.swift in Sources */,
 				40D19ED42E30F60C008D9669 /* SNLogoLauncher+Utils.swift in Sources */,
 				40D19ECE2E30D6DF008D9669 /* SNCourse.swift in Sources */,
 				4096DAD02E385CAD00E6C5F5 /* SNError+Utils.swift in Sources */,
