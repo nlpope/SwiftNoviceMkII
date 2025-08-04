@@ -23,20 +23,22 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     {
         super.viewDidLoad()
         PersistenceManager.isFirstVisitPostDismissal = true
-        configCollectionView()
-        configDataSource()
-        // all config calls go here
+        //PROBLEM CHILD
+//        configCollectionView()
+//        configDataSource()
     }
     
     
     override func viewWillAppear(_ animated: Bool)
     {
-        print("view will appear triggered")
         logoLauncher = SNLogoLauncher(targetVC: self)
         if PersistenceManager.fetchFirstVisitPostDismissalStatus() {
             logoLauncher.configLogoLauncher()
         } else {
-            fetchCoursesFromServer(); loadProgressFromCloudKit()
+            fetchCoursesFromServer()
+            loadProgressFromCloudKit()
+            configCollectionView()
+            configDataSource()
         }
     }
     

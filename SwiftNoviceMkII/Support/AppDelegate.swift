@@ -93,8 +93,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate
  * = problem
  >  = solution
  --------------------------
- *
- >
+ * logo flicker wouldn't play after launch screen
+ > This line within configCollectionView was causing it not to play:
+ >> view.addSubview(collectionView)
+ >> I just moved the call to after the logo plays since the addSubview part is necessary
  --------------------------
  *
  >
