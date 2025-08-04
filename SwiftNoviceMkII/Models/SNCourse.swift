@@ -4,12 +4,13 @@
 
 import Foundation
 
+#warning("include all this info in a liquid glass popup that leads to the courses (identical to swift searcher layout)")
 struct SNCourse: Codable, Hashable
 {
     let name, instructor, bio: String
-    let avatarURL: String?
-    let index: Int
-    var courseProjects: [SNCourseProject]?
+    let avatarURL: String
+//    let index: Int
+    var courseProjects: [SNCourseProject]
     
     
     func hash(into hasher: inout Hasher) { hasher.combine(name) }
