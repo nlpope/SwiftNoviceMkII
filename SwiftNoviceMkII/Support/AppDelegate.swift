@@ -98,8 +98,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
  >> view.addSubview(collectionView)
  >> I just moved the call to after the logo plays since the addSubview part is necessary
  --------------------------
- *
- >
+ * having issues displaying test cell
+ > taking time to review the standard library to remedy this
  --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------
