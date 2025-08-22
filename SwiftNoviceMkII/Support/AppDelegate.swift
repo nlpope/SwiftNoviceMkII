@@ -100,6 +100,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
  --------------------------
  * having issues displaying test cell
  > taking time to review the standard library to remedy this
+ > studying std lib
+ >> Processing Sequences & Collections
  --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------

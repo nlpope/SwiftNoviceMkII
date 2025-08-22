@@ -20,7 +20,7 @@ class SNCourseCell: UICollectionViewCell
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     
-    func set(course: SNCourse)
+    func set(course: Course)
     {
         courseNameLabel.text = course.name
         avatarImageView.downloadImage(fromURL: course.avatarURL)

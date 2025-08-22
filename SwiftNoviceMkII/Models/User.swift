@@ -1,4 +1,4 @@
-//  File: SNUser.swift
+//  File: User.swift
 //  Project: SwiftNoviceMkII
 //  Created by: Noah Pope on 7/23/25.
 

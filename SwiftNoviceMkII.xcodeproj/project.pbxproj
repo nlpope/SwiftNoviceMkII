@@ -24,9 +24,9 @@
 		40D19EBB2E30CFBF008D9669 /* HomeCoursesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EB12E30CFBF008D9669 /* HomeCoursesVC.swift */; };
 		40D19EC42E30D362008D9669 /* SNDataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EC32E30D362008D9669 /* SNDataLoadingVC.swift */; };
 		40D19ECA2E30D3E7008D9669 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19EC92E30D3E7008D9669 /* UIViewController+Ext.swift */; };
-		40D19ECC2E30D6D1008D9669 /* SNUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ECB2E30D6D1008D9669 /* SNUser.swift */; };
-		40D19ECE2E30D6DF008D9669 /* SNCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ECD2E30D6DF008D9669 /* SNCourse.swift */; };
-		40D19ED02E30D6FD008D9669 /* SNCourseProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ECF2E30D6FD008D9669 /* SNCourseProject.swift */; };
+		40D19ECC2E30D6D1008D9669 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ECB2E30D6D1008D9669 /* User.swift */; };
+		40D19ECE2E30D6DF008D9669 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ECD2E30D6DF008D9669 /* Course.swift */; };
+		40D19ED02E30D6FD008D9669 /* CourseProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ECF2E30D6FD008D9669 /* CourseProject.swift */; };
 		40D19ED42E30F60C008D9669 /* SNLogoLauncher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ED32E30F60C008D9669 /* SNLogoLauncher+Utils.swift */; };
 		40D19ED62E30F827008D9669 /* launchscreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 40D19ED52E30F827008D9669 /* launchscreen.mp4 */; };
 		40D19ED82E30F899008D9669 /* Constants+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ED72E30F899008D9669 /* Constants+Utils.swift */; };
@@ -73,9 +73,9 @@
 		40D19EB32E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwiftNoviceMkII.xcdatamodel; sourceTree = "<group>"; };
 		40D19EC32E30D362008D9669 /* SNDataLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNDataLoadingVC.swift; sourceTree = "<group>"; };
 		40D19EC92E30D3E7008D9669 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
-		40D19ECB2E30D6D1008D9669 /* SNUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNUser.swift; sourceTree = "<group>"; };
-		40D19ECD2E30D6DF008D9669 /* SNCourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNCourse.swift; sourceTree = "<group>"; };
-		40D19ECF2E30D6FD008D9669 /* SNCourseProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNCourseProject.swift; sourceTree = "<group>"; };
+		40D19ECB2E30D6D1008D9669 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		40D19ECD2E30D6DF008D9669 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
+		40D19ECF2E30D6FD008D9669 /* CourseProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseProject.swift; sourceTree = "<group>"; };
 		40D19ED32E30F60C008D9669 /* SNLogoLauncher+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SNLogoLauncher+Utils.swift"; sourceTree = "<group>"; };
 		40D19ED52E30F827008D9669 /* launchscreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = launchscreen.mp4; sourceTree = "<group>"; };
 		40D19ED72E30F899008D9669 /* Constants+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constants+Utils.swift"; sourceTree = "<group>"; };
@@ -235,9 +235,9 @@
 		40D19EC62E30D38A008D9669 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				40D19ECB2E30D6D1008D9669 /* SNUser.swift */,
-				40D19ECD2E30D6DF008D9669 /* SNCourse.swift */,
-				40D19ECF2E30D6FD008D9669 /* SNCourseProject.swift */,
+				40D19ECB2E30D6D1008D9669 /* User.swift */,
+				40D19ECD2E30D6DF008D9669 /* Course.swift */,
+				40D19ECF2E30D6FD008D9669 /* CourseProject.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -408,7 +408,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				409AC4B62E40047F00C3035C /* NetworkManager.swift in Sources */,
-				40D19ED02E30D6FD008D9669 /* SNCourseProject.swift in Sources */,
+				40D19ED02E30D6FD008D9669 /* CourseProject.swift in Sources */,
 				40D19EDA2E30F983008D9669 /* AVPlayer+Ext.swift in Sources */,
 				40D19ED82E30F899008D9669 /* Constants+Utils.swift in Sources */,
 				40D19EB82E30CFBF008D9669 /* AppDelegate.swift in Sources */,
@@ -420,13 +420,13 @@
 				408116982E3B7D2100515626 /* SNAvatarImageView.swift in Sources */,
 				408D6CE52E41421000E3B2E2 /* CourseProjectsVC.swift in Sources */,
 				40D19ED42E30F60C008D9669 /* SNLogoLauncher+Utils.swift in Sources */,
-				40D19ECE2E30D6DF008D9669 /* SNCourse.swift in Sources */,
+				40D19ECE2E30D6DF008D9669 /* Course.swift in Sources */,
 				4096DAD02E385CAD00E6C5F5 /* SNError+Utils.swift in Sources */,
 				40D19EB92E30CFBF008D9669 /* SceneDelegate.swift in Sources */,
 				408116932E3B7C2A00515626 /* SNCourseCell.swift in Sources */,
 				40AF77B22E3EFD6E00B7B2A1 /* UIView+Ext.swift in Sources */,
 				40D19EBA2E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodeld in Sources */,
-				40D19ECC2E30D6D1008D9669 /* SNUser.swift in Sources */,
+				40D19ECC2E30D6D1008D9669 /* User.swift in Sources */,
 				40D19EBB2E30CFBF008D9669 /* HomeCoursesVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

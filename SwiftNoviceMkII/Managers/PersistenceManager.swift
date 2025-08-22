@@ -84,7 +84,7 @@ enum PersistenceManager
     //-------------------------------------//
     // MARK: - COURSE PERSISTENCE
     
-    static func updateCompletedCourses(with course: SNCourse, actionType: CoursePersistenceActionType, completed: @escaping (SNError?) -> Void)
+    static func updateCompletedCourses(with course: Course, actionType: CoursePersistenceActionType, completed: @escaping (SNError?) -> Void)
     {
         fetchCourseProgress { result in
             switch result {
@@ -101,7 +101,7 @@ enum PersistenceManager
     }
     
     
-    static func handle(_ actionType: CoursePersistenceActionType, for course: SNCourse, in courses:  inout [SNCourse], completed: @escaping (SNError?) -> Void)
+    static func handle(_ actionType: CoursePersistenceActionType, for course: Course, in courses:  inout [Course], completed: @escaping (SNError?) -> Void)
     {
         switch actionType {
         case .complete:
@@ -114,7 +114,7 @@ enum PersistenceManager
     }
     
     
-    static func fetchCourseProgress(completed: @escaping (Result<[SNCourse], SNError>) -> Void)
+    static func fetchCourseProgress(completed: @escaping (Result<[Course], SNError>) -> Void)
     {
         guard let completedCoursesData = defaults.object(forKey: PersistenceKeys.completedCourses) as? Data else {
             completed(.success([]))
@@ -123,7 +123,7 @@ enum PersistenceManager
         
         do {
             let decoder = JSONDecoder()
-            let completedCourses = try decoder.decode([SNCourse].self, from: completedCoursesData)
+            let completedCourses = try decoder.decode([Course].self, from: completedCoursesData)
             completed(.success(completedCourses))
         } catch {
             completed(.failure(.failedToLoadProgress))
@@ -131,7 +131,7 @@ enum PersistenceManager
     }
     
     
-    static func saveAllProgress(for courses: [SNCourse]) -> SNError?
+    static func saveAllProgress(for courses: [Course]) -> SNError?
     {
         do {
             let encoder = JSONEncoder()
