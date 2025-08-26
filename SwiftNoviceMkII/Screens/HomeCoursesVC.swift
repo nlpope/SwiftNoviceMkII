@@ -23,6 +23,8 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     {
         super.viewDidLoad()
         PersistenceManager.isFirstVisitPostDismissal = true
+        configCollectionView()
+        configDataSource()
     }
     
     
@@ -32,10 +34,10 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         if PersistenceManager.fetchFirstVisitPostDismissalStatus() {
             logoLauncher.configLogoLauncher()
         } else {
-            fetchCoursesFromServer()
-            loadProgressFromCloudKit()
-            configCollectionView()
-            configDataSource()
+//            fetchCoursesFromServer()
+//            loadProgressFromCloudKit()
+//            configDataSource()
+//            configCollectionView()
         }
     }
     
@@ -63,6 +65,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     func configCollectionView()
     {
+        print("configCollectionView accessed")
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createThreeColumnLayout(in: view))
         view.addSubview(collectionView)
         collectionView.delegate = self
@@ -73,6 +76,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     func configDataSource()
     {
+        print("configDAtasource accessed")
         collectionViewDataSource = UICollectionViewDiffableDataSource<Section, Course>(collectionView: collectionView) { (collectionView, indexPath, course) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID, for: indexPath) as! SNCourseCell
             

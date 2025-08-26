@@ -86,11 +86,9 @@ class SNLogoLauncher
         removeAllAVPlayerLayers()
     
         targetVC.fetchCoursesFromServer()
-        targetVC.loadProgressFromCloudKit()
+//        targetVC.loadProgressFromCloudKit()
         
-        //NEW
-        targetVC.configCollectionView()
-        targetVC.configDataSource()
+        
     }
     
     
