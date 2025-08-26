@@ -23,11 +23,12 @@ class SNCourseCell: UICollectionViewCell
     func set(course: Course)
     {
         courseNameLabel.text = course.name
-        avatarImageView.downloadImage(fromURL: course.avatarURL)
+        avatarImageView.downloadImage(fromURL: course.avatarUrl)
     }
     
     
-    private func configure() {
+    private func configure()
+    {
         addSubviews(avatarImageView, courseNameLabel)
         
         let padding: CGFloat = 8

@@ -8,7 +8,7 @@ import Foundation
 struct Course: Codable, Hashable
 {
     let name, instructor, bio: String
-    let avatarURL: String
+    let avatarUrl: String
 //    let index: Int
     var courseProjects: [CourseProject]
     
