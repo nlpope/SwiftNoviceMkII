@@ -19,6 +19,7 @@ class SNLogoLauncher
     
     func configLogoLauncher()
     {
+        print("configLogo accessed")
         maskHomeVCForIntro()
         configNotifications()
         

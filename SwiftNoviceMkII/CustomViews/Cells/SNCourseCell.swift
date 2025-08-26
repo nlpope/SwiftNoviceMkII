@@ -37,7 +37,6 @@ class SNCourseCell: UICollectionViewCell
             avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
             avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             avatarImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            // see note 27 in app delegate
             avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
             
             courseNameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 12),

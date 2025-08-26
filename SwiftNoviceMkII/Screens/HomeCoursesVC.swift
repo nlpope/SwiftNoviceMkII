@@ -23,17 +23,16 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     {
         super.viewDidLoad()
         PersistenceManager.isFirstVisitPostDismissal = true
-        configCollectionView()
-        configDataSource()
+//        configCollectionView()
+//        configDataSource()
     }
     
     
     override func viewWillAppear(_ animated: Bool)
     {
         logoLauncher = SNLogoLauncher(targetVC: self)
-        if PersistenceManager.fetchFirstVisitPostDismissalStatus() {
-            logoLauncher.configLogoLauncher()
-        } else {
+        if PersistenceManager.fetchFirstVisitPostDismissalStatus() { print("true logo status should play"); logoLauncher.configLogoLauncher() }
+        else {
 //            fetchCoursesFromServer()
 //            loadProgressFromCloudKit()
 //            configDataSource()
@@ -62,7 +61,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         navigationItem.hidesSearchBarWhenScrolling = false
     }
     
-    
+    #warning("something about configging the collectionV & dataS blocks the logo")
     func configCollectionView()
     {
         print("configCollectionView accessed")
@@ -77,7 +76,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     func configDataSource()
     {
         print("configDAtasource accessed")
-        collectionViewDataSource = UICollectionViewDiffableDataSource<Section, Course>(collectionView: collectionView) { (collectionView, indexPath, course) -> UICollectionViewCell? in
+        collectionViewDataSource = UICollectionViewDiffableDataSource<Section, Course>(collectionView: collectionView) { (collectionView, indexPath, course) in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID, for: indexPath) as! SNCourseCell
             
             return cell
