@@ -23,8 +23,6 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     {
         super.viewDidLoad()
         PersistenceManager.isFirstVisitPostDismissal = true
-        configCollectionView()
-//        configDataSource()
     }
     
     
@@ -35,8 +33,8 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         else {
 //            fetchCoursesFromServer()
 //            loadProgressFromCloudKit()
-//            configDataSource()
-//            configCollectionView()
+            configCollectionView()
+            configDataSource()
         }
     }
     
