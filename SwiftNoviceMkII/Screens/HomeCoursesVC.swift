@@ -23,7 +23,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     {
         super.viewDidLoad()
         PersistenceManager.isFirstVisitPostDismissal = true
-//        configCollectionView()
+        configCollectionView()
 //        configDataSource()
     }
     
@@ -61,12 +61,13 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         navigationItem.hidesSearchBarWhenScrolling = false
     }
     
-    #warning("something about configging the collectionV & dataS blocks the logo")
+    
     func configCollectionView()
     {
         print("configCollectionView accessed")
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createThreeColumnLayout(in: view))
         
+#warning("adding below subView blocks the flicker logo")
         view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
