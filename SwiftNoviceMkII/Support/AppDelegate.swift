@@ -102,8 +102,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate
  > taking time to review the standard library to remedy this
  > studying std lib
  >> Processing Sequences & Collections
- > Got it, this is not like swift searcher where the base VC inherits from UITableVC...
+ > not solved yet, but fixed the nil crash, this is not like swift searcher where the base VC inherits from UITableVC...
  ... this is more like GHFollowers where the base VC is type UIVC, where the coll.ViewCell needs to be registered (configCollectionView) before dequeuing it in (configDataSource)
+ > Finally got it, I never called 'updateData(with:)' after appending the test course
  --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------

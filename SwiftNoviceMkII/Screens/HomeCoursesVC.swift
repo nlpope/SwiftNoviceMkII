@@ -65,7 +65,6 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         print("configCollectionView accessed")
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createThreeColumnLayout(in: view))
         
-#warning("adding below subView blocks the flicker logo")
         view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
@@ -87,8 +86,12 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     func fetchCoursesFromServer()
     {
         let testProject1 = CourseProject(name: "proj1", subtitle: "sub1", skills: "swift", link: "www.com", index: 1, completed: false)
-        let testCourse = Course(name: "new course", instructor: "james brown", bio: "sing it today", avatarUrl: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.6CnF7Q6-QYriUev-yNjjYAHaEK%3Fr%3D0%26pid%3DApi&f=1&ipt=86abf9fcb3dbd4334902f9b624643997652795446a494d035a192bab74395427&ipo=images", courseProjects: [testProject1] )
+        let testProject2 = CourseProject(name: "proj1z", subtitle: "sub1z", skills: "swiftz", link: "www.comz", index: 1, completed: false)
+        let testCourse = Course(name: "new course", instructor: "james brown", bio: "sing it today", avatarUrl: "https://www.pinclipart.com/downpngs/ibiiRoi_dummy-profile-image-url-clipart/", courseProjects: [testProject1] )
+        let testCourse2 = Course(name: "new coursez", instructor: "james brownz", bio: "sing it todayz", avatarUrl: "https://www.pinclipart.com/downpngs/ibiiRoi_dummy-profile-image-url-clipart/", courseProjects: [testProject2] )
         courses.append(testCourse)
+        courses.append(testCourse2)
+        updateDataSource(with: courses)
     }
     
     
