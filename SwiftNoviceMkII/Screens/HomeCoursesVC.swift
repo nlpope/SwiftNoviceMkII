@@ -23,6 +23,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     {
         super.viewDidLoad()
         PersistenceManager.isFirstVisitPostDismissal = true
+        configSearchController()
     }
     
     
@@ -31,8 +32,8 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         logoLauncher = SNLogoLauncher(targetVC: self)
         if PersistenceManager.fetchFirstVisitPostDismissalStatus() { print("true logo status should play"); logoLauncher.configLogoLauncher() }
         else {
-//            fetchCoursesFromServer()
-//            loadProgressFromCloudKit()
+            fetchCoursesFromServer()
+            loadProgressFromCloudKit()
             configCollectionView()
             configDataSource()
         }
