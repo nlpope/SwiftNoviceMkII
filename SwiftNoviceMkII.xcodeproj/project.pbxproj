@@ -11,6 +11,7 @@
 		408116982E3B7D2100515626 /* SNAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408116972E3B7D2100515626 /* SNAvatarImageView.swift */; };
 		408D6CE52E41421000E3B2E2 /* CourseProjectsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408D6CE42E41421000E3B2E2 /* CourseProjectsVC.swift */; };
 		4096DAD02E385CAD00E6C5F5 /* SNError+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096DACF2E385CAD00E6C5F5 /* SNError+Utils.swift */; };
+		409712C82E643C34009879E8 /* SNTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409712C72E643C34009879E8 /* SNTabBarController.swift */; };
 		409AC4B62E40047F00C3035C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409AC4B52E40047F00C3035C /* NetworkManager.swift */; };
 		409AC4B92E40110500C3035C /* SNTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409AC4B82E40110500C3035C /* SNTitleLabel.swift */; };
 		40AF77B22E3EFD6E00B7B2A1 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AF77B12E3EFD6E00B7B2A1 /* UIView+Ext.swift */; };
@@ -56,6 +57,7 @@
 		408116972E3B7D2100515626 /* SNAvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNAvatarImageView.swift; sourceTree = "<group>"; };
 		408D6CE42E41421000E3B2E2 /* CourseProjectsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseProjectsVC.swift; sourceTree = "<group>"; };
 		4096DACF2E385CAD00E6C5F5 /* SNError+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SNError+Utils.swift"; sourceTree = "<group>"; };
+		409712C72E643C34009879E8 /* SNTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNTabBarController.swift; sourceTree = "<group>"; };
 		409AC4B52E40047F00C3035C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		409AC4B82E40110500C3035C /* SNTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNTitleLabel.swift; sourceTree = "<group>"; };
 		40AF77B12E3EFD6E00B7B2A1 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
@@ -145,6 +147,14 @@
 			path = ImageViews;
 			sourceTree = "<group>";
 		};
+		409712C92E643C43009879E8 /* TabBarControllers */ = {
+			isa = PBXGroup;
+			children = (
+				409712C72E643C34009879E8 /* SNTabBarController.swift */,
+			);
+			path = TabBarControllers;
+			sourceTree = "<group>";
+		};
 		409AC4B72E40108E00C3035C /* Labels */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +238,7 @@
 				408116942E3B7CCC00515626 /* Cells */,
 				409AC4B72E40108E00C3035C /* Labels */,
 				408116962E3B7CF300515626 /* ImageViews */,
+				409712C92E643C43009879E8 /* TabBarControllers */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -411,6 +422,7 @@
 				40D19ED02E30D6FD008D9669 /* CourseProject.swift in Sources */,
 				40D19EDA2E30F983008D9669 /* AVPlayer+Ext.swift in Sources */,
 				40D19ED82E30F899008D9669 /* Constants+Utils.swift in Sources */,
+				409712C82E643C34009879E8 /* SNTabBarController.swift in Sources */,
 				40D19EB82E30CFBF008D9669 /* AppDelegate.swift in Sources */,
 				40BFB2072E3A22B200A3E83E /* UIHelper+Utils.swift in Sources */,
 				40D19EC42E30D362008D9669 /* SNDataLoadingVC.swift in Sources */,
