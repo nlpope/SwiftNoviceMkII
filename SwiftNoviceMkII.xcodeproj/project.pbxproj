@@ -240,11 +240,11 @@
 		40D19EC52E30D378008D9669 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				409712C92E643C43009879E8 /* TabBarControllers */,
 				408116952E3B7CE600515626 /* ViewControllers */,
 				408116942E3B7CCC00515626 /* Cells */,
 				409AC4B72E40108E00C3035C /* Labels */,
 				408116962E3B7CF300515626 /* ImageViews */,
-				409712C92E643C43009879E8 /* TabBarControllers */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";

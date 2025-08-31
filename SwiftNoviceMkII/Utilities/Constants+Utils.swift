@@ -35,3 +35,8 @@ enum Images
 {
     static let placeholder = UIImage(named: "avatar-placeholder")
 }
+
+enum ColorKeys
+{
+    static let oldGold = UIColor(red: 207, green: 181, blue: 59, alpha: 1)
+}

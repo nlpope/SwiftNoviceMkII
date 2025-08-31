@@ -16,7 +16,7 @@ class SNTabBarController: UITabBarController
     
     func configTabBar()
     {
-        UITabBar.appearance().tintColor = UIColor(red: 207, green: 181, blue: 59, alpha: 1)
+        UITabBar.appearance().tintColor = ColorKeys.oldGold
     }
     
     
