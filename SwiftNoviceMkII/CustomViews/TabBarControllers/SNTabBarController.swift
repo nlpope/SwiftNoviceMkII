@@ -10,6 +10,7 @@ class SNTabBarController: UITabBarController
     {
         super.viewDidLoad()
         configTabBar()
+        configVCs()
     }
     
     
@@ -20,22 +21,28 @@ class SNTabBarController: UITabBarController
     
     
     func configVCs()
-    {
-        viewControllers = []
-    }
+    { viewControllers = [createCoursesNC(), createBookmarksNC()] }
     
     
     func createCoursesNC() -> UINavigationController
     {
         let coursesVC = HomeCoursesVC()
+        coursesVC.title = "Courses"
+
         let homeImage = UIImage(named: "house")
-//        coursesVC.title = "Courses"
         coursesVC.tabBarItem = UITabBarItem(title: "Courses", image: homeImage, selectedImage: nil)
+        
+        return UINavigationController(rootViewController: coursesVC)
     }
     
     
     func createBookmarksNC() -> UINavigationController
     {
-        let bookmarksVC =
+        let bookmarksVC = BookMarksVC()
+        bookmarksVC.title = "Bookmarks"
+        
+        bookmarksVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
+        
+        return UINavigationController(rootViewController: bookmarksVC)
     }
 }
