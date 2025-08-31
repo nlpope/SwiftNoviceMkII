@@ -38,5 +38,5 @@ enum Images
 
 enum ColorKeys
 {
-    static let oldGold = UIColor(red: 207, green: 181, blue: 59, alpha: 1)
+    static let oldGold = UIColor(red: 207/255, green: 181/255, blue: 59/255, alpha: 1.0)
 }

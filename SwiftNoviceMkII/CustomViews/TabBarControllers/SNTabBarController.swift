@@ -29,7 +29,7 @@ class SNTabBarController: UITabBarController
         let coursesVC = HomeCoursesVC()
         coursesVC.title = "Courses"
 
-        let homeImage = UIImage(named: "house")
+        let homeImage = UIImage(systemName: "house")
         coursesVC.tabBarItem = UITabBarItem(title: "Courses", image: homeImage, selectedImage: nil)
         
         return UINavigationController(rootViewController: coursesVC)
@@ -38,7 +38,7 @@ class SNTabBarController: UITabBarController
     
     func createBookmarksNC() -> UINavigationController
     {
-        let bookmarksVC = BookMarksVC()
+        let bookmarksVC = BookmarksVC()
         bookmarksVC.title = "Bookmarks"
         
         bookmarksVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)

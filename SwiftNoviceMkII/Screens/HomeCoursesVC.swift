@@ -43,7 +43,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     override func viewWillDisappear(_ animated: Bool) { logoLauncher = nil }
     
     
-    deinit { logoLauncher.removeAllAVPlayerLayers() }
+//    deinit { logoLauncher.removeAllAVPlayerLayers() }
     
     //-------------------------------------//
     // MARK: - CONFIGURATION
@@ -87,8 +87,9 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     func fetchCoursesFromServer()
     {
         let testProject1 = CourseProject(name: "proj1", subtitle: "sub1", skills: "swift", link: "www.com", index: 1, completed: false)
-        let testProject2 = CourseProject(name: "proj1z", subtitle: "sub1z", skills: "swiftz", link: "www.comz", index: 1, completed: false)
-        let testCourse = Course(name: "new course", instructor: "james brown", bio: "sing it today", avatarUrl: "https://www.pinclipart.com/downpngs/ibiiRoi_dummy-profile-image-url-clipart/", courseProjects: [testProject1] )
+        let testProject2 = CourseProject(name: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", index: 1, completed: false)
+        
+        let testCourse = Course(name: "new course", instructor: "james brown", bio: "sing it today", avatarUrl: "https://www.pinclipart.com/downpngs/ibiiRoi_dummy-profile-image-url-clipartz/", courseProjects: [testProject1] )
         let testCourse2 = Course(name: "new coursez", instructor: "james brownz", bio: "sing it todayz", avatarUrl: "https://www.pinclipart.com/downpngs/ibiiRoi_dummy-profile-image-url-clipart/", courseProjects: [testProject2] )
         courses.append(testCourse)
         courses.append(testCourse2)
