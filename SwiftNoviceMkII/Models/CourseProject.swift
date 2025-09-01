@@ -4,11 +4,11 @@
 
 import Foundation
 
-struct CourseProject: Codable, Hashable
+struct CourseProject: Identifiable, Codable
 {
+    var id: Int
+    
     let name, subtitle, skills, link: String
     let index: Int
     var completed: Bool
-    
-    func hash(into hasher: inout Hasher) { hasher.combine(name) }
 }

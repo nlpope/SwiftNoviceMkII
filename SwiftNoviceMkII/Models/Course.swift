@@ -4,14 +4,14 @@
 
 import Foundation
 
-#warning("include all this info in a liquid glass popup that leads to the courses (identical to swift searcher layout)")
-struct Course: Codable, Hashable
+struct Course: Identifiable, Codable
 {
+    var id: Int
+    
     let name, instructor, bio: String
+    let isBookmarked: Bool
     let avatarUrl: String
-//    let index: Int
     var courseProjects: [CourseProject]
-    
-    
-    func hash(into hasher: inout Hasher) { hasher.combine(name) }
 }
+
+#warning("include all this info in a liquid glass popup that leads to the courses (identical to swift searcher layout)")

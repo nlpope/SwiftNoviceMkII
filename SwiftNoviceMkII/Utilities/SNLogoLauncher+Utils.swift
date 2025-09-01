@@ -88,8 +88,8 @@ class SNLogoLauncher
     
         targetVC.fetchCoursesFromServer()
         targetVC.loadProgressFromCloudKit()
-        targetVC.configCollectionView()
-        targetVC.configDataSource()
+//        targetVC.configCollectionView()
+//        targetVC.configDataSource()
         
     }
     
