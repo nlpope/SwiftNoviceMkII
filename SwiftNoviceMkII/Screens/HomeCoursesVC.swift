@@ -57,38 +57,54 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
-//        collectionView.register(SNCourseCell.self, forCellWithReuseIdentifier: SNCourseCell.reuseID)
+        collectionView.register(SNCourseCell.self, forCellWithReuseIdentifier: SNCourseCell.reuseID)
     }
     
     
     private func configDataSource()
     {
-        let courseCellRegistration = UICollectionView.CellRegistration<SNCourseCell, Course> { cell, indexPath, course in
+//        let courseCellRegistration = UICollectionView.CellRegistration<SNCourseCell, Course> { cell, indexPath, course in
+//            
+//            var contentConfiguration = UIListContentConfiguration.subtitleCell()
+//            contentConfiguration.text = course.name
+//            contentConfiguration.secondaryText = course.instructor
+//            contentConfiguration.imageProperties.cornerRadius = 4
+//            contentConfiguration.imageProperties.maximumSize = CGSize(width: 60, height: 60)
+//            contentConfiguration.image = {
+//                let url = URL(string: course.avatarUrl)
+//                if let data = try? Data(contentsOf: url!) {
+//                    let image: UIImage = UIImage(data: data)!
+//                    return image
+//                }
+//            }()
+//            
+//            cell.contentConfiguration = contentConfiguration
+//            
+//            if course.isBookmarked {
+//                // put bookmark accessory on it
+//            }
+//        }
+//        
+        courseListDataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { [self] collectionView, indexPath, identifier -> UICollectionViewCell? in
             
-            var contentConfiguration = UIListContentConfiguration.subtitleCell()
-            contentConfiguration.text = course.name
-            contentConfiguration.secondaryText = course.instructor
-            contentConfiguration.imageProperties.cornerRadius = 4
-            contentConfiguration.imageProperties.maximumSize = CGSize(width: 60, height: 60)
-            contentConfiguration.image = {
-                let url = URL(string: course.avatarUrl)
-                if let data = try? Data(contentsOf: url!) {
-                    let image: UIImage = UIImage(data: data)!
-                    return image
-                }
-            }()
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID, for: indexPath) as! SNCourseCell
+            let course = courses.first { $0.id == identifier }!
+            cell.set(course: course)
             
-            cell.contentConfiguration = contentConfiguration
-            
-            if course.isBookmarked {
-                // put bookmark accessory on it
-            }
-        }
-        
-        courseListDataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, identifier -> UICollectionViewCell in
-            let course = dataStore.course(with: identifier)!
+            return cell
         }
     }
+    
+    /**
+     private func configDataSource()
+     {
+         courseListDataSource = UICollectionViewDiffableDataSource<Section, Course>(collectionView: collectionView) { (collectionView, indexPath, course) -> UICollectionViewCell? in
+             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID, for: indexPath) as! SNCourseCell
+             
+             return cell
+         }
+     }
+     */
     
     
     func configSearchController()
@@ -108,11 +124,16 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     {
         let testProject1 = CourseProject(id: 1, name: "proj1", subtitle: "sub1", skills: "swift", link: "www.com", index: 1, completed: false)
         let testProject2 = CourseProject(id: 2, name: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", index: 1, completed: false)
+        let testProject3 = CourseProject(id: 3, name: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", index: 1, completed: false)
         
         let testCourse = Course(id: 1, name: "new course", instructor: "james brown", bio: "sing it today", isBookmarked: true, avatarUrl: "https://www.pinclipart.com/downpngs/ibiiRoi_dummy-profile-image-url-clipart/", courseProjects: [testProject1] )
         let testCourse2 = Course(id: 2, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: "https://www.pinclipart.com/downpngs/ibiiRoi_dummy-profile-image-url-clipart/", courseProjects: [testProject2] )
+        let testCourse3 = Course(id: 3, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: "https://www.pinclipart.com/downpngs/ibiiRoi_dummy-profile-image-url-clipart/", courseProjects: [testProject3] )
+        let testCourse4 = Course(id: 4, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: "https://www.pinclipart.com/downpngs/ibiiRoi_dummy-profile-image-url-clipart/", courseProjects: [testProject3] )
         courses.append(testCourse)
         courses.append(testCourse2)
+        courses.append(testCourse3)
+        courses.append(testCourse4)
         updateDataSource(with: courses)
     }
     
@@ -150,26 +171,19 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     }
     
     //-------------------------------------//
-    // MARK: - DIFFABLE DATASOURCE UPDATES
+    // MARK: - DIFFABLE DATASOURCE UPDATES (SNAPSHOTS)
     
     func updateDataSource(with courses: [Course])
     {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Course>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Course.ID>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(courses)
+        let courseIDs = courses.map { $0.id }
+        snapshot.appendItems(courseIDs)
+//        snapshot.appendItems(courses)
         
-        DispatchQueue.main.async { self.collectionViewDataSource.apply(snapshot, animatingDifferences: true) }
+        DispatchQueue.main.async { self.courseListDataSource.apply(snapshot, animatingDifferences: true) }
     }
 }
 
 
-/**
- private func configDataSource()
- {
-     courseListDataSource = UICollectionViewDiffableDataSource<Section, Course>(collectionView: collectionView) { (collectionView, indexPath, course) -> UICollectionViewCell? in
-         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID, for: indexPath) as! SNCourseCell
-         
-         return cell
-     }
- }
- */
+
