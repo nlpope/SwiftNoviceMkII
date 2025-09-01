@@ -178,6 +178,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         var snapshot = NSDiffableDataSourceSnapshot<Section, Course.ID>()
         snapshot.appendSections([.main])
         let courseIDs = courses.map { $0.id }
+        #warning("problem child: see docs > Updating collection views using diffable data sources")
         snapshot.appendItems(courseIDs)
 //        snapshot.appendItems(courses)
         
