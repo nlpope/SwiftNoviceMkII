@@ -4,6 +4,19 @@
 
 import UIKit
 
+struct DataStore
+{
+    func findCourse(in courses: [Course], with identifier: Int) -> Course
+    {
+        var targetCourse: Course!
+        for course in courses {
+            if course.id == identifier { targetCourse = course }
+        }
+        return targetCourse
+    }
+}
+
+
 class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating, UICollectionViewDelegate
 {
     private enum Section { case main }
@@ -63,28 +76,28 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     private func configDataSource()
     {
-//        let courseCellRegistration = UICollectionView.CellRegistration<SNCourseCell, Course> { cell, indexPath, course in
-//            
-//            var contentConfiguration = UIListContentConfiguration.subtitleCell()
-//            contentConfiguration.text = course.name
-//            contentConfiguration.secondaryText = course.instructor
-//            contentConfiguration.imageProperties.cornerRadius = 4
-//            contentConfiguration.imageProperties.maximumSize = CGSize(width: 60, height: 60)
-//            contentConfiguration.image = {
-//                let url = URL(string: course.avatarUrl)
-//                if let data = try? Data(contentsOf: url!) {
-//                    let image: UIImage = UIImage(data: data)!
-//                    return image
-//                }
-//            }()
-//            
-//            cell.contentConfiguration = contentConfiguration
-//            
-//            if course.isBookmarked {
-//                // put bookmark accessory on it
-//            }
-//        }
-//        
+        let courseCellRegistration = UICollectionView.CellRegistration<SNCourseCell, Course> { cell, indexPath, course in
+            
+            var contentConfiguration = UIListContentConfiguration.subtitleCell()
+            contentConfiguration.text = course.name
+            contentConfiguration.secondaryText = course.instructor
+            contentConfiguration.imageProperties.cornerRadius = 4
+            contentConfiguration.imageProperties.maximumSize = CGSize(width: 60, height: 60)
+            contentConfiguration.image = {
+                let url = URL(string: course.avatarUrl)
+                if let data = try? Data(contentsOf: url!) {
+                    let image: UIImage = UIImage(data: data)!
+                    return image
+                }
+            }()
+            
+            cell.contentConfiguration = contentConfiguration
+            
+            if course.isBookmarked {
+                // put bookmark accessory on it
+            }
+        }
+        
         courseListDataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { [self] collectionView, indexPath, identifier -> UICollectionViewCell? in
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID, for: indexPath) as! SNCourseCell
