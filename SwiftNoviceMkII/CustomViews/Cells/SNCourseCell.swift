@@ -23,7 +23,7 @@ class SNCourseCell: UICollectionViewCell
     func set(course: Course)
     {
         courseNameLabel.text = course.name
-//        avatarImageView.downloadImage(fromURL: course.avatarUrl)
+        avatarImageView.downloadImage(fromURL: course.avatarUrl)
     }
     
     

@@ -10,7 +10,7 @@ struct Course: Identifiable, Codable
     
     let name, instructor, bio: String
     let isBookmarked: Bool
-    let avatarUrl: String
+    let avatarUrl: String?
     var courseProjects: [CourseProject]
 }
 

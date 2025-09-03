@@ -71,56 +71,23 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
-        //        collectionView.register(SNCourseCell.self, forCellWithReuseIdentifier: SNCourseCell.reuseID)
+        collectionView.register(SNCourseCell.self, forCellWithReuseIdentifier: SNCourseCell.reuseID)
     }
     
     
     private func configDataSource()
     {
-        let courseCellRegistration = UICollectionView.CellRegistration<SNCourseCell, Course> {
-            [self] cell, indexPath, course in
-            
-            var contentConfiguration = UIListContentConfiguration.subtitleCell()
-            contentConfiguration.text = course.name
-            contentConfiguration.secondaryText = course.instructor
-            contentConfiguration.imageProperties.cornerRadius = 4
-            contentConfiguration.imageProperties.maximumSize = CGSize(width: 60, height: 60)
-            contentConfiguration.image = {
-                let url = URL(string: course.avatarUrl)
-                if let data = try? Data(contentsOf: url!) {
-                    let image = UIImage(data: data)
-                    return image
-                } else {
-                    return nil
-                }
-            }()
-            
-            cell.contentConfiguration = contentConfiguration
-            
-            if course.isBookmarked {
-                // put bookmark accessory on it
-            } else {
-                // leave it alone
-            }
-        }
-        
-        self.courseListDataSource = UICollectionViewDiffableDataSource(collectionView: self.collectionView) {
-            [self] collectionView, indexPath, identifier -> UICollectionViewCell in
+        courseListDataSource = UICollectionViewDiffableDataSource(collectionView: self.collectionView) {
+            [self] (collectionView, indexPath, identifier) -> UICollectionViewCell in
             let course = dataStore.findCourse(in: courses, with: identifier)
-            return collectionView.dequeueConfiguredReusableCell(using: courseCellRegistration, for: indexPath, item: course)
+
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID,
+                                                          for: indexPath) as! SNCourseCell
+            cell.set(course: course!)
+            
+            return cell
         }
     }
-    
-    /**
-     private func configDataSource()
-     {
-     courseListDataSource = UICollectionViewDiffableDataSource<Section, Course>(collectionView: collectionView) { (collectionView, indexPath, course) -> UICollectionViewCell? in
-     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID, for: indexPath) as! SNCourseCell
-     
-     return cell
-     }
-     }
-     */
     
     
     func configSearchController()
@@ -142,10 +109,11 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         let testProject2 = CourseProject(id: 2, name: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", index: 1, completed: false)
         let testProject3 = CourseProject(id: 3, name: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", index: 1, completed: false)
         
-        let testCourse = Course(id: 1, name: "new course", instructor: "james brown", bio: "sing it today", isBookmarked: true, avatarUrl: "https://www.pinclipart.com/downpngs/ibiiRoi_dummy-profile-image-url-clipart/", courseProjects: [testProject1] )
-        let testCourse2 = Course(id: 2, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: "https://www.pinclipart.com/downpngs/ibiiRoi_dummy-profile-image-url-clipart/", courseProjects: [testProject2] )
-        let testCourse3 = Course(id: 3, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: "https://www.pinclipart.com/downpngs/ibiiRoi_dummy-profile-image-url-clipart/", courseProjects: [testProject3] )
-        let testCourse4 = Course(id: 4, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: "https://www.pinclipart.com/downpngs/ibiiRoi_dummy-profile-image-url-clipart/", courseProjects: [testProject3] )
+        let testCourse = Course(id: 1, name: "new course", instructor: "james brown", bio: "sing it today", isBookmarked: true, avatarUrl: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpublic-files.gumroad.com%2Fade0ybray6xjr3ejbm88lcokj5kj&f=1&nofb=1&ipt=3ce2d45bff4430ec46eb0a6a7b839b73476c507fb407eea0aab1b8509b27f6c7", courseProjects: [testProject1] )
+        let testCourse2 = Course(id: 2, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject2] )
+        let testCourse3 = Course(id: 3, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject3] )
+        let testCourse4 = Course(id: 4, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject3] )
+        
         courses.append(testCourse)
         courses.append(testCourse2)
         courses.append(testCourse3)
@@ -191,13 +159,12 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     func updateDataSource(with courses: [Course])
     {
+        let courseIds = courses.map { $0.id }
+
         var snapshot = NSDiffableDataSourceSnapshot<Section, Course.ID>()
         snapshot.appendSections([.main])
-        let courseIDs = courses.map { $0.id }
-#warning("problem child: see docs > Updating collection views using diffable data sources")
-        snapshot.appendItems(courseIDs)
-        //        snapshot.appendItems(courses)
-        
+        // PROBLEM CHILD
+        snapshot.appendItems(courseIds, toSection: .main)
         DispatchQueue.main.async { self.courseListDataSource.apply(snapshot, animatingDifferences: true) }
     }
 }
