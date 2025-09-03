@@ -6,9 +6,9 @@ import UIKit
 
 struct DataStore
 {
-    func findCourse(in courses: [Course], with identifier: Int) -> Course
+    func findCourse(in courses: [Course], with identifier: Int) -> Course?
     {
-        var targetCourse: Course!
+        var targetCourse: Course? = nil
         for course in courses {
             if course.id == identifier { targetCourse = course }
         }
@@ -21,6 +21,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
 {
     private enum Section { case main }
     
+    let dataStore = DataStore()
     var courses = [Course]()
     var filteredCourses = [Course]()
     var completedCourses = [Course]()
@@ -29,7 +30,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     var collectionView: UICollectionView!
     private var courseListDataSource: UICollectionViewDiffableDataSource<Section, Course.ID>!
-
+    
     
     
     override func viewDidLoad()
@@ -49,8 +50,8 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         else {
             fetchCoursesFromServer()
             loadProgressFromCloudKit()
-//            configCollectionView()
-//            configDataSource()
+            //            configCollectionView()
+            //            configDataSource()
         }
     }
     
@@ -58,7 +59,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     override func viewWillDisappear(_ animated: Bool) { logoLauncher = nil }
     
     
-//    deinit { logoLauncher.removeAllAVPlayerLayers() }
+    //    deinit { logoLauncher.removeAllAVPlayerLayers() }
     
     //-------------------------------------//
     // MARK: - CONFIGURATION
@@ -70,13 +71,14 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
-        collectionView.register(SNCourseCell.self, forCellWithReuseIdentifier: SNCourseCell.reuseID)
+        //        collectionView.register(SNCourseCell.self, forCellWithReuseIdentifier: SNCourseCell.reuseID)
     }
     
     
     private func configDataSource()
     {
-        let courseCellRegistration = UICollectionView.CellRegistration<SNCourseCell, Course> { cell, indexPath, course in
+        let courseCellRegistration = UICollectionView.CellRegistration<SNCourseCell, Course> {
+            [self] cell, indexPath, course in
             
             var contentConfiguration = UIListContentConfiguration.subtitleCell()
             contentConfiguration.text = course.name
@@ -86,8 +88,10 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
             contentConfiguration.image = {
                 let url = URL(string: course.avatarUrl)
                 if let data = try? Data(contentsOf: url!) {
-                    let image: UIImage = UIImage(data: data)!
+                    let image = UIImage(data: data)
                     return image
+                } else {
+                    return nil
                 }
             }()
             
@@ -95,27 +99,26 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
             
             if course.isBookmarked {
                 // put bookmark accessory on it
+            } else {
+                // leave it alone
             }
         }
         
-        courseListDataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { [self] collectionView, indexPath, identifier -> UICollectionViewCell? in
-            
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID, for: indexPath) as! SNCourseCell
-            let course = courses.first { $0.id == identifier }!
-            cell.set(course: course)
-            
-            return cell
+        self.courseListDataSource = UICollectionViewDiffableDataSource(collectionView: self.collectionView) {
+            [self] collectionView, indexPath, identifier -> UICollectionViewCell in
+            let course = dataStore.findCourse(in: courses, with: identifier)
+            return collectionView.dequeueConfiguredReusableCell(using: courseCellRegistration, for: indexPath, item: course)
         }
     }
     
     /**
      private func configDataSource()
      {
-         courseListDataSource = UICollectionViewDiffableDataSource<Section, Course>(collectionView: collectionView) { (collectionView, indexPath, course) -> UICollectionViewCell? in
-             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID, for: indexPath) as! SNCourseCell
-             
-             return cell
-         }
+     courseListDataSource = UICollectionViewDiffableDataSource<Section, Course>(collectionView: collectionView) { (collectionView, indexPath, course) -> UICollectionViewCell? in
+     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID, for: indexPath) as! SNCourseCell
+     
+     return cell
+     }
      }
      */
     
@@ -191,13 +194,10 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         var snapshot = NSDiffableDataSourceSnapshot<Section, Course.ID>()
         snapshot.appendSections([.main])
         let courseIDs = courses.map { $0.id }
-        #warning("problem child: see docs > Updating collection views using diffable data sources")
+#warning("problem child: see docs > Updating collection views using diffable data sources")
         snapshot.appendItems(courseIDs)
-//        snapshot.appendItems(courses)
+        //        snapshot.appendItems(courses)
         
         DispatchQueue.main.async { self.courseListDataSource.apply(snapshot, animatingDifferences: true) }
     }
 }
-
-
-
