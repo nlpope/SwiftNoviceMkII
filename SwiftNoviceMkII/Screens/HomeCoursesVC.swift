@@ -32,7 +32,6 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     private var courseListDataSource: UICollectionViewDiffableDataSource<Section, Course.ID>!
     
     
-    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -50,16 +49,11 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         else {
             fetchCoursesFromServer()
             loadProgressFromCloudKit()
-            //            configCollectionView()
-            //            configDataSource()
         }
     }
     
     
-    override func viewWillDisappear(_ animated: Bool) { logoLauncher = nil }
-    
-    
-    //    deinit { logoLauncher.removeAllAVPlayerLayers() }
+    override func viewWillDisappear(_ animated: Bool) { logoLauncher.removeNotifications(); logoLauncher = nil }
     
     //-------------------------------------//
     // MARK: - CONFIGURATION
@@ -105,6 +99,8 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     func fetchCoursesFromServer()
     {
+        showLoadingView()
+        courses.removeAll()
         let testProject1 = CourseProject(id: 1, name: "proj1", subtitle: "sub1", skills: "swift", link: "www.com", index: 1, completed: false)
         let testProject2 = CourseProject(id: 2, name: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", index: 1, completed: false)
         let testProject3 = CourseProject(id: 3, name: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", index: 1, completed: false)
@@ -118,6 +114,8 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         courses.append(testCourse2)
         courses.append(testCourse3)
         courses.append(testCourse4)
+        
+        dismissLoadingView()
         updateDataSource(with: courses)
     }
     
@@ -159,6 +157,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     func updateDataSource(with courses: [Course])
     {
+        print("inside updateDataSource")
         let courseIds = courses.map { $0.id }
 
         var snapshot = NSDiffableDataSourceSnapshot<Section, Course.ID>()

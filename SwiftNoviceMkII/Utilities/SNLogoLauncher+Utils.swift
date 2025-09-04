@@ -19,7 +19,8 @@ class SNLogoLauncher
     
     func configLogoLauncher()
     {
-        print("configLogo accessed")
+        print("launching logo")
+        PersistenceManager.isFirstVisitPostDismissal = false
         maskHomeVCForIntro()
         configNotifications()
         
@@ -50,7 +51,9 @@ class SNLogoLauncher
     func maskHomeVCForIntro()
     {
         targetVC.navigationController?.isNavigationBarHidden = true
+        targetVC.tabBarController?.isTabBarHidden = true
         targetVC.view.backgroundColor = .black
+        targetVC.collectionView.isHidden = true
     }
     
     
@@ -85,6 +88,8 @@ class SNLogoLauncher
         
         PersistenceManager.isVeryFirstVisit = false
         removeAllAVPlayerLayers()
+        targetVC.tabBarController?.isTabBarHidden = false
+        targetVC.collectionView.isHidden = false
     
         targetVC.fetchCoursesFromServer()
         targetVC.loadProgressFromCloudKit()

@@ -30,8 +30,8 @@
             filePath = "SwiftNoviceMkII/Utilities/SNLogoLauncher+Utils.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "configLogoLauncher()"
             landmarkType = "7">
          </BreakpointContent>
