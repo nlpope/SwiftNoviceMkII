@@ -44,8 +44,11 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     override func viewWillAppear(_ animated: Bool)
     {
-        logoLauncher = SNLogoLauncher(targetVC: self)
-        if PersistenceManager.fetchFirstVisitPostDismissalStatus() { print("true logo status should play"); logoLauncher.configLogoLauncher() }
+        
+        if PersistenceManager.fetchFirstVisitPostDismissalStatus() {
+            logoLauncher = SNLogoLauncher(targetVC: self)
+            logoLauncher.configLogoLauncher()
+        }
         else {
             fetchCoursesFromServer()
             loadProgressFromCloudKit()
@@ -105,15 +108,13 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         let testProject2 = CourseProject(id: 2, name: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", index: 1, completed: false)
         let testProject3 = CourseProject(id: 3, name: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", index: 1, completed: false)
         
-        let testCourse = Course(id: 1, name: "new course", instructor: "james brown", bio: "sing it today", isBookmarked: true, avatarUrl: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpublic-files.gumroad.com%2Fade0ybray6xjr3ejbm88lcokj5kj&f=1&nofb=1&ipt=3ce2d45bff4430ec46eb0a6a7b839b73476c507fb407eea0aab1b8509b27f6c7", courseProjects: [testProject1] )
+//        let testCourse = Course(id: 1, name: "new course", instructor: "james brown", bio: "sing it today", isBookmarked: true, avatarUrl: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpublic-files.gumroad.com%2Fade0ybray6xjr3ejbm88lcokj5kj&f=1&nofb=1&ipt=3ce2d45bff4430ec46eb0a6a7b839b73476c507fb407eea0aab1b8509b27f6c7", courseProjects: [testProject1] )
+        let testCourse = Course(id: 1, name: "new course", instructor: "james brown", bio: "sing it today", isBookmarked: true, avatarUrl: nil, courseProjects: [testProject1] )
         let testCourse2 = Course(id: 2, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject2] )
         let testCourse3 = Course(id: 3, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject3] )
         let testCourse4 = Course(id: 4, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject3] )
         
-        courses.append(testCourse)
-        courses.append(testCourse2)
-        courses.append(testCourse3)
-        courses.append(testCourse4)
+        courses += [testCourse, testCourse2, testCourse3, testCourse4]
         
         dismissLoadingView()
         updateDataSource(with: courses)

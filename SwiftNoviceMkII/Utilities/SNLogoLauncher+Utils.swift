@@ -87,15 +87,13 @@ class SNLogoLauncher
         }
         
         PersistenceManager.isVeryFirstVisit = false
+        PersistenceManager.isFirstVisitPostDismissal = false
         removeAllAVPlayerLayers()
         targetVC.tabBarController?.isTabBarHidden = false
         targetVC.collectionView.isHidden = false
     
         targetVC.fetchCoursesFromServer()
         targetVC.loadProgressFromCloudKit()
-//        targetVC.configCollectionView()
-//        targetVC.configDataSource()
-        
     }
     
     
