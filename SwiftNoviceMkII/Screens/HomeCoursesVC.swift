@@ -55,9 +55,6 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         }
     }
     
-    
-    override func viewWillDisappear(_ animated: Bool) { logoLauncher.removeNotifications(); logoLauncher = nil }
-    
     //-------------------------------------//
     // MARK: - CONFIGURATION
     

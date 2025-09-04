@@ -91,6 +91,8 @@ class SNLogoLauncher
         removeAllAVPlayerLayers()
         targetVC.tabBarController?.isTabBarHidden = false
         targetVC.collectionView.isHidden = false
+        
+        self.removeNotifications()
     
         targetVC.fetchCoursesFromServer()
         targetVC.loadProgressFromCloudKit()
