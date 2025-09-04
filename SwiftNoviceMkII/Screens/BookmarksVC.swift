@@ -6,5 +6,13 @@ import UIKit
 
 class BookmarksVC: SNDataLoadingVC
 {
+    override func viewDidLoad()
+    {
+        configNavBar()
+    }
     
+    private func configNavBar()
+    {
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
 }

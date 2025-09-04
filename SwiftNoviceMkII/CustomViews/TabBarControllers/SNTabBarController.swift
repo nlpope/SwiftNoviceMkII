@@ -3,6 +3,7 @@
 //  Created by: Noah Pope on 8/31/25.
 
 import UIKit
+//navigationController?.navigationBar.prefersLargeTitles = true
 
 class SNTabBarController: UITabBarController
 {
