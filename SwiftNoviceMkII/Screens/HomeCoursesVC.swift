@@ -3,7 +3,7 @@
 //  Created by: Noah Pope on 7/23/25.
 
 import UIKit
-
+#warning("I keep seeing the logo flicker when I go to bookmarks then back to homeVC. why?")
 struct DataStore
 {
     func findCourse(in courses: [Course], with identifier: Int) -> Course?
