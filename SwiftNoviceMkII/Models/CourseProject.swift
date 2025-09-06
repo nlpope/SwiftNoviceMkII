@@ -9,6 +9,5 @@ struct CourseProject: Identifiable, Codable
     var id: Int
     
     let name, subtitle, skills, link: String
-    let index: Int
-    var completed: Bool
+    var isCompleted: Bool
 }
