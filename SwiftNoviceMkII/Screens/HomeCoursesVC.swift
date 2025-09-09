@@ -3,7 +3,7 @@
 //  Created by: Noah Pope on 7/23/25.
 
 import UIKit
-#warning("I keep seeing the logo flicker when I go to bookmarks then back to homeVC. why? - b/c when app enters will enter background mode ")
+
 struct DataStore
 {
     func findCourse(in courses: [Course], with identifier: Int) -> Course?
@@ -116,8 +116,10 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
             self.dismissLoadingView()
             
             switch result {
-            case .success(courses):
-                self.courses = courses
+            case .success(let courses):
+                updateDataSource(with: courses)
+            case .failure(let error):
+                self.presentSNAlertOnMainThread(alertTitle: "Bad Stuff Happened", message: error.rawValue, buttonTitle: "Ok")
             }
         }
 //        let testProject1 = CourseProject(id: 1, title: "proj1", subtitle: "sub1", skills: "swift", link: "www.com", isCompleted: false)
@@ -130,9 +132,6 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
 //        let testCourse4 = Course(id: 4, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject3] )
         
 //        courses += [testCourse, testCourse2, testCourse3, testCourse4]
-        
-        dismissLoadingView()
-        updateDataSource(with: courses)
     }
     
     
@@ -173,16 +172,14 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     func updateDataSource(with courses: [Course])
     {
-        print("inside updateDataSource")
         if courses.isEmpty {
             let message = "Issue loading courses"
-            
+            DispatchQueue.main.async {
+                self.hideSearchController()
+                self.showEmptyStateView(with: message, in: self.view)
+            }
         }
         
-        DispatchQueue.main.async {
-            self.hideSearchController()
-            #warning("show empty state view")
-        }
         let courseIds = courses.map { $0.id }
 
         var snapshot = NSDiffableDataSourceSnapshot<Section, Course.ID>()

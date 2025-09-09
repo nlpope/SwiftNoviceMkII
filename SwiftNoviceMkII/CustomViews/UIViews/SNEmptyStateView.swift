@@ -6,36 +6,39 @@ import UIKit
 
 class SNEmptyStateView: UIView {
     
-    let messageLabel    = SNTitleLabel(textAlignment: .center, fontSize: 28)
-    let logoImageView   = UIImageView()
+    let messageLabel = SNTitleLabel(textAlignment: .center, fontSize: 28)
+    let logoImageView = UIImageView()
     
-    override init(frame: CGRect) {
+    override init(frame: CGRect)
+    {
         super.init(frame: frame)
         addSubviews(messageLabel, logoImageView)
         configLabelAndLogo()
     }
     
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder)
+    { fatalError("init(coder:) has not been implemented") }
     
     
-    convenience init(message: String) {
+    convenience init(message: String)
+    {
         self.init(frame: .zero)
         messageLabel.text = message
     }
     
     
-    private func configLabelAndLogo() {
+    private func configLabelAndLogo()
+    {
         configureMessageLabel()
         configureLogoImageView()
     }
     
     
-    private func configureMessageLabel() {
-        messageLabel.numberOfLines  = 3
-        messageLabel.textColor      = .secondaryLabel
+    private func configureMessageLabel()
+    {
+        messageLabel.numberOfLines = 3
+        messageLabel.textColor = .secondaryLabel
         
         NSLayoutConstraint.activate([
             messageLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -150),
@@ -47,8 +50,9 @@ class SNEmptyStateView: UIView {
     }
     
     
-    private func configureLogoImageView() {
-        logoImageView.image         = Images.emptyStateLogo
+    private func configureLogoImageView()
+    {
+        logoImageView.image = Images.emptyStateLogo
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
