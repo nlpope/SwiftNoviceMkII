@@ -40,3 +40,9 @@ enum ColorKeys
 {
     static let oldGold = UIColor(red: 207/255, green: 181/255, blue: 59/255, alpha: 1.0)
 }
+
+enum UrlKeys
+{
+    static let baseUrl = "http://127.0.0.1:8080/"
+    static let coursesEndpoint = "courses"
+}

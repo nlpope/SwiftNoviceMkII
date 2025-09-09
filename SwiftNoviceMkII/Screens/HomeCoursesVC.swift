@@ -107,9 +107,9 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     {
         showLoadingView()
         courses.removeAll()
-        let testProject1 = CourseProject(id: 1, name: "proj1", subtitle: "sub1", skills: "swift", link: "www.com", isCompleted: false)
-        let testProject2 = CourseProject(id: 2, name: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", isCompleted: false)
-        let testProject3 = CourseProject(id: 3, name: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", isCompleted: false)
+        let testProject1 = CourseProject(id: 1, title: "proj1", subtitle: "sub1", skills: "swift", link: "www.com", isCompleted: false)
+        let testProject2 = CourseProject(id: 2, title: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", isCompleted: false)
+        let testProject3 = CourseProject(id: 3, title: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", isCompleted: false)
         
         let testCourse = Course(id: 1, name: "new course", instructor: "james brown", bio: "sing it today", isBookmarked: true, avatarUrl: nil, courseProjects: [testProject1] )
         let testCourse2 = Course(id: 2, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject2] )

@@ -12,6 +12,18 @@ class NetworkManager
     private init() {}
     
     
+    func fetchCourses() async throws
+    {
+        let urlString = UrlKeys.baseUrl + UrlKeys.coursesEndpoint
+        
+        guard let url = URL(string: urlString) else {
+            throw HttpError.badURL
+        }
+        
+        let coursesResponse: [Course] = try await HttpClient
+    }
+    
+    
     func downloadImage(from urlString: String, completed: @escaping (UIImage?) -> Void)
     {
         let cacheKey = NSString(string: urlString)
