@@ -3,7 +3,7 @@
 //  Created by: Noah Pope on 7/23/25.
 
 import UIKit
-#warning("I keep seeing the logo flicker when I go to bookmarks then back to homeVC. why?")
+#warning("I keep seeing the logo flicker when I go to bookmarks then back to homeVC. why? - b/c when app enters will enter background mode ")
 struct DataStore
 {
     func findCourse(in courses: [Course], with identifier: Int) -> Course?
@@ -45,7 +45,6 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     override func viewWillAppear(_ animated: Bool)
     {
-        
         if PersistenceManager.fetchFirstVisitPostDismissalStatus() {
             logoLauncher = SNLogoLauncher(targetVC: self)
             logoLauncher.configLogoLauncher()

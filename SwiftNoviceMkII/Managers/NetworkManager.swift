@@ -12,15 +12,29 @@ class NetworkManager
     private init() {}
     
     
-    func fetchCourses() async throws
+    func fetchCourses(completed: @escaping(Result<[Course], SNError>) -> Void)
     {
-        let urlString = UrlKeys.baseUrl + UrlKeys.coursesEndpoint
+        guard let url = URL(string: UrlKeys.baseUrl + UrlKeys.coursesEndpoint)
+        else { completed(.failure(.badURL)); return }
         
-        guard let url = URL(string: urlString) else {
-            throw HttpError.badURL
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let _ = error { completed(.failure(.badResponse)); return }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200
+            else { completed(.failure(.badResponse)); return }
+            
+            guard let data else { completed(.failure(.badData)); return }
+            
+            do {
+                let decoder = JSONDecoder()
+                var prerequisites = try decoder.decode([Course].self, from: data)
+                completed(.success(prerequisites.sorted { $0.id < $1.id }))
+            } catch {
+                completed(.failure(.errorDecodingData))
+            }
         }
         
-        let coursesResponse: [Course] = try await HttpClient
+        task.resume()
     }
     
     

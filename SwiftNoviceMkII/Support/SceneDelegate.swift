@@ -21,13 +21,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
     }
     
     
-    func configNavBar() { UINavigationBar.appearance().tintColor = ColorKeys.oldGold }
+    func configNavBar()
+    { UINavigationBar.appearance().tintColor = ColorKeys.oldGold }
     
-    func sceneDidDisconnect(_ scene: UIScene) {}
+    func sceneDidDisconnect(_ scene: UIScene)
+    { PersistenceManager.isFirstVisitPostDismissal = true }
     
     func sceneDidBecomeActive(_ scene: UIScene) {}
     
-    func sceneWillResignActive(_ scene: UIScene) { PersistenceManager.isFirstVisitPostDismissal = true }
+    func sceneWillResignActive(_ scene: UIScene) {}
     
     func sceneWillEnterForeground(_ scene: UIScene) {}
     
