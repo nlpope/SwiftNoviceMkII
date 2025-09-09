@@ -102,20 +102,34 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     }
     
     
+    func hideSearchController()
+    { navigationItem.searchController?.searchBar.isHidden = true }
+    
+    
     func fetchCoursesFromServer()
     {
         showLoadingView()
         courses.removeAll()
-        let testProject1 = CourseProject(id: 1, title: "proj1", subtitle: "sub1", skills: "swift", link: "www.com", isCompleted: false)
-        let testProject2 = CourseProject(id: 2, title: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", isCompleted: false)
-        let testProject3 = CourseProject(id: 3, title: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", isCompleted: false)
         
-        let testCourse = Course(id: 1, name: "new course", instructor: "james brown", bio: "sing it today", isBookmarked: true, avatarUrl: nil, courseProjects: [testProject1] )
-        let testCourse2 = Course(id: 2, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject2] )
-        let testCourse3 = Course(id: 3, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject3] )
-        let testCourse4 = Course(id: 4, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject3] )
+        NetworkManager.shared.fetchCourses { [weak self] result in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            
+            switch result {
+            case .success(courses):
+                self.courses = courses
+            }
+        }
+//        let testProject1 = CourseProject(id: 1, title: "proj1", subtitle: "sub1", skills: "swift", link: "www.com", isCompleted: false)
+//        let testProject2 = CourseProject(id: 2, title: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", isCompleted: false)
+//        let testProject3 = CourseProject(id: 3, title: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", isCompleted: false)
+//        
+//        let testCourse = Course(id: 1, name: "new course", instructor: "james brown", bio: "sing it today", isBookmarked: true, avatarUrl: nil, courseProjects: [testProject1] )
+//        let testCourse2 = Course(id: 2, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject2] )
+//        let testCourse3 = Course(id: 3, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject3] )
+//        let testCourse4 = Course(id: 4, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject3] )
         
-        courses += [testCourse, testCourse2, testCourse3, testCourse4]
+//        courses += [testCourse, testCourse2, testCourse3, testCourse4]
         
         dismissLoadingView()
         updateDataSource(with: courses)
@@ -160,11 +174,20 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     func updateDataSource(with courses: [Course])
     {
         print("inside updateDataSource")
+        if courses.isEmpty {
+            let message = "Issue loading courses"
+            
+        }
+        
+        DispatchQueue.main.async {
+            self.hideSearchController()
+            #warning("show empty state view")
+        }
         let courseIds = courses.map { $0.id }
 
         var snapshot = NSDiffableDataSourceSnapshot<Section, Course.ID>()
         snapshot.appendSections([.main])
-        // PROBLEM CHILD
+        
         snapshot.appendItems(courseIds, toSection: .main)
         DispatchQueue.main.async { self.courseListDataSource.apply(snapshot, animatingDifferences: true) }
     }
