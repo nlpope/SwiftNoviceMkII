@@ -6,7 +6,7 @@ import UIKit
 
 struct DataStore
 {
-    func findCourse(in courses: [Course], with identifier: Int) -> Course?
+    func findCourse(in courses: [Course], with identifier: UUID?) -> Course?
     {
         var targetCourse: Course? = nil
         for course in courses {

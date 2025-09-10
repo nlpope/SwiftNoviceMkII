@@ -6,8 +6,9 @@ import Foundation
 
 struct Course: Identifiable, Codable
 {
-    var id: Int
+    var id: UUID?
     
+    let index: Int
     let name, instructor, bio: String
     let isBookmarked: Bool
     let avatarUrl: String?

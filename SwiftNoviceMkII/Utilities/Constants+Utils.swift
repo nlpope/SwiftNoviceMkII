@@ -44,6 +44,6 @@ enum ColorKeys
 
 enum UrlKeys
 {
-    static let baseUrl = "https://127.0.0.1:8080/"
+    static let baseUrl = "http://127.0.0.1:8080/"
     static let coursesEndpoint = "courses"
 }
