@@ -12,7 +12,19 @@ struct Course: Identifiable, Codable
     let name, instructor, bio: String
     let isBookmarked: Bool
     let avatarUrl: String?
-    var courseProjects: [CourseProject]
+//    var courseProjects: [CourseProject]
+    
+    enum CodingKeys: String, CodingKey
+    {
+        case id
+        case index
+        case name
+        case instructor
+        case bio
+        case isBookmarked = "is_bookmarked"
+        case avatarUrl = "avatar_url"
+//        case courseProjects = "course_projects"
+    }
 }
 
 #warning("include all this info in a liquid glass popup that leads to the courses (identical to swift searcher layout)")
