@@ -27,8 +27,8 @@ class NetworkManager
             
             do {
                 let decoder = JSONDecoder()
-                var prerequisites = try decoder.decode([Course].self, from: data)
-                completed(.success(prerequisites.sorted { $0.id < $1.id }))
+                let courses = try decoder.decode([Course].self, from: data)
+                completed(.success(courses.sorted { $0.index < $1.index }))
             } catch {
                 completed(.failure(.errorDecodingData))
             }
