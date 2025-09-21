@@ -7,7 +7,6 @@ import Foundation
 struct Course: Identifiable, Codable
 {
     var id: UUID?
-    
     let index: Int
     let name, instructor, bio: String
     let isBookmarked: Bool

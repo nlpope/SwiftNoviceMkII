@@ -16,7 +16,8 @@ class NetworkManager
     {
         guard let url = URL(string: UrlKeys.baseUrl + UrlKeys.coursesEndpoint)
         else { completed(.failure(.badURL)); return }
-        
+        print(url)
+
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let _ = error { completed(.failure(.badResponse)); return }
             

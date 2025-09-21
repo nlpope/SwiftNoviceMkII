@@ -71,47 +71,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "04292434-4A55-42F8-ACC6-9BA5874A13C2"
-            shouldBeEnabled = "Yes"
+            uuid = "4DE743E0-C144-4C61-BD7D-2D2E2B0CE46E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftNoviceMkII/Utilities/SNError+Utils.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "10"
+            endingLineNumber = "10"
+            landmarkName = "SNError"
+            landmarkType = "13">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4A047574-9157-426A-B261-59D943580395"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftNoviceMkII/Managers/NetworkManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
             landmarkName = "fetchCourses(completed:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "04292434-4A55-42F8-ACC6-9BA5874A13C2 - b6e3b32d783e9dea"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in SwiftNoviceMkII.NetworkManager.fetchCourses(completed: (Swift.Result&lt;Swift.Array&lt;SwiftNoviceMkII.Course&gt;, SwiftNoviceMkII.SNError&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "SwiftNoviceMkII.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noahpope/Developer/ios%20&amp;%20swift/PopeSoftware/SwiftNoviceMkII/SwiftNoviceMkII/Managers/NetworkManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23">
-               </Location>
-               <Location
-                  uuid = "04292434-4A55-42F8-ACC6-9BA5874A13C2 - b6e3b32d783e9dea"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in SwiftNoviceMkII.NetworkManager.fetchCourses(completed: (Swift.Result&lt;Swift.Array&lt;SwiftNoviceMkII.Course&gt;, SwiftNoviceMkII.SNError&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "SwiftNoviceMkII.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noahpope/Developer/ios%20&amp;%20swift/PopeSoftware/SwiftNoviceMkII/SwiftNoviceMkII/Managers/NetworkManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
