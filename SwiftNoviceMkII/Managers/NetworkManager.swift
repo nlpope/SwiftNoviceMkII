@@ -18,18 +18,16 @@ class NetworkManager
     func fetchCourses(completed: @escaping(Result<[Course], SNError>) -> Void)
     {
 //        let endpoint = UrlKeys.baseUrl + UrlKeys.coursesEndpoint
-        let endpoint = "http://127.0.0.1:8080/getCourses"
+        let endpoint = "http://0.0.0.0:8080/getCourses"
         guard let url = URL(string: endpoint) else
         { completed(.failure(.badURL)); return }
         print(url)
 
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//            if let _ = error { print(error ?? "no error");completed(.failure(.badResponse)); return }
+            if let _ = error { print(error ?? "no error");completed(.failure(.badResponse)); return }
             
-//            guard let response = response as? HTTPURLResponse, response.statusCode == 200
-            guard let response = response as? HTTPURLResponse
-//            else { completed(.failure(.badResponse)); return }
-            print(response.statusCode)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200
+            else { completed(.failure(.badResponse)); return }
             
             guard let data else { completed(.failure(.badData)); return }
             
