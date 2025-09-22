@@ -2,6 +2,8 @@
 //  Project: SwiftNoviceMkII
 //  Created by: Noah Pope on 8/3/25.
 
+// ip = 192.168.0.79
+
 import UIKit
 
 class NetworkManager
@@ -9,20 +11,25 @@ class NetworkManager
     static let shared = NetworkManager()
     let cache = NSCache<NSString, UIImage>()
     
-    private init() {}
     
+    private init() {}
+
     
     func fetchCourses(completed: @escaping(Result<[Course], SNError>) -> Void)
     {
-        guard let url = URL(string: UrlKeys.baseUrl + UrlKeys.coursesEndpoint)
-        else { completed(.failure(.badURL)); return }
+//        let endpoint = UrlKeys.baseUrl + UrlKeys.coursesEndpoint
+        let endpoint = "http://127.0.0.1:8080/getCourses"
+        guard let url = URL(string: endpoint) else
+        { completed(.failure(.badURL)); return }
         print(url)
 
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let _ = error { completed(.failure(.badResponse)); return }
+//            if let _ = error { print(error ?? "no error");completed(.failure(.badResponse)); return }
             
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200
-            else { completed(.failure(.badResponse)); return }
+//            guard let response = response as? HTTPURLResponse, response.statusCode == 200
+            guard let response = response as? HTTPURLResponse
+//            else { completed(.failure(.badResponse)); return }
+            print(response.statusCode)
             
             guard let data else { completed(.failure(.badData)); return }
             
