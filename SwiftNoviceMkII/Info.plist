@@ -6,12 +6,13 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>0.0.0.0:8080</key>
-			<string></string>
-			<key>NSIncludesSubdomains</key>
-			<true/>
-			<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-			<true/>
+			<key>0.0.0.0/0</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 		</dict>
 	</dict>
 	<key>UIApplicationSceneManifest</key>

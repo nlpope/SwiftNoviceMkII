@@ -63,6 +63,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
+    
     func configCollectionView()
     {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createThreeColumnLayout(in: view))
@@ -82,7 +83,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID,
                                                           for: indexPath) as! SNCourseCell
-            cell.set(course: course!)
+//            cell.set(course: course!)
             
             return cell
         }

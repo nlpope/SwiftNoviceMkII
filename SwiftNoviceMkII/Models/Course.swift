@@ -16,11 +16,11 @@ struct Course: Identifiable, Codable
     enum CodingKeys: String, CodingKey
     {
         case id
-        case index
+        case index = "itemIndex"
         case name
         case instructor
         case bio
-        case isBookmarked = "is_bookmarked"
+        case isBookmarked = "is_Bookmarked"
         case avatarUrl = "avatar_url"
 //        case courseProjects = "course_projects"
     }

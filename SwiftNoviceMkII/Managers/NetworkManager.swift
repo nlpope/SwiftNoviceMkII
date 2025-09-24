@@ -18,7 +18,8 @@ class NetworkManager
     func fetchCourses(completed: @escaping(Result<[Course], SNError>) -> Void)
     {
 //        let endpoint = UrlKeys.baseUrl + UrlKeys.coursesEndpoint
-        let endpoint = "http://0.0.0.0:8080/getCourses"
+//        let endpoint = "http://0.0.0.0:8080/getCourses"
+        let endpoint = "http://127.0.0.1:8080/getCourses"
         guard let url = URL(string: endpoint) else
         { completed(.failure(.badURL)); return }
         print(url)
@@ -36,6 +37,7 @@ class NetworkManager
                 let courses = try decoder.decode([Course].self, from: data)
                 completed(.success(courses.sorted { $0.index < $1.index }))
             } catch {
+                print(error)
                 completed(.failure(.errorDecodingData))
             }
         }
