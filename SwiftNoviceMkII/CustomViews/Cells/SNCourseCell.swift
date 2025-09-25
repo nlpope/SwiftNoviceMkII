@@ -24,6 +24,7 @@ class SNCourseCell: UICollectionViewCell
     {
         courseNameLabel.text = course.name
         if course.avatarUrl != nil {
+            print("image loading")
             avatarImageView.downloadImage(fromURL: course.avatarUrl!)
         }
     }

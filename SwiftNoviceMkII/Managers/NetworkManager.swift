@@ -2,8 +2,6 @@
 //  Project: SwiftNoviceMkII
 //  Created by: Noah Pope on 8/3/25.
 
-// ip = 192.168.0.79
-
 import UIKit
 
 class NetworkManager
@@ -17,9 +15,7 @@ class NetworkManager
     
     func fetchCourses(completed: @escaping(Result<[Course], SNError>) -> Void)
     {
-//        let endpoint = UrlKeys.baseUrl + UrlKeys.coursesEndpoint
-//        let endpoint = "http://0.0.0.0:8080/getCourses"
-        let endpoint = "http://127.0.0.1:8080/getCourses"
+        let endpoint = UrlKeys.baseUrl + UrlKeys.coursesEndpoint
         guard let url = URL(string: endpoint) else
         { completed(.failure(.badURL)); return }
         print(url)

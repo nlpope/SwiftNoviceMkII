@@ -50,7 +50,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
             logoLauncher.configLogoLauncher()
         }
         else {
-            fetchCoursesFromServer()
+//            fetchCoursesFromServer()
             loadProgressFromCloudKit()
         }
     }
@@ -83,7 +83,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID,
                                                           for: indexPath) as! SNCourseCell
-//            cell.set(course: course!)
+            if course != nil { cell.set(course: course!) }
             
             return cell
         }
@@ -110,7 +110,6 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     func fetchCoursesFromServer()
     {
         showLoadingView()
-        courses.removeAll()
         
         NetworkManager.shared.fetchCourses { [weak self] result in
             guard let self = self else { return }
@@ -118,27 +117,19 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
             
             switch result {
             case .success(let courses):
+                self.courses = courses
+                print("just fetched, now courses.count = \(courses.count)")
                 updateDataSource(with: courses)
             case .failure(let error):
                 self.presentSNAlertOnMainThread(alertTitle: "Bad Stuff Happened", message: error.rawValue, buttonTitle: "Ok")
             }
         }
-//        let testProject1 = CourseProject(id: 1, title: "proj1", subtitle: "sub1", skills: "swift", link: "www.com", isCompleted: false)
-//        let testProject2 = CourseProject(id: 2, title: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", isCompleted: false)
-//        let testProject3 = CourseProject(id: 3, title: "proj2", subtitle: "sub1z", skills: "swiftz", link: "www.comz", isCompleted: false)
-//        
-//        let testCourse = Course(id: 1, name: "new course", instructor: "james brown", bio: "sing it today", isBookmarked: true, avatarUrl: nil, courseProjects: [testProject1] )
-//        let testCourse2 = Course(id: 2, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject2] )
-//        let testCourse3 = Course(id: 3, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject3] )
-//        let testCourse4 = Course(id: 4, name: "new coursez", instructor: "james brownz", bio: "sing it todayz", isBookmarked: false, avatarUrl: nil, courseProjects: [testProject3] )
-        
-//        courses += [testCourse, testCourse2, testCourse3, testCourse4]
     }
     
     
     func loadProgressFromCloudKit()
     {
-        
+        print("loading progress")
     }
     
     //-------------------------------------//
@@ -176,7 +167,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         if courses.isEmpty {
             let message = "Issue loading courses"
             DispatchQueue.main.async {
-                self.hideSearchController()
+//                self.hideSearchController()
                 self.showEmptyStateView(with: message, in: self.view)
             }
         }
