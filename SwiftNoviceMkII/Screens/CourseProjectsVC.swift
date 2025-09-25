@@ -6,6 +6,12 @@ import UIKit
 
 class CourseProjectsVC
 {
+    var course: Course!
+    
+    init(course: Course)
+    {
+        self.course = course
+    }
     /**
      incorporate following from ghfollowers: follwerlistvc
      

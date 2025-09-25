@@ -180,4 +180,19 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         snapshot.appendItems(courseIds, toSection: .main)
         DispatchQueue.main.async { self.courseListDataSource.apply(snapshot, animatingDifferences: true) }
     }
+    
+    //-------------------------------------//
+    // MARK: - COLLECTIONVIEW DELEGATE METHODS
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        let activeArray = isSearching ? filteredCourses : courses
+        let selectedCourse = activeArray[indexPath.item]
+        
+        let destVC = CourseProjectsVC(course: selectedCourse)
+//        destVC.delegate = self
+        
+        let navController = UINavigationController(rootViewController: destVC)
+        present(navController, animated: true)
+    }
 }
