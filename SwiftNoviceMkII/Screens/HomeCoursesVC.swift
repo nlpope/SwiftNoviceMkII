@@ -192,7 +192,6 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         let destVC = CourseProjectsVC(course: selectedCourse)
 //        destVC.delegate = self
         
-        let navController = UINavigationController(rootViewController: destVC)
-        present(navController, animated: true)
+        navigationController?.pushViewController(destVC, animated: true)
     }
 }
