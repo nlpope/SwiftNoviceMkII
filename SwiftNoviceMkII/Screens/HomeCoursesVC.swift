@@ -3,6 +3,7 @@
 //  Created by: Noah Pope on 7/23/25.
 
 import UIKit
+import SafariServices
 
 struct DataStore
 {
@@ -16,10 +17,11 @@ struct DataStore
     }
 }
 
+enum Section { case main }
+
 
 class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating, UICollectionViewDelegate
 {
-    private enum Section { case main }
     
     let dataStore = DataStore()
     var courses = [Course]()
@@ -54,6 +56,9 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
             loadProgressFromCloudKit()
         }
     }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) { logoLauncher = nil }
     
     //-------------------------------------//
     // MARK: - CONFIGURATION
@@ -106,6 +111,8 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     func hideSearchController()
     { navigationItem.searchController?.searchBar.isHidden = true }
     
+    //-------------------------------------//
+    // MARK: - FETCHING
     
     func fetchCoursesFromServer()
     {

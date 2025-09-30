@@ -11,7 +11,10 @@ class NetworkManager
     
     
     private init() {}
-
+    
+    
+    //-------------------------------------//
+    // MARK: - ATTRIBUTED STRING CREATION
     
     func fetchCourses(completed: @escaping(Result<[Course], SNError>) -> Void)
     {

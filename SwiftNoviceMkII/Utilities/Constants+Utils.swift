@@ -15,7 +15,6 @@ enum SFSymbols
     static let home = UIImage(systemName: "house")
     static let account = UIImage(systemName: "person.circle")
     static let courses = UIImage(systemName: "books.vertical")
-    static let challenges = UIImage(systemName: "figure.badminton")
 }
 
 enum PersistenceKeys
