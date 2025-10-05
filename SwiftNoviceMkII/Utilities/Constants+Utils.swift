@@ -4,17 +4,21 @@
 
 import UIKit
 
-enum VideoKeys
+enum APIKeys
 {
-    static let launchScreen = "launchscreen"
-    static let playerLayerName = "PlayerLayerName"
+    static let baseUrl = "http://127.0.0.1:8080"
+    static let coursesEndpoint = "/getCourses"
 }
 
-enum SFSymbols
+enum ColorKeys
 {
-    static let home = UIImage(systemName: "house")
-    static let account = UIImage(systemName: "person.circle")
-    static let courses = UIImage(systemName: "books.vertical")
+    static let oldGold = UIColor(red: 207/255, green: 181/255, blue: 59/255, alpha: 1.0)
+}
+
+enum Images
+{
+    static let placeholder = UIImage(named: "avatar-placeholder")
+    static let emptyStateLogo = UIImage(named: "empty-state-logo")
 }
 
 enum PersistenceKeys
@@ -30,20 +34,15 @@ enum SaveKeys
     static let isFirstVisit = "isFirstVisitStatus"
 }
 
-enum Images
+enum SFSymbols
 {
-    static let placeholder = UIImage(named: "avatar-placeholder")
-    static let emptyStateLogo = UIImage(named: "empty-state-logo")
+    static let home = UIImage(systemName: "house")
+    static let account = UIImage(systemName: "person.circle")
+    static let courses = UIImage(systemName: "books.vertical")
 }
 
-enum ColorKeys
+enum VideoKeys
 {
-    static let oldGold = UIColor(red: 207/255, green: 181/255, blue: 59/255, alpha: 1.0)
-}
-
-enum UrlKeys
-{
-    static let baseUrl = "http://127.0.0.1:8080"
-//    static let baseUrl = "http://localhost:8080"
-    static let coursesEndpoint = "/getCourses"
+    static let launchScreen = "launchscreen"
+    static let playerLayerName = "PlayerLayerName"
 }

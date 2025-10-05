@@ -4,26 +4,13 @@
 
 import UIKit
 import SafariServices
-
-struct DataStore
-{
-    func findCourse(in courses: [Course], with identifier: UUID?) -> Course?
-    {
-        var targetCourse: Course? = nil
-        for course in courses {
-            if course.id == identifier { targetCourse = course }
-        }
-        return targetCourse
-    }
-}
+import CoreSpotlight
+import MobileCoreServices
 
 enum Section { case main }
 
-
 class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating, UICollectionViewDelegate
-{
-    
-    let dataStore = DataStore()
+{    
     var courses = [Course]()
     var filteredCourses = [Course]()
     var completedCourses = [Course]()
@@ -52,7 +39,6 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
             logoLauncher.configLogoLauncher()
         }
         else {
-//            fetchCoursesFromServer()
             loadProgressFromCloudKit()
         }
     }
@@ -84,11 +70,17 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     {
         courseListDataSource = UICollectionViewDiffableDataSource(collectionView: self.collectionView) {
             [self] (collectionView, indexPath, identifier) -> UICollectionViewCell in
-            let course = dataStore.findCourse(in: courses, with: identifier)
+            var targetCourse: Course?
+            for course in courses {
+                if course.id == identifier { targetCourse = course}
+            }
+//            let course = dataStore.findCourse(in: courses, with: identifier)
 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID,
                                                           for: indexPath) as! SNCourseCell
-            if course != nil { cell.set(course: course!) }
+            
+            if targetCourse != nil { cell.set(course: targetCourse!) }
+//            if course != nil { cell.set(course: course!) }
             
             return cell
         }
@@ -108,8 +100,8 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     }
     
     
-    func hideSearchController()
-    { navigationItem.searchController?.searchBar.isHidden = true }
+//    func hideSearchController()
+//    { navigationItem.searchController?.searchBar.isHidden = true }
     
     //-------------------------------------//
     // MARK: - FETCHING
@@ -171,12 +163,9 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     func updateDataSource(with courses: [Course])
     {
-        if courses.isEmpty {
+        guard !courses.isEmpty else {
             let message = "Issue loading courses"
-            DispatchQueue.main.async {
-//                self.hideSearchController()
-                self.showEmptyStateView(with: message, in: self.view)
-            }
+            DispatchQueue.main.async { self.showEmptyStateView(with: message, in: self.view) }; return
         }
         
         let courseIds = courses.map { $0.id }

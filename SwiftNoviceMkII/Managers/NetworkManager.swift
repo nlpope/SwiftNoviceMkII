@@ -18,7 +18,7 @@ class NetworkManager
     
     func fetchCourses(completed: @escaping(Result<[Course], SNError>) -> Void)
     {
-        let endpoint = UrlKeys.baseUrl + UrlKeys.coursesEndpoint
+        let endpoint = APIKeys.baseUrl + APIKeys.coursesEndpoint
         guard let url = URL(string: endpoint) else
         { completed(.failure(.badURL)); return }
         print(url)

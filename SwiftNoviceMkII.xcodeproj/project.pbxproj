@@ -230,7 +230,6 @@
 				40D19EA92E30CFBF008D9669 /* Assets.xcassets */,
 				40D19ED52E30F827008D9669 /* launchscreen.mp4 */,
 				40D19EB02E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodeld */,
-				40C97FD82E8C60E500C55111 /* SNTableViewDiffableDataSource.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -295,6 +294,7 @@
 				40D19ED32E30F60C008D9669 /* SNLogoLauncher+Utils.swift */,
 				4096DACF2E385CAD00E6C5F5 /* SNError+Utils.swift */,
 				40BFB2062E3A22B200A3E83E /* UIHelper+Utils.swift */,
+				40C97FD82E8C60E500C55111 /* SNTableViewDiffableDataSource.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
