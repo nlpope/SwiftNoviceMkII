@@ -24,7 +24,7 @@ struct Course: Identifiable, Codable
         case isBookmarked = "is_Bookmarked"
         case avatarUrl = "avatar_url"
         case courseUrl = "course_url"
-        case courseProjectsAPIUrl = "course_projects_url"
+        case courseProjectsAPIUrl = "course_projects_api_url"
     }
 }
 
