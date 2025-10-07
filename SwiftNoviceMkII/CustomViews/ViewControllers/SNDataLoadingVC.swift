@@ -4,6 +4,8 @@
 
 import UIKit
 
+enum Section { case main }
+
 class SNDataLoadingVC: UIViewController
 {
     var containerView: UIView!

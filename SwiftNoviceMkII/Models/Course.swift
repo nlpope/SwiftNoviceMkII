@@ -11,7 +11,8 @@ struct Course: Identifiable, Codable
     let name, instructor, bio: String
     let isBookmarked: Bool
     let avatarUrl: String?
-//    var courseProjects: [CourseProject]
+    var courseUrl: String
+    var courseProjectsAPIUrl: String
     
     enum CodingKeys: String, CodingKey
     {
@@ -22,8 +23,9 @@ struct Course: Identifiable, Codable
         case bio
         case isBookmarked = "is_Bookmarked"
         case avatarUrl = "avatar_url"
-//        case courseProjects = "course_projects"
+        case courseUrl = "course_url"
+        case courseProjectsAPIUrl = "course_projects_url"
     }
 }
 
-#warning("include all this info in a liquid glass popup that leads to the courses (identical to swift searcher layout)")
+#warning("for iOS 15(?) and up, include all this info in a liquid glass popup that leads to the courses (identical to swift searcher layout)")

@@ -6,7 +6,8 @@ import Foundation
 
 struct CourseProject: Identifiable, Codable
 {
-    var id: Int
+    var id: UUID?
+    let index: Int
     
     let title, subtitle, skills, link: String
     var isCompleted: Bool

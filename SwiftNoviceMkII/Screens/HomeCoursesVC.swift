@@ -7,10 +7,9 @@ import SafariServices
 import CoreSpotlight
 import MobileCoreServices
 
-enum Section { case main }
 
 class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating, UICollectionViewDelegate
-{    
+{
     var courses = [Course]()
     var filteredCourses = [Course]()
     var completedCourses = [Course]()
@@ -74,13 +73,11 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
             for course in courses {
                 if course.id == identifier { targetCourse = course}
             }
-//            let course = dataStore.findCourse(in: courses, with: identifier)
 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SNCourseCell.reuseID,
                                                           for: indexPath) as! SNCourseCell
             
             if targetCourse != nil { cell.set(course: targetCourse!) }
-//            if course != nil { cell.set(course: course!) }
             
             return cell
         }
@@ -185,8 +182,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         let activeArray = isSearching ? filteredCourses : courses
         let selectedCourse = activeArray[indexPath.item]
         
-        let destVC = CourseProjectsVC(course: selectedCourse)
-//        destVC.delegate = self
+        let destVC = CourseProjectsVC(course: selectedCourse, delegate: self)
         
         navigationController?.pushViewController(destVC, animated: true)
     }

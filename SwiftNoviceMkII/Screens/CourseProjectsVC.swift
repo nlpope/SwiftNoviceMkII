@@ -7,15 +7,19 @@ import SafariServices
 import CoreSpotlight
 import MobileCoreServices
 
-class CourseProjectsVC: SNDataLoadingVC
+class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
 {
     var course: Course!
+    var delegate: SNDataLoadingVC!
+    var dataSource: SNTableViewDiffableDataSource!
+    var courseProjects = [CourseProject]()
+    var completedProjects = [CourseProject]()
     
-    
-    init(course: Course)
+    init(course: Course, delegate: SNDataLoadingVC)
     {
         super.init(nibName: nil, bundle: nil)
         self.course = course
+        self.delegate = delegate
     }
     
     
@@ -36,13 +40,55 @@ class CourseProjectsVC: SNDataLoadingVC
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        let followCourseButton = UIBarButtonItem(barButtonSystemItem: .fastForward, target: self, action: #selector(followCourseTapped))
+        
+        navigationItem.rightBarButtonItems = [addButton, followCourseButton]
     }
     
     
     @objc func addButtonTapped()
     {
-        print("add button tapped")
+        print("added to bookmarks - not really")
     }
+    
+    
+    @objc func followCourseTapped()
+    {
+        print("follow course tapped")
+    }
+    
+    
+    func updateCompleted(with: CourseProject, actionType: CoursePersistenceActionType)
+    {
+        switch actionType {
+        case .complete:
+            completedProjects.append(project)
+            PersistenceManager.updateFavorites(with: project, actionType: .add) { [weak self] error in
+                guard let self = self else { return }
+                guard let error = error else {
+                    presentSSAlertOnMainThread(title: AlertKeys.saveSuccessTitle, msg: AlertKeys.saveSuccessMsg, btnTitle: "Ok")
+                    updateDataSource(with: projects)
+                    return
+                }
+                self.presentSSAlertOnMainThread(title: "Failed to favorite", msg: error.rawValue, btnTitle: "Ok")
+            }
+            
+        case .incomplete:
+            favorites.removeAll { $0.title == project.title }
+            PersistenceManager.updateFavorites(with: project, actionType: .remove) { [weak self] error in
+                guard let self = self else { return }
+                guard let error = error else {
+                    presentSSAlertOnMainThread(title: AlertKeys.removeSuccessTitle, msg: AlertKeys.removeSuccessMsg, btnTitle: "Ok")
+                    updateDataSource(with: projects)
+                    return
+                }
+                self.presentSSAlertOnMainThread(title: "Failed to remove favorite", msg: error.rawValue, btnTitle: "Ok")
+            }
+        }
+    }
+    
+    
+    
     
     /**
      incorporate following from ghfollowers: follwerlistvc
