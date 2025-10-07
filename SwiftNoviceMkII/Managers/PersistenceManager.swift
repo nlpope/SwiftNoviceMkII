@@ -6,7 +6,7 @@ import Foundation
 
 enum CoursePersistenceActionType
 {
-    case complete, incomplete
+    case complete, incomplete, addToBookmarks, deleteFromBookmarks
 }
 
 enum PersistenceManager
