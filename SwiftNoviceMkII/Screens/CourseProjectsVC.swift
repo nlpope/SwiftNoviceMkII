@@ -93,7 +93,7 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
         switch actionType {
         case .complete:
             completedProjects.append(project)
-            PersistenceManager.updateFavorites(with: project, actionType: .complete) { [weak self] error in
+            PersistenceManager.updateFavorites(with: project, actionType: ) { [weak self] error in
                 guard let self = self else { return }
                 guard let error = error else {
                     presentSSAlertOnMainThread(title: AlertKeys.saveSuccessTitle, msg: AlertKeys.saveSuccessMsg, btnTitle: "Ok")

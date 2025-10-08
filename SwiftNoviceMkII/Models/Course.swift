@@ -13,18 +13,20 @@ struct Course: Identifiable, Codable
     let avatarUrl: String?
     var courseUrl: String
     var courseProjectsAPIUrl: String
+    var isCompleted: Bool
     
     enum CodingKeys: String, CodingKey
     {
         case id
-        case index = "itemIndex"
+        case index = "item_index"
         case name
         case instructor
         case bio
-        case isBookmarked = "is_Bookmarked"
+        case isBookmarked = "is_bookmarked"
         case avatarUrl = "avatar_url"
         case courseUrl = "course_url"
         case courseProjectsAPIUrl = "course_projects_api_url"
+        case isCompleted = "is_completed"
     }
 }
 

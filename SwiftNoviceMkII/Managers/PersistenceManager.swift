@@ -5,14 +5,17 @@
 import Foundation
 
 // courses marked completed manually (HomeCoursesVC = CourseProjectsVCDelegate)
-enum CoursePersistenceActionType
+// rmember, you only need persistence w the indiv. projects
+// the course being the projects pg's delegate communicates the rest (completion & bookmarks) - so add language in HomeCoursesVC & BookmarksVC's viewWillAppear that asks if course is bookmarked since all we have is an scripts api link and not an array of projects
+
+enum ProjectBookmarkToggleActionType
 {
-    case complete, incomplete
+    case add, remove
 }
 
-enum ProjectPersistenceActionType
+enum ProjectCompletionToggleActionType
 {
-    case complete, incomplete, addToBookmarks, removeFromBookmarks
+    case complete, incomplete
 }
 
 enum PersistenceManager
@@ -88,9 +91,9 @@ enum PersistenceManager
     }
     
     //-------------------------------------//
-    // MARK: - COURSE PERSISTENCE
+    // MARK: - COMPLETION PERSISTENCE
     
-    static func updateCompletedCourses(with course: Course, actionType: CoursePersistenceActionType, completed: @escaping (SNError?) -> Void)
+    static func updateCompletedProjectsBin(with project: CourseProject, actionType: ProjectPersistenceActionType, completed: @escaping (SNError?) -> Void)
     {
         fetchCourseProgress { result in
             switch result {
@@ -106,8 +109,25 @@ enum PersistenceManager
         }
     }
     
+    //-------------------------------------//
+    // MARK: - BOOKMARK PERSISTENCE
     
-    static func handle(_ actionType: CoursePersistenceActionType, for course: Course, in courses:  inout [Course], completed: @escaping (SNError?) -> Void)
+    static func updateBookmarkedCoursesBin(with course: Course, actionType: ProjectBookmarkToggleActionType, completed: @escaping (SNError?) -> Void)
+    {
+        
+    }
+    
+    
+    static func updateBookmarkedProjectsBin(with project: CourseProject, actionType: ProjectBookmarkToggleActionType, completed: @escaping (SNError?) -> Void)
+    {
+        
+    }
+    
+    //-------------------------------------//
+    // MARK: - HELPER FUNCTION
+    
+    
+    static func handleCompletion(_ actionType: ProjectCompletionToggleActionType, for course: Course, in courses:  inout [Course], completed: @escaping (SNError?) -> Void)
     {
         switch actionType {
         case .complete:
@@ -119,6 +139,19 @@ enum PersistenceManager
         }
     }
     
+    
+    static func handleBookmark(_ actionType: ProjectBookmarkToggleActionType, for course: Course, in courses:  inout [Course], completed: @escaping (SNError?) -> Void)
+    {
+        switch actionType {
+        case .add:
+            courses.removeAll { $0.name == course.name }
+            courses.append(course)
+        /**--------------------------------------------------------------------------**/
+        case .remove:
+            courses.removeAll { $0.name == course.name }
+        }
+    }
+        
     
     static func fetchCourseProgress(completed: @escaping (Result<[Course], SNError>) -> Void)
     {
