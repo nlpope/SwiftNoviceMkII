@@ -8,10 +8,11 @@ import MobileCoreServices
 
 protocol SNTableViewDiffableDataSourceDelegate
 {
-    var courseProjects: [CourseProject] { get set }
-    var completedProjects: [CourseProject] { get set }
-    var bookmarkedProjects: [CourseProject] { get set }
-    func updateCompletedBin(with: CourseProject, actionType: ProjectPersistenceActionType)
+//    var courseProjects: [CourseProject] { get set }
+//    var completedProjects: [CourseProject] { get set }
+//    var bookmarkedProjects: [CourseProject] { get set }
+    func updateBookmarksBin(with: CourseProject, actionType: ProjectBookmarkToggleActionType)
+    func updateCompletedBin(with: CourseProject, actionType: ProjectCompletionToggleActionType)
 }
 
 /** this subclass is here only to make the 'commit editingStyle' override method work */

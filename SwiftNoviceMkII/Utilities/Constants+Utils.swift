@@ -46,3 +46,20 @@ enum VideoKeys
     static let launchScreen = "launchscreen"
     static let playerLayerName = "PlayerLayerName"
 }
+
+enum AlertKeys
+{
+    // BOOKMARKS
+    static let bookmarkSuccessTitle = "Added to bookmarks 🥳"
+    static let bookmarkSuccessMsg = "Project successfully added to your bookmarks tab. It is now searchable via your iPhone's Spotlight feature."
+    
+    static let bookmarkRemovedSuccessTitle = "Removed from bookmarks"
+    static let bookmarkRemovedSuccessMsg = "This project was successfully removed from your bookmarks tab. It is no longer searchable via your iPhone's Spotlight feature."
+    
+    // COMPLETE/INCOMPLETE
+    static let completionSuccessTitle = "Marked 'Complete' 🥳"
+    static let completionSuccessMsg = "Congratulations. This project has been marked as successfully completed. Keep at it!"
+    
+    static let incompletionSuccessTitle = "Marked 'Incomplete'"
+    static let incompletionSuccessMsg = "This project has now been marked 'incomplete'. You may return to it when ready."
+}

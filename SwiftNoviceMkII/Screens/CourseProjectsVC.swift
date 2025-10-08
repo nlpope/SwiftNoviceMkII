@@ -8,7 +8,7 @@ import CoreSpotlight
 import MobileCoreServices
 
 class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
-{    
+{
     var selectedCourse: Course!
     var delegate: SNDataLoadingVC!
     var dataSource: SNTableViewDiffableDataSource!
@@ -88,15 +88,27 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
     }
     
     
-    func updateCompletedBin(with project: CourseProject, actionType: ProjectPersistenceActionType)
+    func updateBookmarksBin(with project: CourseProject, actionType: ProjectBookmarkToggleActionType)
+    {
+        switch actionType {
+        case .add:
+            print("add tapped")
+        case .remove:
+            print("remove tapped")
+        }
+    }
+    
+    
+    func updateCompletedBin(with project: CourseProject, actionType: ProjectCompletionToggleActionType)
     {
         switch actionType {
         case .complete:
             completedProjects.append(project)
-            PersistenceManager.updateFavorites(with: project, actionType: ) { [weak self] error in
+            PersistenceManager.updateCompletedBin(with: project, actionType: .complete ) { [weak self] error in
                 guard let self = self else { return }
                 guard let error = error else {
-                    presentSSAlertOnMainThread(title: AlertKeys.saveSuccessTitle, msg: AlertKeys.saveSuccessMsg, btnTitle: "Ok")
+                    presentSNAlertOnMainThread(alertTitle: <#T##String#>, message: <#T##String#>, buttonTitle: <#T##String#>)
+                    presentSNAlertOnMainThread(title: AlertKeys.saveSuccessTitle, msg: AlertKeys.saveSuccessMsg, btnTitle: "Ok")
                     updateDataSource(with: projects)
                     return
                 }
@@ -120,8 +132,6 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
             print("removing from bookmarks")
         }
     }
-    
-    
     
     
     /**

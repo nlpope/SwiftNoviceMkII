@@ -91,9 +91,17 @@ enum PersistenceManager
     }
     
     //-------------------------------------//
+    // MARK: - BOOKMARK PERSISTENCE
+    
+    static func updateBookmarksBin(with course: Course, actionType: ProjectBookmarkToggleActionType, completed: @escaping (SNError?) -> Void)
+    {
+        
+    }
+    
+    //-------------------------------------//
     // MARK: - COMPLETION PERSISTENCE
     
-    static func updateCompletedProjectsBin(with project: CourseProject, actionType: ProjectPersistenceActionType, completed: @escaping (SNError?) -> Void)
+    static func updateCompletedBin(with project: CourseProject, actionType: ProjectCompletionToggleActionType, completed: @escaping (SNError?) -> Void)
     {
         fetchCourseProgress { result in
             switch result {
@@ -107,20 +115,6 @@ enum PersistenceManager
                 completed(error)
             }
         }
-    }
-    
-    //-------------------------------------//
-    // MARK: - BOOKMARK PERSISTENCE
-    
-    static func updateBookmarkedCoursesBin(with course: Course, actionType: ProjectBookmarkToggleActionType, completed: @escaping (SNError?) -> Void)
-    {
-        
-    }
-    
-    
-    static func updateBookmarkedProjectsBin(with project: CourseProject, actionType: ProjectBookmarkToggleActionType, completed: @escaping (SNError?) -> Void)
-    {
-        
     }
     
     //-------------------------------------//
