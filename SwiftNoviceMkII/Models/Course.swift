@@ -9,10 +9,10 @@ struct Course: Identifiable, Codable
     var id: UUID?
     let index: Int
     let name, instructor, bio: String
-    let isBookmarked: Bool
     let avatarUrl: String?
     var courseUrl: String
     var courseProjectsAPIUrl: String
+    let isBookmarked: Bool
     var isCompleted: Bool
     
     enum CodingKeys: String, CodingKey
@@ -22,10 +22,10 @@ struct Course: Identifiable, Codable
         case name
         case instructor
         case bio
-        case isBookmarked = "is_bookmarked"
         case avatarUrl = "avatar_url"
         case courseUrl = "course_url"
         case courseProjectsAPIUrl = "course_projects_api_url"
+        case isBookmarked = "is_bookmarked"
         case isCompleted = "is_completed"
     }
 }
