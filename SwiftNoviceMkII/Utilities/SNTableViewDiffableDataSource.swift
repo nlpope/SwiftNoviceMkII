@@ -8,7 +8,7 @@ protocol SNTableViewDiffableDataSourceDelegate
 {
     var courseProjects: [CourseProject] { get set }
     var completedProjects: [CourseProject] { get set }
-    func updateCompletedBin(with: CourseProject, actionType: CoursePersistenceActionType)
+    func updateCompletedBin(with: CourseProject, actionType: ProjectPersistenceActionType)
 }
 
 /** this subclass is here only to make the 'commit editingStyle' override method work */
@@ -49,7 +49,7 @@ class SNTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, Cour
     //-------------------------------------//
     // MARK: - INDEXING (ENABLES SPOTLIGHT SEARCHING)
     
-    func index(project: SSProject)
+    func index(project: CourseProject)
     {
         let attributeSet = CSSearchableItemAttributeSet(itemContentType: UTType.text.description as String)
         attributeSet.title = project.title
@@ -67,7 +67,7 @@ class SNTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, Cour
     }
     
     
-    func deindex(item: SSProject)
+    func deindex(item: CourseProject)
     {
         CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: ["\(item.index)"]) { error in
             if let error = error { print("Deindexing error: \(error)") }

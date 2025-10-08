@@ -8,7 +8,7 @@ import CoreSpotlight
 import MobileCoreServices
 
 class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
-{
+{    
     var course: Course!
     var delegate: SNDataLoadingVC!
     var dataSource: SNTableViewDiffableDataSource!
@@ -31,6 +31,12 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
         configSearchController()
         configDiffableDataSource()
         configTableView()
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool)
+    {
+        // animate 'go to course' button to pop in
     }
     
     
