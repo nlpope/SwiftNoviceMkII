@@ -14,6 +14,7 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
     var dataSource: SNTableViewDiffableDataSource!
     var courseProjects = [CourseProject]()
     var completedProjects = [CourseProject]()
+    var bookmarkedProjects = [CourseProject]()
     
     init(course: Course, delegate: SNDataLoadingVC)
     {

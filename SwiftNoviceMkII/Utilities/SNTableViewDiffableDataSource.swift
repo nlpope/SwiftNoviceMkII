@@ -3,6 +3,8 @@
 //  Created by: Noah Pope on 9/30/25.
 
 import UIKit
+import CoreSpotlight
+import MobileCoreServices
 
 protocol SNTableViewDiffableDataSourceDelegate
 {
@@ -19,6 +21,7 @@ class SNTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, Cour
     
     init(delegate: SNTableViewDiffableDataSourceDelegate!)
     {
+        super.init()
         self.delegate = delegate
     }
     
