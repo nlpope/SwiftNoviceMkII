@@ -4,9 +4,16 @@
 
 import Foundation
 
+// courses may be bookmarked AND completed (not manually, via projectsVC)
 enum CoursePersistenceActionType
 {
     case complete, incomplete, addToBookmarks, deleteFromBookmarks
+}
+
+// projects can only be completed, not bookmarked
+enum ProjectPersistenceActionType
+{
+    case complete, incomplete
 }
 
 enum PersistenceManager

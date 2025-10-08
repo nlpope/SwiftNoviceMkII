@@ -8,7 +8,7 @@ protocol SNTableViewDiffableDataSourceDelegate
 {
     var courseProjects: [CourseProject] { get set }
     var completedProjects: [CourseProject] { get set }
-    func updateCompleted(with: CourseProject, actionType: CoursePersistenceActionType)
+    func updateCompletedBin(with: CourseProject, actionType: CoursePersistenceActionType)
 }
 
 /** this subclass is here only to make the 'commit editingStyle' override method work */
@@ -33,13 +33,13 @@ class SNTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, Cour
     {
         let currentProject = delegate.courseProjects[indexPath.row]
         if editingStyle == .insert {
-            delegate.updateCompleted(with: currentProject, actionType: .complete)
+            delegate.updateCompletedBin(with: currentProject, actionType: .complete)
             tableView.cellForRow(at: indexPath)?.editingAccessoryType = .checkmark
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
             index(project: currentProject)
         }
         else {
-            delegate.updateCompleted(with: currentProject, actionType: .incomplete)
+            delegate.updateCompletedBin(with: currentProject, actionType: .incomplete)
             tableView.cellForRow(at: indexPath)?.editingAccessoryType = .none
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
             deindex(item: currentProject)

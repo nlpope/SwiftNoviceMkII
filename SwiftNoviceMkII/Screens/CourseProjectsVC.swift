@@ -28,11 +28,16 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
         super.viewDidLoad()
         view.backgroundColor = .systemPink
         configNavBar()
+        configSearchController()
+        configDiffableDataSource()
+        configTableView()
     }
     
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
+    //-------------------------------------//
+    // MARK: - CONFIGURATION
     
     func configNavBar()
     {
@@ -43,6 +48,24 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
         let followCourseButton = UIBarButtonItem(barButtonSystemItem: .fastForward, target: self, action: #selector(followCourseTapped))
         
         navigationItem.rightBarButtonItems = [addButton, followCourseButton]
+    }
+    
+    
+    func configSearchController()
+    {
+        
+    }
+    
+    
+    func configDiffableDataSource()
+    {
+        
+    }
+    
+    
+    func configTableView()
+    {
+        
     }
     
     
@@ -58,7 +81,7 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
     }
     
     
-    func updateCompleted(with project: CourseProject, actionType: CoursePersistenceActionType)
+    func updateCompletedBin(with project: CourseProject, actionType: ProjectPersistenceActionType)
     {
         switch actionType {
         case .complete:
@@ -84,6 +107,10 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
                 }
                 self.presentSSAlertOnMainThread(title: "Failed to remove favorite", msg: error.rawValue, btnTitle: "Ok")
             }
+        case .addToBookmarks:
+            print("adding to bookmarks")
+        case .deleteFromBookmarks:
+            print("removing from bookmarks")
         }
     }
     
