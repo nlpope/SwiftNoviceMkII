@@ -10,6 +10,7 @@ protocol SNTableViewDiffableDataSourceDelegate
 {
     var courseProjects: [CourseProject] { get set }
     var completedProjects: [CourseProject] { get set }
+    var bookmarkedProjects: [CourseProject] { get set }
     func updateCompletedBin(with: CourseProject, actionType: ProjectPersistenceActionType)
 }
 
@@ -17,13 +18,6 @@ protocol SNTableViewDiffableDataSourceDelegate
 class SNTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, CourseProject.ID>
 {
     var delegate: SNTableViewDiffableDataSourceDelegate!
-    
-    
-    init(delegate: SNTableViewDiffableDataSourceDelegate!)
-    {
-        super.init()
-        self.delegate = delegate
-    }
     
     //-------------------------------------//
     // MARK: - TABLEVIEW DELEGATE METHODS 2/2

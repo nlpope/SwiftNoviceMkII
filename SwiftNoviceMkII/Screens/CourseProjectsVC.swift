@@ -9,7 +9,7 @@ import MobileCoreServices
 
 class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
 {    
-    var course: Course!
+    var selectedCourse: Course!
     var delegate: SNDataLoadingVC!
     var dataSource: SNTableViewDiffableDataSource!
     var courseProjects = [CourseProject]()
@@ -19,7 +19,7 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
     init(course: Course, delegate: SNDataLoadingVC)
     {
         super.init(nibName: nil, bundle: nil)
-        self.course = course
+        self.selectedCourse = course
         self.delegate = delegate
     }
     
@@ -37,7 +37,7 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
     
     override func viewDidAppear(_ animated: Bool)
     {
-        // animate 'go to course' button to pop in
+        // animate 'go to selectedCourse' button to pop in
     }
     
     
@@ -84,7 +84,7 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
     
     @objc func followCourseTapped()
     {
-        print("follow course tapped")
+        print("follow selectedCourse tapped")
     }
     
     
