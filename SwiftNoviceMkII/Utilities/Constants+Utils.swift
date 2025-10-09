@@ -6,8 +6,9 @@ import UIKit
 
 enum APIKeys
 {
-    static let baseUrl = "http://127.0.0.1:8080"
-    static let coursesEndpoint = "/getCourses"
+    static let vaporUrl = "http://127.0.0.1:8080/getCourses"
+    static let gitScrpitsUrl = ""
+    static let playgrounds1
 }
 
 enum ColorKeys

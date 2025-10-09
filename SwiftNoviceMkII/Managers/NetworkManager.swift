@@ -12,13 +12,12 @@ class NetworkManager
     
     private init() {}
     
-    
     //-------------------------------------//
     // MARK: - ATTRIBUTED STRING CREATION
     
     func fetchCourses(completed: @escaping(Result<[Course], SNError>) -> Void)
     {
-        let endpoint = APIKeys.baseUrl + APIKeys.coursesEndpoint
+        let endpoint = APIKeys.vaporUrl
         guard let url = URL(string: endpoint) else
         { completed(.failure(.badURL)); return }
         print(url)
@@ -42,6 +41,12 @@ class NetworkManager
         }
         
         task.resume()
+    }
+    
+    
+    func fetchCourseProjects(completed: @escaping(Result<[CourseProject], SNError>) -> Void)
+    {
+        let endpoint = 
     }
     
     

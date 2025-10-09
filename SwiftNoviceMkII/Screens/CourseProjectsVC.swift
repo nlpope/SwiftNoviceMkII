@@ -15,11 +15,13 @@ import MobileCoreServices
 class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
 {
     var selectedCourse: Course!
+    // split sections up based on if selectedCourse == playgrounds 1 or 2
     var delegate: SNDataLoadingVC!
-    var dataSource: SNTableViewDiffableDataSource!
     var courseProjects = [CourseProject]()
     var completedProjects = [CourseProject]()
     var bookmarkedProjects = [CourseProject]()
+    var tableView: UITableView!
+    var dataSource: SNTableViewDiffableDataSource!
     
     init(course: Course, delegate: SNDataLoadingVC)
     {
@@ -71,13 +73,36 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
     
     func configDiffableDataSource()
     {
-        
+        dataSource = SNTableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, project in
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SSCell", for: indexPath)
+            
+            let cellTitle = project.title == "" ? "Untitled" : "Project \(project.index) \(project.title)"
+            let cellSubtitle = project.subtitle == "" ? "" : project.subtitle
+            let cellSkillList = project.skills == "" ? "" : project.skills
+                        
+            // contin. @ tableView delegate sect > tableView(_:editingStyleForRowAt:)
+            if self.favorites.contains(project) {
+                cell.editingAccessoryType = .checkmark
+                cell.accessoryType = .checkmark
+            } else {
+                cell.editingAccessoryType = .none
+                cell.accessoryType = .none
+            }
+            
+            cell.textLabel?.attributedText = self.makeAttributedString(title: cellTitle, subtitle: cellSubtitle, skills: cellSkillList)
+            
+            return cell
     }
-    
+   
     
     func configTableView()
     {
+        tableView = UITableView(frame: view.bounds)
         
+        view.addSubview(tableView)
+//        tableView.delegate          = self
+        tableView.backgroundColor   = .systemBackground
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
     
