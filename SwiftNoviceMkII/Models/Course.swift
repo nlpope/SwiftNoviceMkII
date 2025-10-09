@@ -10,6 +10,7 @@ struct Course: Identifiable, Codable
     let index: Int
     let name, instructor, bio: String
     let avatarUrl: String?
+    // course url will be added to the go button in next screen's nav bar
     var courseUrl: String
     var courseProjectsAPIUrl: String
     let isBookmarked: Bool

@@ -92,6 +92,10 @@ enum PersistenceManager
     
     //-------------------------------------//
     // MARK: - BOOKMARK PERSISTENCE
+    // PERSIST INDIVIDUAL COURSES EVEN THOUGH IT'S ONLY ACCESSIBLE THROUGH AN API,
+    // > NOT TRUE, THE API LEADS TO SOMETHING BEING MAPPED VIA THE COURESPROJECT MODEL
+    // > SO OSTENSIBLY THE MODEL'S IS_BOOKMARKED PROP SHOULD BE PERSISTED
+    // > SO I JUST NEED 2 SAVE FUNCS FOR A COURSE BIN AND A COURSE PROJECT BIN
     
     static func updateBookmarksBin(with course: Course, actionType: ProjectBookmarkToggleActionType, completed: @escaping (SNError?) -> Void)
     {
@@ -164,6 +168,7 @@ enum PersistenceManager
     }
     
     
+    // BOOKMARKS & COMPLETED STATUS (NOT EDITABLE BY USER)
     static func saveAllProgress(for courses: [Course]) -> SNError?
     {
         do {

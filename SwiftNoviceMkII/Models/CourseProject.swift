@@ -8,31 +8,50 @@ struct CourseProject: Identifiable, Codable
 {
     var id: UUID?
     let index: Int
-    
     let title, subtitle, skills, link: String
+    var isBookmarked: Bool
     var isCompleted: Bool
+    
+    enum CodingKeys: String, CodingKey
+    {
+        case id
+        case index = "item_index"
+        case name
+        case instructor
+        case bio
+        case avatarUrl = "avatar_url"
+        case courseUrl = "course_url"
+        case isBookmarked = "is_bookmarked"
+        case isCompleted = "is_completed"
+    }
 }
 
-/**
+
  
+/**
  struct Course: Identifiable, Codable
  {
      var id: UUID?
      let index: Int
      let name, instructor, bio: String
-     let isBookmarked: Bool
      let avatarUrl: String?
- //    var courseProjects: [CourseProject]
+     var courseUrl: String
+     var courseProjectsAPIUrl: String
+     let isBookmarked: Bool
+     var isCompleted: Bool
      
      enum CodingKeys: String, CodingKey
      {
          case id
-         case index = "itemIndex"
+         case index = "item_index"
          case name
          case instructor
          case bio
-         case isBookmarked = "is_Bookmarked"
          case avatarUrl = "avatar_url"
- //        case courseProjects = "course_projects"
+         case courseUrl = "course_url"
+         case courseProjectsAPIUrl = "course_projects_api_url"
+         case isBookmarked = "is_bookmarked"
+         case isCompleted = "is_completed"
      }
+ }
  */

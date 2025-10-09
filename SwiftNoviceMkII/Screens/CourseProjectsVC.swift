@@ -7,10 +7,15 @@ import SafariServices
 import CoreSpotlight
 import MobileCoreServices
 
+// ADD ALERTS ON 1ST VIEW || 'NAVIGATION INSTRUCTIONS' BUTTON - # 1 "WELCOME TO THE COURSE PROJECTS PAGE. YOU CAN BOOKMARK A PROJECT OR MARK IT AS COMPLETE."
+// #2 "WHEN ALL PROJECTS ARE COMPLETE THIS COURSE WILL BE MARKED COMPLETE AS WELL." WHEN YOU ARE READY, YOU CAN GO TO THE COURSE VIA THE GO BUTTON UP TOP."
+// # 3 "WE'VE DONE OUR BEST TO KEEP EVERYTHING UP TO DATE, BUT IF YOU NOTICE A DISCREPANCY PLEASE FEEL FREE TO REACH OUT"
+
 class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
 {
     var selectedCourse: Course!
-    var delegate: SNDataLoadingVC!
+//    var delegate: SNDataLoadingVC!
+    var delegate: CourseProjectsVCDelegate!
     var dataSource: SNTableViewDiffableDataSource!
     var courseProjects = [CourseProject]()
     var completedProjects = [CourseProject]()
@@ -52,7 +57,7 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
-        let followCourseButton = UIBarButtonItem(barButtonSystemItem: .fastForward, target: self, action: #selector(followCourseTapped))
+        let followCourseButton = UIBarButtonItem(barButtonSystemItem: .fastForward, target: self, action: #selector(goToCourseTapped))
         
         navigationItem.rightBarButtonItems = [addButton, followCourseButton]
     }
@@ -82,9 +87,10 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
     }
     
     
-    @objc func followCourseTapped()
+    @objc func goToCourseTapped()
     {
         print("follow selectedCourse tapped")
+        print("course url: \(selectedCourse.courseUrl)")
     }
     
     
