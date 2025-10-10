@@ -8,12 +8,22 @@ import Foundation
 // rmember, you only need persistence w the indiv. projects
 // the course being the projects pg's delegate communicates the rest (completion & bookmarks) - so add language in HomeCoursesVC & BookmarksVC's viewWillAppear that asks if course is bookmarked since all we have is an scripts api link and not an array of projects
 
-enum ProjectBookmarkToggleActionType
+//enum ProjectBookmarkToggleActionType
+//{
+//    case add, remove
+//}
+//
+//enum ProjectCompletionToggleActionType
+//{
+//    case complete, incomplete
+//}
+
+enum BookmarkToggleActionType
 {
     case add, remove
 }
 
-enum ProjectCompletionToggleActionType
+enum CompletionToggleActionType
 {
     case complete, incomplete
 }
@@ -61,7 +71,7 @@ enum PersistenceManager
     }
     
     //-------------------------------------//
-    // MARK: - SAVE / FETCH VISIT POST DISMISSAL STATUS (FOR LOGO LAUNCHER)
+    // MARK: - VISIT POST DISMISSAL STATUS (FOR LOGO LAUNCHER) SAVING & FETCHING
     
     static func saveFirstVisitPostDismissal(status: Bool)
     {
@@ -91,50 +101,58 @@ enum PersistenceManager
     }
     
     //-------------------------------------//
-    // MARK: - BOOKMARK PERSISTENCE
-    // PERSIST INDIVIDUAL COURSES EVEN THOUGH IT'S ONLY ACCESSIBLE THROUGH AN API,
-    // > NOT TRUE, THE API LEADS TO SOMETHING BEING MAPPED VIA THE COURESPROJECT MODEL
-    // > SO OSTENSIBLY THE MODEL'S IS_BOOKMARKED PROP SHOULD BE PERSISTED
-    // > SO I JUST NEED 2 SAVE FUNCS FOR A COURSE BIN AND A COURSE PROJECT BIN
+    // MARK: - BOOKMARK & COMPLETION SAVING & FETCHING (with helper func)
     
-    static func updateBookmarksBin(with course: Course, actionType: ProjectBookmarkToggleActionType, completed: @escaping (SNError?) -> Void)
+//    static func updateCompletedBin(with project: CourseProject, actionType: ProjectCompletionToggleActionType, completed: @escaping (SNError?) -> Void)
+//    {
+//        fetchCourseProgress { result in
+//            switch result {
+//            case .success(var courses):
+//                handle(actionType, for: course, in: &courses) { error in
+//                    if error != nil { completed(error); return }
+//                }
+//                completed(saveAllProgress(for: courses))
+//            /**--------------------------------------------------------------------------**/
+//            case .failure(let error):
+//                completed(error)
+//            }
+//        }
+//    }
+    
+    
+    static func updateCoursesProgress(with course: Course)
     {
         
     }
     
-    //-------------------------------------//
-    // MARK: - COMPLETION PERSISTENCE
     
-    static func updateCompletedBin(with project: CourseProject, actionType: ProjectCompletionToggleActionType, completed: @escaping (SNError?) -> Void)
+    static func updateCourseProjectsProgress(with courseProject: CourseProject)
     {
-        fetchCourseProgress { result in
-            switch result {
-            case .success(var courses):
-                handle(actionType, for: course, in: &courses) { error in
-                    if error != nil { completed(error); return }
-                }
-                completed(saveAllProgress(for: courses))
-            /**--------------------------------------------------------------------------**/
-            case .failure(let error):
-                completed(error)
-            }
+        
+    }
+     
+  //NEW CODE BELOW
+    
+    static func fetchCourseProgress(completed: @escaping (Result<[Course], SNError>) -> Void)
+    {
+        guard let courseData = defaults.object(forKey: PersistenceKeys.coursesProgress) as? Data else {
+            completed(.success([]))
+            return
+        }
+        
+        do {
+            let decoder = JSONDecoder()
+            let completedCourses = try decoder.decode([Course].self, from: completedCoursesData)
+            completed(.success(completedCourses))
+        } catch {
+            completed(.failure(.failedToLoadProgress))
         }
     }
     
-    //-------------------------------------//
-    // MARK: - HELPER FUNCTION
     
-    
-    static func handleCompletion(_ actionType: ProjectCompletionToggleActionType, for course: Course, in courses:  inout [Course], completed: @escaping (SNError?) -> Void)
+    static func fetchCourseProjectProgress(completed: @escaping (Result<[CourseProject], SNError>) -> Void)
     {
-        switch actionType {
-        case .complete:
-            courses.removeAll { $0.name == course.name }
-            courses.append(course)
-        /**--------------------------------------------------------------------------**/
-        case .incomplete:
-            courses.removeAll { $0.name == course.name }
-        }
+        
     }
     
     
@@ -147,23 +165,6 @@ enum PersistenceManager
         /**--------------------------------------------------------------------------**/
         case .remove:
             courses.removeAll { $0.name == course.name }
-        }
-    }
-        
-    
-    static func fetchCourseProgress(completed: @escaping (Result<[Course], SNError>) -> Void)
-    {
-        guard let completedCoursesData = defaults.object(forKey: PersistenceKeys.completedCourses) as? Data else {
-            completed(.success([]))
-            return
-        }
-        
-        do {
-            let decoder = JSONDecoder()
-            let completedCourses = try decoder.decode([Course].self, from: completedCoursesData)
-            completed(.success(completedCourses))
-        } catch {
-            completed(.failure(.failedToLoadProgress))
         }
     }
     

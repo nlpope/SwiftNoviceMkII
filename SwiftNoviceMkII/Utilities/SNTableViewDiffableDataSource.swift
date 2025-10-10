@@ -8,11 +8,11 @@ import MobileCoreServices
 
 protocol SNTableViewDiffableDataSourceDelegate
 {
-//    var courseProjects: [CourseProject] { get set }
+    var courseProjects: [CourseProject] { get set }
 //    var completedProjects: [CourseProject] { get set }
 //    var bookmarkedProjects: [CourseProject] { get set }
-    func updateBookmarksBin(with: CourseProject, actionType: ProjectBookmarkToggleActionType)
-    func updateCompletedBin(with: CourseProject, actionType: ProjectCompletionToggleActionType)
+    func updateCoursesProgress(with: Course)
+    func updateCourseProjectsProgress(with: CourseProject)
 }
 
 /** this subclass is here only to make the 'commit editingStyle' override method work */
@@ -21,7 +21,7 @@ class SNTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, Cour
     var delegate: SNTableViewDiffableDataSourceDelegate!
     
     //-------------------------------------//
-    // MARK: - TABLEVIEW DELEGATE METHODS 2/2
+    // MARK: - TABLEVIEW DELEGATE METHODS 2/2 (See CourseProjectsVC)
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
     { return true }

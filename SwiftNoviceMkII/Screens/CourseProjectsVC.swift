@@ -14,8 +14,17 @@ import MobileCoreServices
 
 class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
 {
+    func updateBookmarksBin(with: CourseProject, actionType: ProjectBookmarkToggleActionType) {
+        <#code#>
+    }
+    
+    func updateCompletedBin(with: CourseProject, actionType: ProjectCompletionToggleActionType) {
+        <#code#>
+    }
+    
     var selectedCourse: Course!
     // split sections up based on if selectedCourse == playgrounds 1 or 2
+    var editModeOn: Bool = false
     var delegate: SNDataLoadingVC!
     var courseProjects = [CourseProject]()
     var completedProjects = [CourseProject]()
@@ -79,7 +88,7 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
             let cellTitle = project.title == "" ? "Untitled" : "Project \(project.index) \(project.title)"
             let cellSubtitle = project.subtitle == "" ? "" : project.subtitle
             let cellSkillList = project.skills == "" ? "" : project.skills
-                        
+            
             // contin. @ tableView delegate sect > tableView(_:editingStyleForRowAt:)
             if self.favorites.contains(project) {
                 cell.editingAccessoryType = .checkmark
@@ -92,6 +101,7 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
             cell.textLabel?.attributedText = self.makeAttributedString(title: cellTitle, subtitle: cellSubtitle, skills: cellSkillList)
             
             return cell
+        }
     }
    
     
@@ -164,7 +174,80 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
         }
     }
     
-    
+        //-------------------------------------//
+        // MARK: - ATTRIBUTED STRING CREATION
+        
+        func makeAttributedString(title: String, subtitle: String, skills: String) -> NSAttributedString
+        {
+            let titleAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline), NSAttributedString.Key.foregroundColor: UIColor.purple]
+            let subtitleAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline)]
+            let skillsAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline), NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel]
+            
+            let titleString = NSMutableAttributedString(string: "\(title)\n", attributes: titleAttributes)
+            let subtitleString = NSAttributedString(string: "\(subtitle)\n", attributes: subtitleAttributes)
+            let skillsString = NSAttributedString(string: skills, attributes: skillsAttributes)
+            
+            titleString.append(subtitleString)
+            titleString.append(skillsString)
+            return titleString
+        }
+        
+        //-------------------------------------//
+        // MARK: - EDIT MODE (ADD/REMOVE FAVORITES)
+        
+        @objc func toggleEditMode() { editModeOn.toggle() }
+        
+        
+        func updateFavorites(with project: SSProject, actionType: PersistenceActionType)
+        {
+            switch actionType {
+            case .add:
+                favorites.append(project)
+                PersistenceManager.updateFavorites(with: project, actionType: .add) { [weak self] error in
+                    guard let self = self else { return }
+                    guard let error = error else {
+                        presentSSAlertOnMainThread(title: AlertKeys.saveSuccessTitle, msg: AlertKeys.saveSuccessMsg, btnTitle: "Ok")
+                        updateDataSource(with: projects)
+                        return
+                    }
+                    self.presentSSAlertOnMainThread(title: "Failed to favorite", msg: error.rawValue, btnTitle: "Ok")
+                }
+                
+            case .remove:
+                favorites.removeAll { $0.title == project.title }
+                PersistenceManager.updateFavorites(with: project, actionType: .remove) { [weak self] error in
+                    guard let self = self else { return }
+                    guard let error = error else {
+                        presentSSAlertOnMainThread(title: AlertKeys.removeSuccessTitle, msg: AlertKeys.removeSuccessMsg, btnTitle: "Ok")
+                        updateDataSource(with: projects)
+                        return
+                    }
+                    self.presentSSAlertOnMainThread(title: "Failed to remove favorite", msg: error.rawValue, btnTitle: "Ok")
+                }
+            }
+        }
+        
+        //-------------------------------------//
+        // MARK: - TABLEVIEW DELEGATE METHODS 1/2 (SEE SNTableViewDiffableDataSource)
+        
+        override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+        {
+            let activeArray = isSearching ? filteredProjects : projects
+            tableView.deselectRow(at: indexPath, animated: true)
+            showTutorial(activeArray[indexPath.row].index)
+        }
+        
+        
+        // contin.'d from configDiffableDataSource > cell.editingAccessoryType
+        override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle
+        {
+            let currentProject = projects[indexPath.row]
+            if favorites.contains(currentProject) { return .delete }
+            else { return .insert }
+        }
+        
+        
+        
     /**
      incorporate following from ghfollowers: follwerlistvc
      
@@ -296,23 +379,7 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
 //            }
 //        }
 //        
-//        //-------------------------------------//
-//        // MARK: - ATTRIBUTED STRING CREATION
-//        
-//        func makeAttributedString(title: String, subtitle: String, skills: String) -> NSAttributedString
-//        {
-//            let titleAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline), NSAttributedString.Key.foregroundColor: UIColor.purple]
-//            let subtitleAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline)]
-//            let skillsAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline), NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel]
-//            
-//            let titleString = NSMutableAttributedString(string: "\(title)\n", attributes: titleAttributes)
-//            let subtitleString = NSAttributedString(string: "\(subtitle)\n", attributes: subtitleAttributes)
-//            let skillsString = NSAttributedString(string: skills, attributes: skillsAttributes)
-//            
-//            titleString.append(subtitleString)
-//            titleString.append(skillsString)
-//            return titleString
-//        }
+
 //        
 //        //-------------------------------------//
 //        // MARK: - FETCHING (NETWORK & PERSISTENCE MANAGER CALLS)
@@ -375,59 +442,7 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
 //            else { isSearching = true }
 //        }
 //        
-//        //-------------------------------------//
-//        // MARK: - EDIT MODE (ADD/REMOVE FAVORITES)
-//        
-//        @objc func toggleEditMode() { editModeOn.toggle() }
-//        
-//        
-//        func updateFavorites(with project: SSProject, actionType: PersistenceActionType)
-//        {
-//            switch actionType {
-//            case .add:
-//                favorites.append(project)
-//                PersistenceManager.updateFavorites(with: project, actionType: .add) { [weak self] error in
-//                    guard let self = self else { return }
-//                    guard let error = error else {
-//                        presentSSAlertOnMainThread(title: AlertKeys.saveSuccessTitle, msg: AlertKeys.saveSuccessMsg, btnTitle: "Ok")
-//                        updateDataSource(with: projects)
-//                        return
-//                    }
-//                    self.presentSSAlertOnMainThread(title: "Failed to favorite", msg: error.rawValue, btnTitle: "Ok")
-//                }
-//                
-//            case .remove:
-//                favorites.removeAll { $0.title == project.title }
-//                PersistenceManager.updateFavorites(with: project, actionType: .remove) { [weak self] error in
-//                    guard let self = self else { return }
-//                    guard let error = error else {
-//                        presentSSAlertOnMainThread(title: AlertKeys.removeSuccessTitle, msg: AlertKeys.removeSuccessMsg, btnTitle: "Ok")
-//                        updateDataSource(with: projects)
-//                        return
-//                    }
-//                    self.presentSSAlertOnMainThread(title: "Failed to remove favorite", msg: error.rawValue, btnTitle: "Ok")
-//                }
-//            }
-//        }
-//        
-//        //-------------------------------------//
-//        // MARK: - TABLEVIEW DELEGATE METHODS 1/2
-//        
-//        override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-//        {
-//            let activeArray = isSearching ? filteredProjects : projects
-//            tableView.deselectRow(at: indexPath, animated: true)
-//            showTutorial(activeArray[indexPath.row].index)
-//        }
-//        
-//
-//        // contin.'d from configDiffableDataSource > cell.editingAccessoryType
-//        override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle
-//        {
-//            let currentProject = projects[indexPath.row]
-//            if favorites.contains(currentProject) { return .delete }
-//            else { return .insert }
-//        }
+
 //        
 //        //-------------------------------------//
 //        // MARK: - DIFFABLE DATASOURCE UPDATES

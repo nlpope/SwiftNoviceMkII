@@ -24,10 +24,12 @@ enum Images
 
 enum PersistenceKeys
 {
-    static var isVeryFirstVisitStatus = "isVeryFirstVisitStatus"
+    static let isVeryFirstVisitStatus = "isVeryFirstVisitStatus"
     static let isFirstVisitPostDismissalStatus = "isFirstVisitPostDismissalStatus"
     static let isLoggedIn = "isLoggedIn"
-    static let completedCourses = "completedCourses"
+//    static let completedCourses = "completedCourses"
+    static let coursesProgress = "coursesProgress"
+    static let couresProjectsProgress = "couresProjectsProgress"
 }
 
 enum SaveKeys
