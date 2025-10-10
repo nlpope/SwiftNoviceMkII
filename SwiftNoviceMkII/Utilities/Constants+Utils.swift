@@ -24,9 +24,13 @@ enum Images
 
 enum PersistenceKeys
 {
-    static let isVeryFirstVisitStatus = "isVeryFirstVisitStatus"
-    static let isFirstVisitPostDismissalStatus = "isFirstVisitPostDismissalStatus"
+    static let isVeryFirstVisitToCoursesStatus = "isVeryFirstVisitToCoursesStatus"
+    static let isFirstVisitToCoursesPostDismissalStatus = "isFirstVisitToCoursesPostDismissalStatus"
+    static let isVeryFirstVisitToCourseProjectsStatus = "isVeryFirstVisitToCourseProjectsStatus"
+    static let isFirstVisitToCourseProjectsPostDismissalStatus = "isFirstVisitToCourseProjectsPostDismissalStatus"
+    
     static let isLoggedIn = "isLoggedIn"
+    
 //    static let completedCourses = "completedCourses"
     static let coursesProgress = "coursesProgress"
     static let couresProjectsProgress = "couresProjectsProgress"

@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
     { UINavigationBar.appearance().tintColor = ColorKeys.oldGold }
     
     func sceneDidDisconnect(_ scene: UIScene)
-    { PersistenceManager.isFirstVisitPostDismissal = true }
+    { PersistenceManager.isFirstVisitToHomePostDismissal = true }
     
     func sceneDidBecomeActive(_ scene: UIScene) {}
     

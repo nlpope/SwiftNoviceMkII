@@ -23,7 +23,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        PersistenceManager.isFirstVisitPostDismissal = true
+        PersistenceManager.isFirstVisitToHomePostDismissal = true
         configNavBar()
         configSearchController()
         configCollectionView()
@@ -33,7 +33,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     override func viewWillAppear(_ animated: Bool)
     {
-        if PersistenceManager.fetchFirstVisitPostDismissalStatus() {
+        if PersistenceManager.fetchFirstVisitToCoursesPostDismissalStatus() {
             logoLauncher = SNLogoLauncher(targetVC: self)
             logoLauncher.configLogoLauncher()
         }

@@ -20,7 +20,7 @@ class SNLogoLauncher
     func configLogoLauncher()
     {
         print("launching logo")
-        PersistenceManager.isFirstVisitPostDismissal = false
+        PersistenceManager.isFirstVisitToHomePostDismissal = false
         maskHomeVCForIntro()
         configNotifications()
         
@@ -86,8 +86,8 @@ class SNLogoLauncher
             print("cannot hide tab bar")
         }
         
-        PersistenceManager.isVeryFirstVisit = false
-        PersistenceManager.isFirstVisitPostDismissal = false
+        PersistenceManager.isVeryFirstVisitToCourses = false
+        PersistenceManager.isFirstVisitToHomePostDismissal = false
         removeAllAVPlayerLayers()
         targetVC.tabBarController?.isTabBarHidden = false
         targetVC.collectionView.isHidden = false
@@ -114,7 +114,7 @@ class SNLogoLauncher
     
     @objc func reinitializePlayerLayer()
     {
-        guard PersistenceManager.isFirstVisitPostDismissal else { return }
+        guard PersistenceManager.isFirstVisitToHomePostDismissal else { return }
         if let player = player {
             playerLayer = AVPlayerLayer(player: player)
             playerLayer?.name = VideoKeys.playerLayerName

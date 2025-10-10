@@ -14,25 +14,29 @@ import MobileCoreServices
 
 class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
 {
-    func updateBookmarksBin(with: CourseProject, actionType: ProjectBookmarkToggleActionType) {
-        <#code#>
+    func updateCoursesProgress(with: Course) {
+        //
     }
     
-    func updateCompletedBin(with: CourseProject, actionType: ProjectCompletionToggleActionType) {
-        <#code#>
+    func updateCourseProjectsProgress(with: CourseProject) {
+        //
     }
+    
+   
     
     var selectedCourse: Course!
     // split sections up based on if selectedCourse == playgrounds 1 or 2
     var editModeOn: Bool = false
-    var delegate: SNDataLoadingVC!
+//    var delegate: SNDataLoadingVC!
+    var delegate: HomeCoursesVC!
     var courseProjects = [CourseProject]()
-    var completedProjects = [CourseProject]()
-    var bookmarkedProjects = [CourseProject]()
+//    var completedProjects = [CourseProject]()
+//    var bookmarkedProjects = [CourseProject]()
     var tableView: UITableView!
     var dataSource: SNTableViewDiffableDataSource!
     
-    init(course: Course, delegate: SNDataLoadingVC)
+    
+    init(course: Course, delegate: HomeCoursesVC)
     {
         super.init(nibName: nil, bundle: nil)
         self.selectedCourse = course
@@ -54,6 +58,7 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
     override func viewDidAppear(_ animated: Bool)
     {
         // animate 'go to selectedCourse' button to pop in
+        // if first time visiting - show alerts for nav instructions
     }
     
     
