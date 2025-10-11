@@ -1,3 +1,5 @@
+<video loop src="SwiftNoviceMkIIDemo.mp4"></video>
+
 PROJECT TITLE
 ---------------------------------------------
 SwiftNovice - A bootcamp in your pocket! SwiftNovice guides the user through prerequisite courses that got me to where I am today before providing them a set of real world projects via codementor.io.
@@ -10,11 +12,11 @@ Copy the project's clone link: available under button labeled 'Code' above
 
 Clone the project in Xcode
 
-plug your iphone into your Mac's port
+(optional) plug your iphone into your Mac's port
 
 At the very top, by the app's icon and title name select the iphone icon and a list of simulators should appear
 
-In that list, select 'iphone' under the 'iOS Simulators' section (or choose a connected physical device)
+In that list, select 'iphone' under the 'iOS Simulators' section (or choose the physical device plugged into your Mac's port')
 
 This sets up your phone as the space the app will run on for the next step
 

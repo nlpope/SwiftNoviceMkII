@@ -19,6 +19,7 @@
 		409B102E2E702A6300902A84 /* SNEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409B102D2E702A6300902A84 /* SNEmptyStateView.swift */; };
 		40A67A272E9AD18100C7A9FD /* Readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 40A67A262E9AD18100C7A9FD /* Readme.md */; };
 		40A67A282E9AD18100C7A9FD /* Readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 40A67A262E9AD18100C7A9FD /* Readme.md */; };
+		40A67A2A2E9AE0DC00C7A9FD /* SwiftNoviceMkIIDemo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 40A67A292E9AE0DC00C7A9FD /* SwiftNoviceMkIIDemo.mp4 */; };
 		40AF77B22E3EFD6E00B7B2A1 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AF77B12E3EFD6E00B7B2A1 /* UIView+Ext.swift */; };
 		40BEDD3C2E996418006F2E0D /* SNCourseProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BEDD3B2E996418006F2E0D /* SNCourseProjectCell.swift */; };
 		40BFB2072E3A22B200A3E83E /* UIHelper+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BFB2062E3A22B200A3E83E /* UIHelper+Utils.swift */; };
@@ -73,6 +74,7 @@
 		409AC4B82E40110500C3035C /* SNTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNTitleLabel.swift; sourceTree = "<group>"; };
 		409B102D2E702A6300902A84 /* SNEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNEmptyStateView.swift; sourceTree = "<group>"; };
 		40A67A262E9AD18100C7A9FD /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
+		40A67A292E9AE0DC00C7A9FD /* SwiftNoviceMkIIDemo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SwiftNoviceMkIIDemo.mp4; sourceTree = "<group>"; };
 		40AF77B12E3EFD6E00B7B2A1 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		40BEDD3B2E996418006F2E0D /* SNCourseProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNCourseProjectCell.swift; sourceTree = "<group>"; };
 		40BFB2062E3A22B200A3E83E /* UIHelper+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIHelper+Utils.swift"; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				40D19EAE2E30CFBF008D9669 /* Main.storyboard */,
 				40D19EA92E30CFBF008D9669 /* Assets.xcassets */,
 				40D19ED52E30F827008D9669 /* launchscreen.mp4 */,
+				40A67A292E9AE0DC00C7A9FD /* SwiftNoviceMkIIDemo.mp4 */,
 				40D19EB02E30CFBF008D9669 /* SwiftNoviceMkII.xcdatamodeld */,
 			);
 			path = Support;
@@ -427,6 +430,7 @@
 				40D19EB42E30CFBF008D9669 /* Assets.xcassets in Resources */,
 				40D19EB62E30CFBF008D9669 /* LaunchScreen.storyboard in Resources */,
 				40D19ED62E30F827008D9669 /* launchscreen.mp4 in Resources */,
+				40A67A2A2E9AE0DC00C7A9FD /* SwiftNoviceMkIIDemo.mp4 in Resources */,
 				40D19EB72E30CFBF008D9669 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
