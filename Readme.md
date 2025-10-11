@@ -1,6 +1,7 @@
 <video loop autoplay muted> <src="SwiftNoviceMkII/Support/SwiftNoviceMkIIDemo.mp4" type="video/mp4">
     Your browser does not support the accompanying demo video.
 </video>
+![ml16-18](https://user-images.githubusercontent.com/30910230/60964626-73e04480-a31c-11e9-82c3-edee4d4187c5.gif)
 
 PROJECT TITLE
 ---------------------------------------------
