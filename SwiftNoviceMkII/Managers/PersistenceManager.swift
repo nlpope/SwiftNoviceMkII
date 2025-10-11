@@ -9,16 +9,6 @@ import UIKit
 // rmember, you only need persistence w the indiv. projects
 // the course being the projects pg's delegate communicates the rest (completion & bookmarks) - so add language in HomeCoursesVC & BookmarksVC's viewWillAppear that asks if course is bookmarked since all we have is an scripts api link and not an array of projects
 
-//enum ProjectBookmarkToggleActionType
-//{
-//    case add, remove
-//}
-//
-//enum ProjectCompletionToggleActionType
-//{
-//    case complete, incomplete
-//}
-
 enum BookmarkToggleActionType
 {
     case add, remove
@@ -29,48 +19,61 @@ enum CompletionToggleActionType
     case complete, incomplete
 }
 
-enum VCVisitationStatuses
+enum EntryStatusType: Encodable
 {
-    case veryFirstVisit, firstVisitPostDismissal
+    // homecourses = only vc to use entrypostdismissal status
+    case initialEntry, entryPostDismissal
 }
 
 enum PersistenceManager
 {
     static private let defaults = UserDefaults.standard
     
-    static var isVeryFirstVisitToCourses: Bool = fetchVeryFirstVisitToCoursesStatus() {
-        didSet { PersistenceManager.saveVeryFirstVisitToCourses(status: isVeryFirstVisitToCourses) }
+//    static var isVeryFirstVisitToCourses: Bool = fetchVeryFirstVisitToCoursesStatus() {
+//        didSet { PersistenceManager.saveVeryFirstVisitToCourses(status: isVeryFirstVisitToCourses) }
+//    }
+    
+    static var isInitialVisitToVC: Bool = fetchVCVisitationStatus(forVC: HomeCoursesVC) {
+//        didSet { PersistenceManager.saveVeryFirstVisitToCourses(status: isVeryFirstVisitToCourses) }
     }
     
-    static var isFirstVisitToHomePostDismissal: Bool! = fetchFirstVisitToCoursesPostDismissalStatus() {
-        didSet { PersistenceManager.saveFirstVisitToCoursesPostDismissal(status: isFirstVisitToHomePostDismissal) }
-    }
+//    static var isFirstVisitToCoursesPostDismissal: Bool! = fetchFirstVisitToCoursesPostDismissalStatus() {
+//        didSet { PersistenceManager.saveFirstVisitToCoursesPostDismissal(status: isFirstVisitToHomePostDismissal) }
+//    }
     
-    static var isVeryFirstVisitToCoureProjects: Bool =
     
     //-------------------------------------//
     // MARK: - SAVE / FETCH HOMECOURSESVC VISIT STATUS
     
     // MARK: - HOMECOURSESVC 1ST VISIT
-    #warning("10.10.25 - return to here to condense visitation status code below - i just made a new enum up top that can condense it from 6 funcs to 2")
-    static func saveVCVisitSatus(status: VCVisitationStatuses, forVC: UIViewController)
+
+    static func saveEntryStatus(forViewController vc: UIViewController, status: )
     {
         switch status {
         case .veryFirstVisit:
-            print("1st visit")
+            do {
+                let encoder = JSONEncoder()
+                let encodedStatus = try encoder.encode(status)
+                defaults.set(encodedStatus, forKey: PersistenceKeys.HomeCoursesVCEntryPostDismissalStatus)
+            } catch {
+                print("failed ato save first visit post dismissal status")
+            }
         case .firstVisitPostDismissal:
             print("1st visit post dismissal")
         }
     }
     
     
-    static func fetchVCVisitStatus(status: VCVisitationStatuses, forVC: UIViewController)
+    static func fetchVCVisitationStatus(forVC vc: UIViewController) -> Bool
     {
-        switch status {
-        case .veryFirstVisit:
-            print("1st visit")
-        case .firstVisitPostDismissal:
-            print("1st visit post dismissal")
+        switch vc {
+        case is HomeCoursesVC:
+            
+            return true
+        case is CourseProjectsVC:
+            return true
+        default:
+            return false
         }
     }
     
@@ -81,7 +84,7 @@ enum PersistenceManager
         do {
             let encoder = JSONEncoder()
             let encodedStatus = try encoder.encode(status)
-            defaults.set(encodedStatus, forKey: PersistenceKeys.isVeryFirstVisitToCoursesStatus)
+            defaults.set(encodedStatus, forKey: PersistenceKeys.HomeCoursesVCInitialEntryStatus)
         } catch {
             print("failed ato save very first visit status")
         }
@@ -90,7 +93,7 @@ enum PersistenceManager
     
     static func fetchVeryFirstVisitToCoursesStatus() -> Bool
     {
-        guard let visitStatusData = defaults.object(forKey: PersistenceKeys.isVeryFirstVisitToCoursesStatus) as? Data
+        guard let visitStatusData = defaults.object(forKey: PersistenceKeys.HomeCoursesVCInitialEntryStatus) as? Data
         else { return true }
         
         do {
@@ -110,7 +113,7 @@ enum PersistenceManager
         do {
             let encoder = JSONEncoder()
             let encodedStatus = try encoder.encode(status)
-            defaults.set(encodedStatus, forKey: PersistenceKeys.isFirstVisitToCoursesPostDismissalStatus)
+            defaults.set(encodedStatus, forKey: PersistenceKeys.HomeCoursesVCEntryPostDismissalStatus)
         } catch {
             print("failed ato save first visit post dismissal status")
         }
