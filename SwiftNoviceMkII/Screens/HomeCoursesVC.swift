@@ -39,6 +39,9 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     var completedCourses = [Course]()
     var isSearching = false
     var logoLauncher: SNLogoLauncher!
+    var vcVisitStatus: VCVisitStatusType = .isFirstVisit {
+        didSet { PersistenceManager.saveVCVisitStatus(for: self, status: vcVisitStatus) }
+    }
     
     var collectionView: UICollectionView!
     private var courseListDataSource: UICollectionViewDiffableDataSource<Section, Course.ID>!
@@ -47,7 +50,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        PersistenceManager.isFirstVisitToHomePostDismissal = true
+        vcVisitStatus = PersistenceManager.fetchVCVisitStatus(for: self)
         configNavBar()
         configSearchController()
         configCollectionView()

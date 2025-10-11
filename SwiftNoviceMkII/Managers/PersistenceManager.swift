@@ -19,177 +19,60 @@ enum CompletionToggleActionType
     case complete, incomplete
 }
 
-enum HomeCoursesKeys
+enum VCVisitStatusType: Codable
 {
-    static let isFirstVisit = "isFirstVisit"
-}
-
-enum CourseProjectKeys
-{
-    static let isFirstVisit = "isFirstVisit"
+    case isFirstVisit, isFirstVisitPostDismissal
+    static let homeVCVisitStatusKey = "homeVCVisitStatusKey"
+    static let projectsVCVisitStatusKey = "projectsVCVisitStatusKey"
 }
 
 enum PersistenceManager
 {
     static private let defaults = UserDefaults.standard
     
-   
-    
-//    static var isVeryFirstVisitToCourses: Bool = fetchVeryFirstVisitToCoursesStatus() {
-//        didSet { PersistenceManager.saveVeryFirstVisitToCourses(status: isVeryFirstVisitToCourses) }
-//    }
-    
-    static var isInitialVisitToVC: Bool = fetchVCVisitationStatus(forVC: HomeCoursesVC) {
-//        didSet { PersistenceManager.saveVeryFirstVisitToCourses(status: isVeryFirstVisitToCourses) }
-    }
-    
-//    static var isFirstVisitToCoursesPostDismissal: Bool! = fetchFirstVisitToCoursesPostDismissalStatus() {
-//        didSet { PersistenceManager.saveFirstVisitToCoursesPostDismissal(status: isFirstVisitToHomePostDismissal) }
-//    }
-    
-    
     //-------------------------------------//
-    // MARK: - SAVE / FETCH HOMECOURSESVC VISIT STATUS
+    // MARK: - SAVE / FETCH VC VISIT STATUS
     
-    // MARK: - HOMECOURSESVC 1ST VISIT
-
-    static func saveEntryStatus(forViewController vc: UIViewController, status: )
+    #warning("finished w fetch fun, now finish save func - officially refactored/condensed into 2 funcs instead of 6000")
+    static func saveVCVisitStatus(for vc: UIViewController, status: VCVisitStatusType)
     {
-        switch status {
-        case .veryFirstVisit:
-            do {
-                let encoder = JSONEncoder()
-                let encodedStatus = try encoder.encode(status)
-                defaults.set(encodedStatus, forKey: PersistenceKeys.HomeCoursesVCEntryPostDismissalStatus)
-            } catch {
-                print("failed ato save first visit post dismissal status")
-            }
-        case .firstVisitPostDismissal:
-            print("1st visit post dismissal")
-        }
+        
     }
     
     
-    static func fetchVCVisitationStatus(forVC vc: UIViewController) -> Bool
+    static func fetchVCVisitStatus(for vc: UIViewController) -> VCVisitStatusType
     {
         switch vc {
         case is HomeCoursesVC:
+            guard let vcVisitStatusData = defaults.object(forKey: VCVisitStatusType.homeVCVisitStatusKey) as? Data
+            else { return .isFirstVisit }
             
-            return true
+            do {
+                let decoder = JSONDecoder()
+                let fetchedStatus = try decoder.decode(VCVisitStatusType.self, from: vcVisitStatusData)
+                return fetchedStatus
+            } catch {
+                print("unable to load very first visit status")
+                return .isFirstVisit
+            }
+            
         case is CourseProjectsVC:
-            return true
+            guard let vcVisitStatusData = defaults.object(forKey: VCVisitStatusType.projectsVCVisitStatusKey) as? Data
+            else { return .isFirstVisit }
+            
+            do {
+                let decoder = JSONDecoder()
+                let fetchedStatus = try decoder.decode(VCVisitStatusType.self, from: vcVisitStatusData)
+                return fetchedStatus
+            } catch {
+                print("unable to load very first visit status")
+                return .isFirstVisit
+            }
         default:
-            return false
+            break
         }
-    }
-    
-    #warning("end new code - aim to delete the rest of the uncommented below this line")
-    
-    static func saveVeryFirstVisitToCourses(status: Bool)
-    {
-        do {
-            let encoder = JSONEncoder()
-            let encodedStatus = try encoder.encode(status)
-            defaults.set(encodedStatus, forKey: PersistenceKeys.HomeCoursesVCInitialEntryStatus)
-        } catch {
-            print("failed ato save very first visit status")
-        }
-    }
-    
-    
-    static func fetchVeryFirstVisitToCoursesStatus() -> Bool
-    {
-        guard let visitStatusData = defaults.object(forKey: PersistenceKeys.HomeCoursesVCInitialEntryStatus) as? Data
-        else { return true }
         
-        do {
-            let decoder = JSONDecoder()
-            let fetchedStatus = try decoder.decode(Bool.self, from: visitStatusData)
-            return fetchedStatus
-        } catch {
-            print("unable to load very first visit status")
-            return true
-        }
-    }
-    
-    // MARK: - HOMECOURSESVC 1ST VISIT POST DISMISSAL
-    
-    static func saveFirstVisitToCoursesPostDismissal(status: Bool)
-    {
-        do {
-            let encoder = JSONEncoder()
-            let encodedStatus = try encoder.encode(status)
-            defaults.set(encodedStatus, forKey: PersistenceKeys.HomeCoursesVCEntryPostDismissalStatus)
-        } catch {
-            print("failed ato save first visit post dismissal status")
-        }
-    }
-    
-    
-    static func fetchFirstVisitToCoursesPostDismissalStatus() -> Bool
-    {
-        guard let visitStatusData = defaults.object(forKey: PersistenceKeys.isFirstVisitToCourseProjectsPostDismissalStatus)
-    }
-        
-    //-------------------------------------//
-    // MARK: - SAVE / FETCH COURSEPROJECTSVC 1ST VISIT STATUS
-    
-    // MARK: - COURSEPROJECTSVC 1ST VISIT
-    
-    static func saveVeryFirstVisitToCourseProjects(status: Bool)
-    {
-        do {
-            let encoder = JSONEncoder()
-            let encodedStatus = try encoder.encode(status)
-            defaults.set(encodedStatus, forKey: PersistenceKeys.isVeryFirstVisitToCourseProjectsStatus)
-        } catch {
-            print("failed ato save very first visit status")
-        }
-    }
-    
-    
-    static func fetchVeryFirstVisitToCourseProjectsStatus() -> Bool
-    {
-        guard let visitStatusData = defaults.object(forKey: PersistenceKeys.isVeryFirstVisitToCourseProjectsStatus) as? Data
-        else { return true }
-        
-        do {
-            let decoder = JSONDecoder()
-            let fetchedStatus = try decoder.decode(Bool.self, from: visitStatusData)
-            return fetchedStatus
-        } catch {
-            print("unable to load very first visit status")
-            return true
-        }
-    }
-    
-    // MARK: - COURSEPROJECTSVC 1ST VISIT POST DISMISSAL
-    
-    static func saveFirstVisitToCourseProjectsPostDismissal(status: Bool)
-    {
-        do {
-            let encoder = JSONEncoder()
-            let encodedStatus = try encoder.encode(status)
-            defaults.set(encodedStatus, forKey: PersistenceKeys.isFirstVisitToCourseProjectsPostDismissalStatus)
-        } catch {
-            print("failed to save first visit post dismissal status")
-        }
-    }
-    
-    
-    static func fetchFirstVisitToCourseProjectsPostDismissalStatus() -> Bool
-    {
-        guard let visitStatusData = defaults.object(forKey: PersistenceKeys.isFirstVisitToCourseProjectsPostDismissalStatus) as? Data
-        else { return true }
-        
-        do {
-            let decoder = JSONDecoder()
-            let fetchedStatus = try decoder.decode(Bool.self, from: visitStatusData)
-            return fetchedStatus
-        } catch {
-            print("unable to load first visit post dismissal status")
-            return true
-        }
+        return .isFirstVisit
     }
     
     //-------------------------------------//
