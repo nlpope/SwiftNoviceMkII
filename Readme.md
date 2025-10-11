@@ -17,9 +17,10 @@ At the very top, by the app's icon and title name select the iphone icon and a l
 In that list, select 'iphone' under the 'iOS Simulators' section (or choose a connected physical device)
 
 This sets up your phone as the space the app will run on for the next step
-7.WAIT! Before moving on to the next step, be sure to download and run the project in my repo titled "SwiftNoviceServerMkIII"
 
-Once device is selected, hit cmd + r (or hit the play button at the very top of the navigation bar) to run the app
+WAIT! Before moving on to the next step, be sure to download and run the project in my repo titled "SwiftNoviceServerMkIII" (instructions enclosed within that project's README file')
+
+Once device is selected, hit cmd + r (or hit the play button at the very top of the navigation bar) to run the app. 
 
 You should see the app's icon appear on your homescreen before it opens automatically
 
