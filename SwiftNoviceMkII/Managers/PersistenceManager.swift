@@ -19,15 +19,21 @@ enum CompletionToggleActionType
     case complete, incomplete
 }
 
-enum EntryStatusType: Encodable
+enum HomeCoursesKeys
 {
-    // homecourses = only vc to use entrypostdismissal status
-    case initialEntry, entryPostDismissal
+    static let isFirstVisit = "isFirstVisit"
+}
+
+enum CourseProjectKeys
+{
+    static let isFirstVisit = "isFirstVisit"
 }
 
 enum PersistenceManager
 {
     static private let defaults = UserDefaults.standard
+    
+   
     
 //    static var isVeryFirstVisitToCourses: Bool = fetchVeryFirstVisitToCoursesStatus() {
 //        didSet { PersistenceManager.saveVeryFirstVisitToCourses(status: isVeryFirstVisitToCourses) }

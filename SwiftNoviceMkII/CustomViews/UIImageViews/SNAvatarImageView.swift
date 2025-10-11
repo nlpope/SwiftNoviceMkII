@@ -7,7 +7,7 @@ import UIKit
 class SNAvatarImageView: UIImageView
 {
     let cache = NetworkManager.shared.cache
-    let placeholderImage = Images.placeholder
+    let placeholderImage = ImageKeys.placeholder
     
     
     override init(frame: CGRect)

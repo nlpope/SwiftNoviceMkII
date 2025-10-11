@@ -52,7 +52,7 @@ class SNEmptyStateView: UIView {
     
     private func configureLogoImageView()
     {
-        logoImageView.image = Images.emptyStateLogo
+        logoImageView.image = ImageKeys.emptyStateLogo
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

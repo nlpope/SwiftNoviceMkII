@@ -16,7 +16,7 @@ enum ColorKeys
     static let oldGold = UIColor(red: 207/255, green: 181/255, blue: 59/255, alpha: 1.0)
 }
 
-enum Images
+enum ImageKeys
 {
     static let placeholder = UIImage(named: "avatar-placeholder")
     static let emptyStateLogo = UIImage(named: "empty-state-logo")
@@ -39,7 +39,7 @@ enum SaveKeys
     static let isFirstVisit = "isFirstVisitStatus"
 }
 
-enum SFSymbols
+enum SFSymbolsKeys
 {
     static let home = UIImage(systemName: "house")
     static let account = UIImage(systemName: "person.circle")
