@@ -1,7 +1,4 @@
-<video loop autoplay muted> <src="https://youtube.com/shorts/M5biwPMEtUE?feature=share">
-    Your browser does not support the accompanying demo video.
-</video>
-![ml16-18](https://youtube.com/shorts/M5biwPMEtUE?feature=share)
+![ml16-18](https://raw.githubusercontent.com/nlpope/SwiftNoviceMkII/main/.github/images/SwiftNoviceMkIIDemo.gif)
 
 PROJECT TITLE
 ---------------------------------------------
