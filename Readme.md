@@ -1,5 +1,5 @@
-<video loop autoplay muted src="SwiftNoviceMkII/Support/SwiftNoviceMkIIDemo.mp4">
-Your browser does not support the accompanying demo video.
+<video loop autoplay muted> <src="SwiftNoviceMkII/Support/SwiftNoviceMkIIDemo.mp4" type="video/mp4">
+    Your browser does not support the accompanying demo video.
 </video>
 
 PROJECT TITLE
