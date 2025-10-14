@@ -6,6 +6,9 @@ import UIKit
 
 class SNCourseProjectCell: UITableViewCell {
 
+    var bookMarkIcon: UIImage!
+    var completionIcon: UIImage!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

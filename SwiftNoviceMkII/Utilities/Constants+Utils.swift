@@ -52,6 +52,11 @@ enum SFSymbolsKeys
     static let home = UIImage(systemName: "house")
     static let account = UIImage(systemName: "person.circle")
     static let courses = UIImage(systemName: "books.vertical")
+    
+    static let bookmarkBlank = UIImage(systemName: "bookmark")
+    static let bookmarkFilled = UIImage(systemName: "bookmark.fill")
+    static let completeBlank = UIImage(systemName: "checkmark.circle")
+    static let completeFilled = UIImage(systemName: "checkmark.circle.fill")
 }
 
 enum VideoKeys
