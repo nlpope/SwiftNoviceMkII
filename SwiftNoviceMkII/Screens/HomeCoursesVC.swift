@@ -7,7 +7,6 @@ import SafariServices
 import CoreSpotlight
 import MobileCoreServices
 
-
 class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating, UICollectionViewDelegate
 {
     var vcVisitStatus: PersistenceKeys.VCVisitStatusType! {
@@ -15,14 +14,14 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     }
 
     var courses = [Course]()
-    var filteredCourses = [Course]()
+    var bookmarkedCourses = [Course]()
     var completedCourses = [Course]()
-    
+    var filteredCourses = [Course]()
+
     var isSearching = false
-    var logoLauncher: SNLogoLauncher!
-    
     var collectionView: UICollectionView!
     private var courseListDataSource: UICollectionViewDiffableDataSource<Section, Course.ID>!
+    var logoLauncher: SNLogoLauncher!
     
     
     override func viewDidLoad()

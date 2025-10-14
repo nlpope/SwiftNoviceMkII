@@ -24,12 +24,15 @@ enum ImageKeys
 
 enum PersistenceKeys
 {
-    static let isLoggedIn = "isLoggedIn"
-    static var isFirstVisitPostDismissal = false {
-        didSet { PersistenceManager.saveVCVisitStatus(for: <#T##UIViewController#>, status: <#T##VCVisitStatusType#>) }
+    static let isLoggedIn = false
+    static let loggedInStatusKey = "loggedInStatusKey"
+    
+    enum SecretKeys
+    {
+        static let password = "passwordKey"
     }
         
-    enum CourseProgressToggleActionType
+    enum CourseProgressType
     {
         case addBookmark, removeBookmark, markComplete, markIncomplete
         static let courseProgressKey = "courseProgressKey"
@@ -68,6 +71,7 @@ enum VideoKeys
     static let playerLayerName = "PlayerLayerName"
 }
 
+// separate from SNError alerts by virtue of being a normal alert where nothing went wrong
 enum AlertKeys
 {
     // BOOKMARKS
@@ -83,4 +87,8 @@ enum AlertKeys
     
     static let incompletionSuccessTitle = "Marked 'Incomplete'"
     static let incompletionSuccessMsg = "This project has now been marked 'incomplete'. You may return to it when ready."
+    
+    // LOGIN PERMISSIONS
+    static let touchIDReason = "Your identity must first be confirmed via Touch ID. May we make this attempt now?"
+
 }

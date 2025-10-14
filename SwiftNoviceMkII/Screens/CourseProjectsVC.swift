@@ -16,16 +16,18 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
 {
     // split sections up based on if selectedCourse == playgrounds 1 or 2
     // thru here i can say selectedCourse.iscompleted/bookmarked = true or false
+    var vcVisitStatus: PersistenceKeys.VCVisitStatusType! {
+        didSet { PersistenceManager.saveVCVisitStatus(for: self, status: vcVisitStatus) }
+    }
+    
     var selectedCourse: Course!
     var editModeOn: Bool = false
-    var vcVisitStatus: PersistenceKeys.VCVisitStatusType
-    
     var projects = [CourseProject]()
     var bookMarkedProjects = [CourseProject]()
     var completedProjects = [CourseProject]()
     var filteredProjects = [CourseProject]()
     
-    var isSearching: Bool = false
+    var isSearching = false
     var tableView: UITableView!
     var dataSource: UITableViewDiffableDataSource<Section, CourseProject.ID>!
 //    var dataSource: SNTableViewDiffableDataSource!
@@ -168,9 +170,9 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
     }
     
     
-    func updateCourseProgress(withProject project: CourseProject, actionType: PersistenceKeys.CourseProgressToggleActionType)
+    func updateCourseProgress(withProject project: CourseProject, actionType: PersistenceKeys.CourseProgressType)
     {
-        PersistenceManager.updateProgress(forCourse: selectedCourse, withProject: project, actionType: actionType) { <#SNError?#> in
+        PersistenceManager.saveProgress(forCourse: selectedCourse, withProject: project, actionType: actionType) { <#SNError?#> in
             <#code#>
         }
     }

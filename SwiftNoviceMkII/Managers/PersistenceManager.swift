@@ -45,10 +45,11 @@ enum PersistenceManager
     }
     
     
-    static func saveVCVisitStatus(for vc: UIViewController, status: PersistenceKeys.VCVisitStatusType?)
+    static func saveVCVisitStatus(for vc: UIViewController, status: PersistenceKeys.VCVisitStatusType)
     {
         switch vc {
         case is HomeCoursesVC:
+            print("saving home vc visit status")
             do {
                 let encoder = JSONEncoder()
                 let encodedStatus = try encoder.encode(status)
@@ -60,6 +61,7 @@ enum PersistenceManager
         /**--------------------------------------------------------------------------**/
 
         case is CourseProjectsVC:
+            print("saving projects vc visit status")
             do {
                 let encoder = JSONEncoder()
                 let encodedStatus = try encoder.encode(status)
@@ -119,21 +121,41 @@ enum PersistenceManager
     //-------------------------------------//
     // MARK: - SAVE / FETCH COURSE BOOKMARKS & PROGRESS
     
-    static func updateProgress(forCourse course: Course, withProject project: CourseProject, actionType: PersistenceKeys.CourseProgressToggleActionType, completed: @escaping (SNError?) -> Void)
+    static func saveCoursesProgress(with course: Course, actionType: PersistenceKeys.CourseProgressType, completed: @escaping (SNError?) -> Void)
     {
-        // course = selectedCourse
-        // course = track bookmark & complete/incomplete
+        fetchProgress(forCourse: course) {
+            
+        }
+        
+        PersistenceKeys.CourseProgressType.courseProgressKey
+        PersistenceKeys.CourseProgressType.courseProjectsProgressKey
+        
+        
         // course projects = track """"""", but course just has the api link
         // after you fetch, say if !bookmarkedCourseProjects.isEmpty, selectedCourse.isBookmarked = true 
         
-        fetchProgress(completed: <#T##(Result<[Course], SNError>) -> Void#>)
     }
     
     
-    static func fetchProgress(completed: @escaping (Result<[Course], SNError>) -> Void)
+    static func saveProjectsProgress(with project: CourseProject, actionType: PersistenceKeys.CourseProgressType
+    
+    // JUST MAKE THE COURSES PAGE ON THE FLY AS THE PROJECTS PROGRESS GETS LOADED IN, THEN PERSIST THAT (COURSES) IN THE EXPECTED KEY
+    static func fetchCoursesProgress(completed: @escaping (Result<[Course], SNError>) -> Void) -> Void
     {
-        guard let courseData = defaults.object(forKey: PersistenceKeys.)
+        guard let courseProgressData = defaults.object(forKey: PersistenceKeys.CourseProgressType.courseProgressKey) as? Data
+        else { completed(.success([])); return }
+        
+        do {
+            let decoder = JSONDecoder()
+            let decodedProgress = try decoder.decode(Course.self, from: courseProgressData)
+            completed(.success([decodedProgress]))
+        } catch {
+            
+        }
     }
+    
+    
+    static func fetchProjectsProgress(forCourseProjec)
     
     //-------------------------------------//
     // MARK: - LOGIN PERSISTENCE
