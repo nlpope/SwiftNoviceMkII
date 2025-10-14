@@ -78,10 +78,10 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
     
     func configDiffableDataSource()
     {
-        dataSource = SNTableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, project in
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SSCell", for: indexPath)
+        dataSource = UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, project in
+            let cell = tableView.dequeueReusableCell(withIdentifier: SNCourseProjectCell.reuseID, for: indexPath)
             
-            let cellTitle = project.title == "" ? "Untitled" : "Project \(project.index) \(project.title)"
+            let cellTitle = project.title == "" ? "Untitled" : "\(project.title)"
             let cellSubtitle = project.subtitle == "" ? "" : project.subtitle
             let cellSkillList = project.skills == "" ? "" : project.skills
             
@@ -125,56 +125,10 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
     }
     
     
-    func updateBookmarksBin(with project: CourseProject, actionType: ProjectBookmarkToggleActionType)
-    {
-        switch actionType {
-        case .add:
-            print("add tapped")
-        case .remove:
-            print("remove tapped")
-        }
-    }
+    //-------------------------------------//
+    // MARK: - SAVE / FETCH COURSE BOOKMARKS & PROGRESS
     
     
-    func updateCompletedBin(with project: CourseProject, actionType: ProjectCompletionToggleActionType)
-    {
-        switch actionType {
-        case .complete:
-            completedProjects.append(project)
-            PersistenceManager.updateCompletedBin(with: project, actionType: .complete ) { [weak self] error in
-                guard let self = self else { return }
-                guard let error = error else {
-                    presentSNAlertOnMainThread(alertTitle: <#T##String#>, message: <#T##String#>, buttonTitle: <#T##String#>)
-                    presentSNAlertOnMainThread(title: AlertKeys.saveSuccessTitle, msg: AlertKeys.saveSuccessMsg, btnTitle: "Ok")
-                    updateDataSource(with: projects)
-                    return
-                }
-                self.presentSSAlertOnMainThread(title: "Failed to favorite", msg: error.rawValue, btnTitle: "Ok")
-            }
-            
-        case .incomplete:
-            favorites.removeAll { $0.title == project.title }
-            PersistenceManager.updateFavorites(with: project, actionType: .remove) { [weak self] error in
-                guard let self = self else { return }
-                guard let error = error else {
-                    presentSSAlertOnMainThread(title: AlertKeys.removeSuccessTitle, msg: AlertKeys.removeSuccessMsg, btnTitle: "Ok")
-                    updateDataSource(with: projects)
-                    return
-                }
-                self.presentSSAlertOnMainThread(title: "Failed to remove favorite", msg: error.rawValue, btnTitle: "Ok")
-            }
-        case .addToBookmarks:
-            print("adding to bookmarks")
-        case .deleteFromBookmarks:
-            print("removing from bookmarks")
-        }
-    }
-    
-    
-    func followCourseLink()
-    {
-        
-    }
     
     //-------------------------------------//
     // MARK: - ATTRIBUTED STRING CREATION
@@ -212,12 +166,12 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        //
+        // if selectedCourse = Swift Playgrounds ...
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        //
+        // if fetched CourseProject.isBookmarked ...
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -232,6 +186,12 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
     
     @objc func followProjectLink(at link: String)
     {
-        
+        if let url = URL(string: link) {
+            let config = SFSafariViewController.Configuration()
+            config.entersReaderIfAvailable = true
+            
+            let vc = SFSafariViewController(url: url, configuration: config)
+            present(vc, animated: true)
+        }
     }
 }

@@ -8,6 +8,7 @@ class SNCourseProjectCell: UITableViewCell {
 
     var bookMarkIcon: UIImage!
     var completionIcon: UIImage!
+    static let reuseID = "SNCourseProjectCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
