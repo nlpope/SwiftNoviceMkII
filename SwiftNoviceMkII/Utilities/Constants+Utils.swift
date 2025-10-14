@@ -25,6 +25,9 @@ enum ImageKeys
 enum PersistenceKeys
 {
     static let isLoggedIn = "isLoggedIn"
+    static var isFirstVisitPostDismissal = false {
+        didSet { PersistenceManager.saveVCVisitStatus(for: <#T##UIViewController#>, status: <#T##VCVisitStatusType#>) }
+    }
         
     enum CourseProgressToggleActionType
     {

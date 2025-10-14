@@ -18,8 +18,13 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
     // thru here i can say selectedCourse.iscompleted/bookmarked = true or false
     var selectedCourse: Course!
     var editModeOn: Bool = false
+    var vcVisitStatus: PersistenceKeys.VCVisitStatusType
+    
     var projects = [CourseProject]()
+    var bookMarkedProjects = [CourseProject]()
+    var completedProjects = [CourseProject]()
     var filteredProjects = [CourseProject]()
+    
     var isSearching: Bool = false
     var tableView: UITableView!
     var dataSource: UITableViewDiffableDataSource<Section, CourseProject.ID>!
@@ -41,6 +46,7 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
         configSearchController()
         configDiffableDataSource()
         configTableView()
+        vcVisitStatus = PersistenceManager.fetchVCVisitStatus(for: self)
     }
     
     
@@ -154,15 +160,30 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
     @objc func toggleEditMode() { editModeOn.toggle() }
     
     //-------------------------------------//
-    // MARK: - COURSE PROGRESS PERSISTENCE
+    // MARK: - NETWORK & PERSISTENCE MANAGER CALLS
     
-    func updateCoursesProgress(with: Course)
+    func fetchCourseProjects()
     {
         
     }
     
+    
+    func updateCourseProgress(withProject project: CourseProject, actionType: PersistenceKeys.CourseProgressToggleActionType)
+    {
+        PersistenceManager.updateProgress(forCourse: selectedCourse, withProject: project, actionType: actionType) { <#SNError?#> in
+            <#code#>
+        }
+    }
+    
     //-------------------------------------//
     // MARK: - TABLEVIEW DELEGATE METHODS
+    
+    func numberOfSections(in tableView: UITableView) -> Int
+    {
+        let sectionNumber = selectedCourse.name.contains("Swift Playgrounds") ? 2 : 1
+        return sectionNumber
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {

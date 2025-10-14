@@ -78,19 +78,12 @@ class SNLogoLauncher
     @objc func playerDidFinishPlaying()
     {
         targetVC.navigationController?.isNavigationBarHidden = false
-        targetVC.view.backgroundColor = .systemBackground
-        
-        if #available(iOS 18.0, *) {
-            targetVC.tabBarController?.isTabBarHidden = false
-        } else {
-            print("cannot hide tab bar")
-        }
-        
-        PersistenceManager.isVeryFirstVisitToCourses = false
-        PersistenceManager.isFirstVisitToHomePostDismissal = false
-        removeAllAVPlayerLayers()
         targetVC.tabBarController?.isTabBarHidden = false
         targetVC.collectionView.isHidden = false
+        targetVC.view.backgroundColor = .systemBackground
+        
+        targetVC.vcVisitStatus = .isFirstVisitPostDismissal
+        removeAllAVPlayerLayers()
         
         self.removeNotifications()
     

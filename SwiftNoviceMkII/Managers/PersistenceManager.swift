@@ -21,7 +21,31 @@ enum PersistenceManager
     //-------------------------------------//
     // MARK: - SAVE / FETCH VC VISIT STATUS
     
-    static func saveVCVisitStatus(for vc: UIViewController, status: PersistenceKeys.VCVisitStatusType)
+    static func saveHomeCoursesVCVisitStatus(status: PersistenceKeys.VCVisitStatusType)
+    {
+        
+    }
+    
+    
+    static func saveCourseProjectsVCVisitStatus(status: PersistenceKeys.VCVisitStatusType)
+    {
+        
+    }
+    
+    
+    static func fetchHomeCoursesVCVisitStatus() -> PersistenceKeys.VCVisitStatusType
+    {
+        
+    }
+    
+    
+    static func fetchHomeCoursesVCVisitStatus() -> PersistenceKeys.VCVisitStatusType
+    {
+        
+    }
+    
+    
+    static func saveVCVisitStatus(for vc: UIViewController, status: PersistenceKeys.VCVisitStatusType?)
     {
         switch vc {
         case is HomeCoursesVC:
@@ -100,13 +124,13 @@ enum PersistenceManager
         // course = selectedCourse
         // course = track bookmark & complete/incomplete
         // course projects = track """"""", but course just has the api link
-        // ... so
+        // after you fetch, say if !bookmarkedCourseProjects.isEmpty, selectedCourse.isBookmarked = true 
         
-        fetchCourseProgress(completed: <#T##(Result<[Course], SNError>) -> Void#>)
+        fetchProgress(completed: <#T##(Result<[Course], SNError>) -> Void#>)
     }
     
     
-    static func fetchCourseProgress(completed: @escaping (Result<[Course], SNError>) -> Void)
+    static func fetchProgress(completed: @escaping (Result<[Course], SNError>) -> Void)
     {
         guard let courseData = defaults.object(forKey: PersistenceKeys.)
     }

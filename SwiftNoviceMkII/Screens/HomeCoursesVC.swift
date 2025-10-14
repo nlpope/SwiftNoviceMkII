@@ -10,14 +10,16 @@ import MobileCoreServices
 
 class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating, UICollectionViewDelegate
 {
+    var vcVisitStatus: PersistenceKeys.VCVisitStatusType! {
+        didSet { PersistenceManager.saveVCVisitStatus(for: self, status: vcVisitStatus) }
+    }
+
     var courses = [Course]()
     var filteredCourses = [Course]()
     var completedCourses = [Course]()
+    
     var isSearching = false
     var logoLauncher: SNLogoLauncher!
-    var vcVisitStatus: PersistenceKeys.VCVisitStatusType = .isFirstVisit {
-        didSet { PersistenceManager.saveVCVisitStatus(for: self, status: vcVisitStatus) }
-    }
     
     var collectionView: UICollectionView!
     private var courseListDataSource: UICollectionViewDiffableDataSource<Section, Course.ID>!
@@ -31,12 +33,13 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         configSearchController()
         configCollectionView()
         configDataSource()
+        vcVisitStatus = PersistenceManager.fetchVCVisitStatus(for: self)
     }
     
     
     override func viewWillAppear(_ animated: Bool)
     {
-        if PersistenceManager.fetchFirstVisitToCoursesPostDismissalStatus() {
+        if vcVisitStatus == .isFirstVisitPostDismissal {
             logoLauncher = SNLogoLauncher(targetVC: self)
             logoLauncher.configLogoLauncher()
         }
