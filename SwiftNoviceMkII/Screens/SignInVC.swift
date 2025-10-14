@@ -177,7 +177,7 @@ class SignInVC: UIViewController
             else { self?.presentSNAlertOnMainThread(alertTitle: "Mismatch detected", message: SNError.mismatchOnCreation.rawValue, buttonTitle: "Ok"); return }
             
             // AFTER THIS INCORPORATE REST OF KEYS IN THE POST SET PWD ENTRY METHOD
-            KeychainWrapper.standard.set(pwd, forKey: SecretKeys.password)
+            KeychainWrapper.standard.set(pwd, forKey: PersistenceKeys.SecretKeys.password)
             self?.isFirstLoad   = false
             self?.revealAuthButton()
         }
