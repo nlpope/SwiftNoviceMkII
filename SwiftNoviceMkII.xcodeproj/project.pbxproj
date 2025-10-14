@@ -24,7 +24,6 @@
 		40BFB2072E3A22B200A3E83E /* UIHelper+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BFB2062E3A22B200A3E83E /* UIHelper+Utils.swift */; };
 		40C97FD42E8C44F000C55111 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C97FD32E8C44F000C55111 /* KeychainWrapper.swift */; };
 		40C97FD52E8C44F000C55111 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C97FD22E8C44F000C55111 /* KeychainItemAccessibility.swift */; };
-		40C97FD92E8C60E500C55111 /* SNTableViewDiffableDataSource+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C97FD82E8C60E500C55111 /* SNTableViewDiffableDataSource+Utils.swift */; };
 		40D19EB42E30CFBF008D9669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D19EA92E30CFBF008D9669 /* Assets.xcassets */; };
 		40D19EB62E30CFBF008D9669 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40D19EAC2E30CFBF008D9669 /* LaunchScreen.storyboard */; };
 		40D19EB72E30CFBF008D9669 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40D19EAE2E30CFBF008D9669 /* Main.storyboard */; };
@@ -78,7 +77,6 @@
 		40BFB2062E3A22B200A3E83E /* UIHelper+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIHelper+Utils.swift"; sourceTree = "<group>"; };
 		40C97FD22E8C44F000C55111 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		40C97FD32E8C44F000C55111 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
-		40C97FD82E8C60E500C55111 /* SNTableViewDiffableDataSource+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SNTableViewDiffableDataSource+Utils.swift"; sourceTree = "<group>"; };
 		40D19E712E30CF51008D9669 /* SwiftNoviceMkII.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftNoviceMkII.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40D19E8A2E30CF7B008D9669 /* SwiftNoviceMkIITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftNoviceMkIITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40D19E942E30CF7C008D9669 /* SwiftNoviceMkIIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftNoviceMkIIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -307,7 +305,6 @@
 				40D19ED32E30F60C008D9669 /* SNLogoLauncher+Utils.swift */,
 				4096DACF2E385CAD00E6C5F5 /* SNError+Utils.swift */,
 				40BFB2062E3A22B200A3E83E /* UIHelper+Utils.swift */,
-				40C97FD82E8C60E500C55111 /* SNTableViewDiffableDataSource+Utils.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -465,7 +462,6 @@
 			files = (
 				409AC4B62E40047F00C3035C /* NetworkManager.swift in Sources */,
 				40D19ED02E30D6FD008D9669 /* CourseProject.swift in Sources */,
-				40C97FD92E8C60E500C55111 /* SNTableViewDiffableDataSource+Utils.swift in Sources */,
 				40D19EDA2E30F983008D9669 /* AVPlayer+Ext.swift in Sources */,
 				40D19ED82E30F899008D9669 /* Constants+Utils.swift in Sources */,
 				40C97FD42E8C44F000C55111 /* KeychainWrapper.swift in Sources */,

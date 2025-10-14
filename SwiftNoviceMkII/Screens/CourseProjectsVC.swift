@@ -12,23 +12,24 @@ import MobileCoreServices
 // #2 "WHEN ALL PROJECTS ARE COMPLETE THIS COURSE WILL BE MARKED COMPLETE AS WELL."
 // #3 "WE'VE DONE OUR BEST TO KEEP EVERYTHING UP TO DATE, BUT IF YOU NOTICE A DISCREPANCY PLEASE FEEL FREE TO REACH OUT"
 
-class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
+class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDelegate
 {
     // split sections up based on if selectedCourse == playgrounds 1 or 2
     // thru here i can say selectedCourse.iscompleted/bookmarked = true or false
     var selectedCourse: Course!
-    var delegate: HomeCoursesVC!
     var editModeOn: Bool = false
-    var courseProjects = [CourseProject]()
+    var projects = [CourseProject]()
+    var filteredProjects = [CourseProject]()
+    var isSearching: Bool = false
     var tableView: UITableView!
-    var dataSource: SNTableViewDiffableDataSource!
+    var dataSource: UITableViewDiffableDataSource<Section, CourseProject.ID>!
+//    var dataSource: SNTableViewDiffableDataSource!
     
     
-    init(selectedCourse: Course, delegate: HomeCoursesVC)
+    init(selectedCourse: Course)
     {
         super.init(nibName: nil, bundle: nil)
         self.selectedCourse = selectedCourse
-        self.delegate = delegate
     }
     
     
@@ -169,6 +170,12 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
         }
     }
     
+    
+    func followCourseLink()
+    {
+        
+    }
+    
     //-------------------------------------//
     // MARK: - ATTRIBUTED STRING CREATION
     
@@ -197,27 +204,34 @@ class CourseProjectsVC: SNDataLoadingVC, SNTableViewDiffableDataSourceDelegate
     
     func updateCoursesProgress(with: Course)
     {
-        // delegate = HomeCoursesVC w [Course] I can dig into and save/load
-        // so... delegate.
         
     }
     
     //-------------------------------------//
-    // MARK: - TABLEVIEW DELEGATE METHODS 1/2 (SEE SNTableViewDiffableDataSource)
+    // MARK: - TABLEVIEW DELEGATE METHODS
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        //
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        //
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         let activeArray = isSearching ? filteredProjects : projects
         tableView.deselectRow(at: indexPath, animated: true)
-        showTutorial(activeArray[indexPath.row].index)
+        followProjectLink(at: activeArray[indexPath.row].projectUrl!)
     }
     
+    //-------------------------------------//
+    // MARK: - SAFARI PRESENTATION METHODS
     
-    // contin.'d from configDiffableDataSource > cell.editingAccessoryType
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle
+    @objc func followProjectLink(at link: String)
     {
-        let currentProject = projects[indexPath.row]
-        if favorites.contains(currentProject) { return .delete }
-        else { return .insert }
+        
     }
 }
