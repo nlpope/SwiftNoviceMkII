@@ -24,14 +24,22 @@ enum ImageKeys
 
 enum PersistenceKeys
 {
-    static let HomeCoursesVCEntryStatus = "HomeCoursesVCEntryStatus"
-    static let CourseProjectsVCEntryStatus = "CourseProjectsVCEntryStatus"
-    
     static let isLoggedIn = "isLoggedIn"
-    
-//    static let completedCourses = "completedCourses"
-    static let coursesProgress = "coursesProgress"
-    static let courseProjectsProgress = "courseProjectsProgress"
+        
+    enum CourseProgressToggleActionType
+    {
+        case addBookmark, removeBookmark, markComplete, markIncomplete
+        static let courseProgressKey = "courseProgressKey"
+        static let courseProjectsProgressKey = "courseProjectsProgressKey"
+
+    }
+
+    enum VCVisitStatusType: Codable
+    {
+        case isFirstVisit, isFirstVisitPostDismissal
+        static let homeVCVisitStatusKey = "homeVCVisitStatusKey"
+        static let projectsVCVisitStatusKey = "projectsVCVisitStatusKey"
+    }
 }
 
 enum SaveKeys

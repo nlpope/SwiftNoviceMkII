@@ -1,4 +1,4 @@
-//  File: SNTableViewDiffableDataSource.swift
+//  File: SNTableViewDiffableDataSource+Utils.swift
 //  Project: SwiftNoviceMkII
 //  Created by: Noah Pope on 9/30/25.
 
@@ -9,10 +9,7 @@ import MobileCoreServices
 protocol SNTableViewDiffableDataSourceDelegate
 {
     var courseProjects: [CourseProject] { get set }
-//    var completedProjects: [CourseProject] { get set }
-//    var bookmarkedProjects: [CourseProject] { get set }
     func updateCoursesProgress(with: Course)
-    func updateCourseProjectsProgress(with: CourseProject)
 }
 
 /** this subclass is here only to make the 'commit editingStyle' override method work */
@@ -29,6 +26,7 @@ class SNTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, Cour
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
     {
+        // im including a search func in the projects vc, so we need an 'activeArray' var
         let currentProject = delegate.courseProjects[indexPath.row]
         if editingStyle == .insert {
             delegate.updateCompletedBin(with: currentProject, actionType: .complete)

@@ -39,7 +39,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     var completedCourses = [Course]()
     var isSearching = false
     var logoLauncher: SNLogoLauncher!
-    var vcVisitStatus: VCVisitStatusType = .isFirstVisit {
+    var vcVisitStatus: PersistenceKeys.VCVisitStatusType = .isFirstVisit {
         didSet { PersistenceManager.saveVCVisitStatus(for: self, status: vcVisitStatus) }
     }
     
@@ -209,7 +209,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         let activeArray = isSearching ? filteredCourses : courses
         let selectedCourse = activeArray[indexPath.item]
         
-        let destVC = CourseProjectsVC(course: selectedCourse, delegate: self)
+        let destVC = CourseProjectsVC(selectedCourse: selectedCourse, delegate: self)
         
         navigationController?.pushViewController(destVC, animated: true)
     }

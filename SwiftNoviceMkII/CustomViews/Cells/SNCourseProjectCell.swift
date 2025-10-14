@@ -1,13 +1,10 @@
 //  File: SNCourseProjectCell.swift
 //  Project: SwiftNoviceMkII
-//  Created by: Noah Pope on 10/10/25.
+//  Created by: Noah Pope on 10/13/25.
 
 import UIKit
 
-class SNCourseProjectCell: UITableViewCell
-{
-    static let reuseID = "CourseProjectCell"
-    
+class SNCourseProjectCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
