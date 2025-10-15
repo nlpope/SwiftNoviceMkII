@@ -32,11 +32,11 @@ enum PersistenceKeys
         static let password = "passwordKey"
     }
         
-    enum CourseProgressType
+    enum ProgressType
     {
         case addBookmark, removeBookmark, markComplete, markIncomplete
-        static let courseProgressKey = "courseProgressKey"
-        static let courseProjectsProgressKey = "courseProjectsProgressKey"
+        static let coursesProgressKey = "coursesProgressKey"
+        static let projectsProgressKey = "projectsProgressKey"
 
     }
 

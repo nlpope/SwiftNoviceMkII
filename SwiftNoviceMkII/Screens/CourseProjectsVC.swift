@@ -170,7 +170,7 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
     }
     
     
-    func updateCourseProgress(withProject project: CourseProject, actionType: PersistenceKeys.CourseProgressType)
+    func updateCourseProgress(withProject project: CourseProject, actionType: PersistenceKeys.ProgressType)
     {
         PersistenceManager.saveProgress(forCourse: selectedCourse, withProject: project, actionType: actionType) { <#SNError?#> in
             <#code#>
