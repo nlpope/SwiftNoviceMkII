@@ -127,6 +127,7 @@ enum PersistenceManager
             switch result {
             case .success(var courses):
                 
+                
             /**--------------------------------------------------------------------------**/
                 
             }
@@ -137,9 +138,22 @@ enum PersistenceManager
     }
     
     
-    static func updateProjectsProgress(with project: CourseProject)
+    static func updateProjectsProgress(with project: CourseProject, actionType: PersistenceKeys.CourseProgressType)
     {
         
+    }
+    
+    // try generics here between course and project in courses and projects
+    static func handle(_ actionType: PersistenceKeys.CourseProgressType, for project: SSProject, in projects: inout [SSProject], completed: @escaping (SSError?) -> Void)
+    {
+        switch actionType {
+        case .add:
+//            guard !projects.contains(project) else { completed(.alreadyInFavorites); return }
+            projects.append(project)
+        /**--------------------------------------------------------------------------**/
+        case .remove:
+            projects.removeAll { $0.title == project.title }
+        }
     }
  
     
