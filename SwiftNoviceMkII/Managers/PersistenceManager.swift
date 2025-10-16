@@ -124,19 +124,14 @@ enum PersistenceManager
    
     static func updateProgress<T>(with item: T, actionType: PersistenceKeys.ProgressType, completed: @escaping (SNError) -> Void) -> Void where T: Codable, T: Identifiable
     {
-        var fetchType: PersistenceKeys.FetchType!
-        
-        switch item {
-        case is Course:
-            fetchType = .courses
-        case is CourseProject:
-            fetchType = .projects
-        default:
-            break
-        }
-        #warning("left off here 10.15.25; trying to infer the type - read docs")
-        fetchProgress(forType: fetchType) { result in
+        fetchProgress(forType: Course.self) { result in
+            switch result {
             
+            case .success(_):
+                break
+            case.failure(_):
+                break
+            }
         }
     }
     
@@ -154,15 +149,17 @@ enum PersistenceManager
     }
     
     
-    static func fetchProgress<T>(forType fetchType: PersistenceKeys.FetchType, completed: @escaping (Result<[T], SNError>) -> Void) -> Void where T: Codable, T: Identifiable
+    static func fetchProgress<T>(forType fetchType: T.Type, completed: @escaping (Result<[T], SNError>) -> Void) -> Void where T: Codable, T: Identifiable
     {
         var key: String!
         
         switch fetchType {
-        case .courses:
+        case is Course.Type:
             key = PersistenceKeys.ProgressType.coursesProgressKey
-        case .projects:
-            key = PersistenceKeys.ProgressType.projectsProgressKey
+        case is CourseProject.Type:
+            key = PersistenceKeys.ProgressType.coursesProgressKey
+        default:
+            break
         }
         
         guard let progressData = defaults.object(forKey: key) as? Data
