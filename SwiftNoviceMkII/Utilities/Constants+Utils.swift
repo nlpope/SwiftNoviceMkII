@@ -31,6 +31,11 @@ enum PersistenceKeys
     {
         static let password = "passwordKey"
     }
+    
+    enum FetchType
+    {
+        case courses, projects
+    }
         
     enum ProgressType
     {

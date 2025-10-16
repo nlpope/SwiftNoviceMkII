@@ -122,30 +122,25 @@ enum PersistenceManager
     // MARK: - SAVE / FETCH BOOKMARKS & PROGRESS
     
    
-    static func updateProgress<Item: Codable>(with item: Item, actionType: PersistenceKeys.ProgressType, completed: @escaping (SNError) -> Void)
+    static func updateProgress<T>(with item: T, actionType: PersistenceKeys.ProgressType, completed: @escaping (SNError) -> Void) -> Void where T: Codable, T: Identifiable
     {
-        // switch on the item type
-        // then handle the action type separately
+        var fetchType: PersistenceKeys.FetchType!
+        
         switch item {
-            
+        case is Course:
+            fetchType = .courses
+        case is CourseProject:
+            fetchType = .projects
         default:
             break
         }
-        fetchProgress(forType: Item) { result in
-            switch result {
-            case .success(var items):
-                
-                
-            /**--------------------------------------------------------------------------**/
-                
-            }
-            
+        #warning("left off here 10.15.25; trying to infer the type - read docs")
+        fetchProgress(forType: fetchType) { result in
             
         }
-        
     }
     
-    // try generics here between course and project in courses and projects
+    
     static func handle<Item: Codable>(_ actionType: PersistenceKeys.ProgressType, for item: Item, in projects: inout [Course], completed: @escaping (SNError?) -> Void)
     {
         switch actionType {
@@ -159,17 +154,15 @@ enum PersistenceManager
     }
     
     
-    static func fetchProgress<Item: Codable>(forType item: Item, completed: @escaping (Result<[Item], SNError>) -> Void)
+    static func fetchProgress<T>(forType fetchType: PersistenceKeys.FetchType, completed: @escaping (Result<[T], SNError>) -> Void) -> Void where T: Codable, T: Identifiable
     {
         var key: String!
         
-        switch item {
-        case is Course:
+        switch fetchType {
+        case .courses:
             key = PersistenceKeys.ProgressType.coursesProgressKey
-        case is CourseProject:
+        case .projects:
             key = PersistenceKeys.ProgressType.projectsProgressKey
-        default:
-            break
         }
         
         guard let progressData = defaults.object(forKey: key) as? Data
@@ -177,7 +170,7 @@ enum PersistenceManager
         
         do {
             let decoder = JSONDecoder()
-            let decodedProgress = try decoder.decode([Item].self, from: progressData)
+            let decodedProgress = try decoder.decode([T].self, from: progressData)
             completed(.success(decodedProgress))
         } catch {
             completed(.failure(.failedToLoadProgress))
