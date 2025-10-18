@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct Course: Identifiable, Codable
+struct Course: Identifiable, Codable, CourseItem
 {
     var id: UUID?
     let index: Int
@@ -13,7 +13,7 @@ struct Course: Identifiable, Codable
     // course url will be added to the go button in next screen's nav bar
     var courseUrl: String
     var courseProjectsAPIUrl: String
-    let isBookmarked: Bool
+    var isBookmarked: Bool
     var isCompleted: Bool
     
     enum CodingKeys: String, CodingKey

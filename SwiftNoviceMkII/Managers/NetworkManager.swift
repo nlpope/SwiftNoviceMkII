@@ -46,7 +46,7 @@ class NetworkManager
     
     func fetchCourseProjects(completed: @escaping(Result<[CourseProject], SNError>) -> Void)
     {
-        let endpoint = 
+        
     }
     
     

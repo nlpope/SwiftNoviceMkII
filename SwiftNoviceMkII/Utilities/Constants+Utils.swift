@@ -8,7 +8,7 @@ enum APIKeys
 {
     static let vaporUrl = "http://127.0.0.1:8080/getCourses"
     static let gitScrpitsUrl = ""
-    static let playgrounds1
+    static let playgrounds1 = ""
 }
 
 enum ColorKeys

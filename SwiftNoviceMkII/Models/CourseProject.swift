@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct CourseProject: Identifiable, Codable
+struct CourseProject: Identifiable, Codable, CourseItem
 {
     var id: UUID?
     let index: Int
