@@ -124,7 +124,10 @@ enum PersistenceManager
    
     static func updateProgress<T>(with item: T, actionType: PersistenceKeys.ProgressType, completed: @escaping (SNError) -> Void) -> Void where T: Codable, T: Identifiable
     {
-        fetchProgress(forType: Course.self) { result in
+        //item = an instance of Course || CourseProject
+        //T = Course.Type accessed via type(of: _) -> _.Type
+        
+        fetchProgress(forType: type(of: item)) { result in
             switch result {
             case .success(_):
                 break
@@ -154,6 +157,7 @@ enum PersistenceManager
         var key: String!
         
         switch fetchType {
+        //so not literally Course, but the type Course - this is how this is captured in signatures
         case is Course.Type:
             key = PersistenceKeys.ProgressType.coursesProgressKey
         case is CourseProject.Type:
