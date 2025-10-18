@@ -126,9 +126,9 @@ enum PersistenceManager
     {
         fetchProgress(forType: Course.self) { result in
             switch result {
-            
             case .success(_):
                 break
+            /**--------------------------------------------------------------------------**/
             case.failure(_):
                 break
             }
