@@ -184,10 +184,7 @@ enum PersistenceManager
     
     
     static func retrieveLoggedInStatus() -> Bool
-    {
-        let loggedInStatus = defaults.bool(forKey: PersistenceKeys.loginStatusKey)
-        guard loggedInStatus else { return false }
-        return true
-    }
+    { return defaults.bool(forKey: PersistenceKeys.loginStatusKey) }
+    // defaults.bool(forKey:) auto returns false if key doesn't yet exist
 }
 
