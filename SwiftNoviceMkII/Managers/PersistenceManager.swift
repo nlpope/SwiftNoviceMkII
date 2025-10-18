@@ -14,36 +14,18 @@ import UIKit
 //    case complete, incomplete
 //}
 
+protocol CourseItem
+{
+    var isBookmarked: Bool { get set }
+    var isCompleted: Bool { get set }
+}
+
 enum PersistenceManager
 {
     static private let defaults = UserDefaults.standard
     
     //-------------------------------------//
     // MARK: - SAVE / FETCH VC VISIT STATUS
-    
-    static func saveHomeCoursesVCVisitStatus(status: PersistenceKeys.VCVisitStatusType)
-    {
-        
-    }
-    
-    
-    static func saveCourseProjectsVCVisitStatus(status: PersistenceKeys.VCVisitStatusType)
-    {
-        
-    }
-    
-    
-    static func fetchHomeCoursesVCVisitStatus() -> PersistenceKeys.VCVisitStatusType
-    {
-        
-    }
-    
-    
-    static func fetchHomeCoursesVCVisitStatus() -> PersistenceKeys.VCVisitStatusType
-    {
-        
-    }
-    
     
     static func saveVCVisitStatus(for vc: UIViewController, status: PersistenceKeys.VCVisitStatusType)
     {
@@ -122,37 +104,50 @@ enum PersistenceManager
     // MARK: - SAVE / FETCH BOOKMARKS & PROGRESS
     
    
-    static func updateProgress<T>(with item: T, actionType: PersistenceKeys.ProgressType, completed: @escaping (SNError) -> Void) -> Void where T: Codable, T: Identifiable
+    static func updateProgress<T>(with item: T, actionType: PersistenceKeys.ProgressType, completed: @escaping (SNError) -> Void) -> Void
+    where T: Codable, T: Identifiable
     {
-        //item = an instance of Course || CourseProject
-        //T = Course.Type accessed via type(of: _) -> _.Type
-        
         fetchProgress(forType: type(of: item)) { result in
             switch result {
-            case .success(_):
-                break
+            case .success(let progress):
+                
             /**--------------------------------------------------------------------------**/
-            case.failure(_):
-                break
+            case.failure(let error):
+                completed(error)
             }
         }
     }
     
     
-    static func handle<Item: Codable>(_ actionType: PersistenceKeys.ProgressType, for item: Item, in projects: inout [Course], completed: @escaping (SNError?) -> Void)
+    static func handle<T>(_ actionType: PersistenceKeys.ProgressType, for item: inout T, in array: inout [T], completed: @escaping (SNError?) -> Void)
+    where T: Codable, T: Identifiable, T: CourseItem
     {
         switch actionType {
-        case .add:
-//            guard !projects.contains(project) else { completed(.alreadyInFavorites); return }
-            projects.append(project)
+        case .addBookmark:
+            array.removeAll { $0.id == item.id }
+            item.isBookmarked = true
+            array.append(item)
         /**--------------------------------------------------------------------------**/
-        case .remove:
-            projects.removeAll { $0.title == project.title }
+        case .removeBookmark:
+            array.removeAll { $0.id == item.id }
+            item.isBookmarked = false
+            array.append(item)
+        /**--------------------------------------------------------------------------**/
+        case .markComplete:
+            array.removeAll { $0.id == item.id }
+            item.isCompleted = true
+            array .append(item)
+        /**--------------------------------------------------------------------------**/
+        case .markIncomplete:
+            array.removeAll { $0.id == item.id }
+            item.isCompleted = false
+            array.append(item)
         }
     }
     
     
-    static func fetchProgress<T>(forType fetchType: T.Type, completed: @escaping (Result<[T], SNError>) -> Void) -> Void where T: Codable, T: Identifiable
+    static func fetchProgress<T>(forType fetchType: T.Type, completed: @escaping (Result<[T], SNError>) -> Void) -> Void
+    where T: Codable, T: Identifiable
     {
         var key: String!
         
