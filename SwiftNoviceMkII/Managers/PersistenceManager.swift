@@ -104,13 +104,15 @@ enum PersistenceManager
     // MARK: - SAVE / FETCH BOOKMARKS & PROGRESS
     
    
-    static func updateProgress<T>(with item: T, actionType: PersistenceKeys.ProgressType, completed: @escaping (SNError) -> Void) -> Void
-    where T: Codable, T: Identifiable
+    static func updateProgress<T>(with item: inout T, actionType: PersistenceKeys.ProgressType, completed: @escaping (SNError?) -> Void) -> Void
+    where T: Codable, T: Identifiable, T: CourseItem
     {
         fetchProgress(forType: type(of: item)) { result in
             switch result {
-            case .success(let progress):
-                
+            case .success(var progress):
+                handle(actionType, for: &item, in: &progress) { error in
+                    if error != nil { completed(error); return }
+                }
             /**--------------------------------------------------------------------------**/
             case.failure(let error):
                 completed(error)
@@ -152,11 +154,12 @@ enum PersistenceManager
         var key: String!
         
         switch fetchType {
-        //so not literally Course, but the type Course - this is how this is captured in signatures
         case is Course.Type:
             key = PersistenceKeys.ProgressType.coursesProgressKey
+        /**--------------------------------------------------------------------------**/
         case is CourseProject.Type:
             key = PersistenceKeys.ProgressType.coursesProgressKey
+        /**--------------------------------------------------------------------------**/
         default:
             break
         }
@@ -177,19 +180,12 @@ enum PersistenceManager
     // MARK: - LOGIN PERSISTENCE
     
     static func updateLoggedInStatus(loggedIn: Bool)
-    {
-        guard loggedIn else {
-            defaults.set(false, forKey: PersistenceKeys.isLoggedIn)
-            return
-        }
-        defaults.set(true, forKey: PersistenceKeys.isLoggedIn)
-        return
-    }
+    { defaults.set(loggedIn, forKey: PersistenceKeys.loginStatusKey) }
     
     
     static func retrieveLoggedInStatus() -> Bool
     {
-        let loggedInStatus = defaults.bool(forKey: PersistenceKeys.isLoggedIn)
+        let loggedInStatus = defaults.bool(forKey: PersistenceKeys.loginStatusKey)
         guard loggedInStatus else { return false }
         return true
     }

@@ -24,8 +24,7 @@ enum ImageKeys
 
 enum PersistenceKeys
 {
-    static let isLoggedIn = false
-    static let loggedInStatusKey = "loggedInStatusKey"
+    static let loginStatusKey = "loggedInStatusKey"
     
     enum SecretKeys
     {
