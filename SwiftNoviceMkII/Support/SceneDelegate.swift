@@ -11,6 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions)
     {
+        #warning("dismiss the signInVC then use instruments to avoid memory leak")
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
@@ -18,6 +19,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
         window?.makeKeyAndVisible()
         
         configNavBar()
+    }
+    
+    
+    func determineRootVC() -> UIViewController
+    {
+        let userIsLoggedIn = PersistenceManager.fetchLoggedInStatus()
+        guard userIsLoggedIn else { return SignInVC() }
+        return SNTabBarController()
+    }
+    
+    
+    func changeRootVC(_ vc: UIViewController, animated: Bool = true)
+    {
+        guard let window = self.window else { return }
+        window.rootViewController = vc
+        #warning("add logic for sign out button")
     }
     
     

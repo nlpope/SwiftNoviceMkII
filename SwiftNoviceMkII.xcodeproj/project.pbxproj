@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		400CD4BF2EA70D4A005D7FA8 /* SNTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400CD4BE2EA70D4A005D7FA8 /* SNTextField.swift */; };
+		400CD4C12EA70ED8005D7FA8 /* SNInteractiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400CD4C02EA70ED8005D7FA8 /* SNInteractiveLabel.swift */; };
 		4078A07B2E9DE91E006743B3 /* SNCourseProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4078A07A2E9DE91E006743B3 /* SNCourseProjectCell.swift */; };
 		408116932E3B7C2A00515626 /* SNCourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408116922E3B7C2A00515626 /* SNCourseCell.swift */; };
 		408116982E3B7D2100515626 /* SNAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408116972E3B7D2100515626 /* SNAvatarImageView.swift */; };
@@ -62,6 +64,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		400CD4BE2EA70D4A005D7FA8 /* SNTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNTextField.swift; sourceTree = "<group>"; };
+		400CD4C02EA70ED8005D7FA8 /* SNInteractiveLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNInteractiveLabel.swift; sourceTree = "<group>"; };
 		4078A07A2E9DE91E006743B3 /* SNCourseProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNCourseProjectCell.swift; sourceTree = "<group>"; };
 		408116922E3B7C2A00515626 /* SNCourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNCourseCell.swift; sourceTree = "<group>"; };
 		408116972E3B7D2100515626 /* SNAvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNAvatarImageView.swift; sourceTree = "<group>"; };
@@ -145,6 +149,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		400CD4BD2EA70D23005D7FA8 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				400CD4BE2EA70D4A005D7FA8 /* SNTextField.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
 		408116942E3B7CCC00515626 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				409AC4B82E40110500C3035C /* SNTitleLabel.swift */,
+				400CD4C02EA70ED8005D7FA8 /* SNInteractiveLabel.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -276,6 +289,7 @@
 				408116952E3B7CE600515626 /* ViewControllers */,
 				408116942E3B7CCC00515626 /* Cells */,
 				409AC4B72E40108E00C3035C /* Labels */,
+				400CD4BD2EA70D23005D7FA8 /* TextFields */,
 				409B102F2E702A8800902A84 /* UIViews */,
 				408116962E3B7CF300515626 /* UIImageViews */,
 			);
@@ -468,11 +482,13 @@
 				40D19ED02E30D6FD008D9669 /* CourseProject.swift in Sources */,
 				40D19EDA2E30F983008D9669 /* AVPlayer+Ext.swift in Sources */,
 				40D19ED82E30F899008D9669 /* Constants+Utils.swift in Sources */,
+				400CD4C12EA70ED8005D7FA8 /* SNInteractiveLabel.swift in Sources */,
 				40C97FD42E8C44F000C55111 /* KeychainWrapper.swift in Sources */,
 				40C97FD52E8C44F000C55111 /* KeychainItemAccessibility.swift in Sources */,
 				409712C82E643C34009879E8 /* SNTabBarController.swift in Sources */,
 				4078A07B2E9DE91E006743B3 /* SNCourseProjectCell.swift in Sources */,
 				40D19EB82E30CFBF008D9669 /* AppDelegate.swift in Sources */,
+				400CD4BF2EA70D4A005D7FA8 /* SNTextField.swift in Sources */,
 				40BFB2072E3A22B200A3E83E /* UIHelper+Utils.swift in Sources */,
 				409712CD2E6449F8009879E8 /* KeyboardHandler+Ext.swift in Sources */,
 				40D19EC42E30D362008D9669 /* SNDataLoadingVC.swift in Sources */,

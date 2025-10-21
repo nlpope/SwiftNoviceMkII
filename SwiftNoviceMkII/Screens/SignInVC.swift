@@ -4,7 +4,7 @@
 
 import UIKit
 
-class SignInVC: UIViewController
+class SignInVC: UIViewController, UITextFieldDelegate
 {
     let logoImageView       = UIImageView()
     let usernameTextField   = SNTextField(placeholder: "username")
@@ -56,7 +56,7 @@ class SignInVC: UIViewController
     func configureLogoImageView()
     {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        logoImageView.image = Images.snLogo
+        logoImageView.image = ImageKeys.placeholder
         
         
         NSLayoutConstraint.activate([
@@ -187,17 +187,21 @@ class SignInVC: UIViewController
     }
     
     
+    @objc func presentSignUpVC()
+    {
+        
+    }
+    
+    
     @objc func presentPasswordReset()
     {
         print("it works")
     }
-}
-
-
-extension SignInVC: UITextFieldDelegate
-{
+    
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
+        #warning("replace later w something that doesn't always reset the root if pwd is incorrect")
         resetRootVC()
         return true
     }

@@ -109,6 +109,8 @@ enum PersistenceManager
         fetchProgress(forType: type(of: item)) { result in
             switch result {
             case .success(var progressArray):
+                //cannot capture item as inout param in fetchProgress' escaping closure
+                //b/c the escaping closure may outlive this updateProgress method(?)
                 handle(actionType, for: item, in: &progressArray) { error in
                     if error != nil { completed(error); return }
                 }
@@ -186,7 +188,7 @@ enum PersistenceManager
     { defaults.set(loggedIn, forKey: PersistenceKeys.loginStatusKey) }
     
     
-    static func retrieveLoggedInStatus() -> Bool
+    static func fetchLoggedInStatus() -> Bool
     { return defaults.bool(forKey: PersistenceKeys.loginStatusKey) }
     // defaults.bool(forKey:) auto returns false if key doesn't yet exist
 }
