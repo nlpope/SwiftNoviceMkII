@@ -8,6 +8,7 @@ struct CourseProject: Identifiable, Codable, CourseItem
 {
     var id: UUID?
     let index: Int
+    let motherCourse: String
     let title: String
     let subtitle: String?
     let skills: String?
@@ -19,6 +20,7 @@ struct CourseProject: Identifiable, Codable, CourseItem
     {
         case id
         case index = "item_index"
+        case motherCourse = "mother_course"
         case title
         case subtitle
         case skills

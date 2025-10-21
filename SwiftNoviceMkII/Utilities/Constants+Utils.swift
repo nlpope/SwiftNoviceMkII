@@ -39,8 +39,8 @@ enum PersistenceKeys
     enum ProgressType
     {
         case addBookmark, removeBookmark, markComplete, markIncomplete
-        static let coursesProgressKey = "coursesProgressKey"
-        static let projectsProgressKey = "projectsProgressKey"
+        static let coursesProgressBinKey = "coursesProgressBinKey"
+        static let projectsProgressBinKey = "projectsProgressBinKey"
 
     }
 

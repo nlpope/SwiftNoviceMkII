@@ -172,7 +172,7 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
     
     func updateCourseProgress(withProject project: inout CourseProject, actionType: PersistenceKeys.ProgressType)
     {
-        PersistenceManager.updateProgress(with: &project, actionType: actionType) { error in
+        PersistenceManager.updateProgress(with: project, actionType: actionType) { error in
             //
         }
     }

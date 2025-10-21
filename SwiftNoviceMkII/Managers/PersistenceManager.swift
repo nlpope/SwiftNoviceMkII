@@ -102,15 +102,14 @@ enum PersistenceManager
     
     //-------------------------------------//
     // MARK: - SAVE / FETCH BOOKMARKS & PROGRESS
-    
    
-    static func updateProgress<T>(with item: inout T, actionType: PersistenceKeys.ProgressType, completed: @escaping (SNError?) -> Void) -> Void
+    static func updateProgress<T>(with item: T, actionType: PersistenceKeys.ProgressType, completed: @escaping (SNError?) -> Void) -> Void
     where T: Codable, T: Identifiable, T: CourseItem
     {
         fetchProgress(forType: type(of: item)) { result in
             switch result {
-            case .success(var progress):
-                handle(actionType, for: &item, in: &progress) { error in
+            case .success(var progressArray):
+                handle(actionType, for: item, in: &progressArray) { error in
                     if error != nil { completed(error); return }
                 }
             /**--------------------------------------------------------------------------**/
@@ -121,44 +120,17 @@ enum PersistenceManager
     }
     
     
-    static func handle<T>(_ actionType: PersistenceKeys.ProgressType, for item: inout T, in array: inout [T], completed: @escaping (SNError?) -> Void)
-    where T: Codable, T: Identifiable, T: CourseItem
-    {
-        switch actionType {
-        case .addBookmark:
-            array.removeAll { $0.id == item.id }
-            item.isBookmarked = true
-            array.append(item)
-        /**--------------------------------------------------------------------------**/
-        case .removeBookmark:
-            array.removeAll { $0.id == item.id }
-            item.isBookmarked = false
-            array.append(item)
-        /**--------------------------------------------------------------------------**/
-        case .markComplete:
-            array.removeAll { $0.id == item.id }
-            item.isCompleted = true
-            array .append(item)
-        /**--------------------------------------------------------------------------**/
-        case .markIncomplete:
-            array.removeAll { $0.id == item.id }
-            item.isCompleted = false
-            array.append(item)
-        }
-    }
-    
-    
     static func fetchProgress<T>(forType fetchType: T.Type, completed: @escaping (Result<[T], SNError>) -> Void) -> Void
-    where T: Codable, T: Identifiable
+    where T: Codable, T: Identifiable, T: CourseItem
     {
         var key: String!
         
         switch fetchType {
         case is Course.Type:
-            key = PersistenceKeys.ProgressType.coursesProgressKey
+            key = PersistenceKeys.ProgressType.coursesProgressBinKey
         /**--------------------------------------------------------------------------**/
         case is CourseProject.Type:
-            key = PersistenceKeys.ProgressType.coursesProgressKey
+            key = PersistenceKeys.ProgressType.projectsProgressBinKey
         /**--------------------------------------------------------------------------**/
         default:
             break
@@ -173,6 +145,37 @@ enum PersistenceManager
             completed(.success(decodedProgress))
         } catch {
             completed(.failure(.failedToLoadProgress))
+        }
+    }
+    
+    
+    static func handle<T>(_ actionType: PersistenceKeys.ProgressType, for item: T, in array: inout [T], completed: @escaping (SNError?) -> Void)
+    where T: Codable, T: Identifiable, T: CourseItem
+    {
+        switch actionType {
+        case .addBookmark:
+            var tmpItem = item
+            array.removeAll { $0.id == item.id }
+            tmpItem.isBookmarked = true
+            array.append(tmpItem)
+        /**--------------------------------------------------------------------------**/
+        case .removeBookmark:
+            var tmpItem = item
+            array.removeAll { $0.id == item.id }
+            tmpItem.isBookmarked = false
+            array.append(tmpItem)
+        /**--------------------------------------------------------------------------**/
+        case .markComplete:
+            var tmpItem = item
+            array.removeAll { $0.id == item.id }
+            tmpItem.isCompleted = true
+            array .append(tmpItem)
+        /**--------------------------------------------------------------------------**/
+        case .markIncomplete:
+            var tmpItem = item
+            array.removeAll { $0.id == item.id }
+            tmpItem.isCompleted = false
+            array.append(tmpItem)
         }
     }
     
