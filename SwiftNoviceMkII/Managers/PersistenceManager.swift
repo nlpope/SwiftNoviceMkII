@@ -4,16 +4,6 @@
 
 import UIKit
 
-//enum BookmarkToggleActionType
-//{
-//    case add, remove
-//}
-//
-//enum CompletionToggleActionType
-//{
-//    case complete, incomplete
-//}
-
 protocol CourseItem
 {
     var isBookmarked: Bool { get set }
@@ -101,7 +91,7 @@ enum PersistenceManager
     }
     
     //-------------------------------------//
-    // MARK: - SAVE / FETCH BOOKMARKS & PROGRESS
+    // MARK: - SAVE / FETCH BOOKMARKS & COURSE COMPLETION
    
     static func updateProgress<T>(with item: T, actionType: PersistenceKeys.ProgressType, completed: @escaping (SNError?) -> Void) -> Void
     where T: Codable, T: Identifiable, T: CourseItem
