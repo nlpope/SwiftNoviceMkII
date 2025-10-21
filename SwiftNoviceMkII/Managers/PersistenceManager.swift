@@ -109,8 +109,7 @@ enum PersistenceManager
         fetchProgress(forType: type(of: item)) { result in
             switch result {
             case .success(var progressArray):
-                //cannot capture item as inout param in fetchProgress' escaping closure
-                //b/c the escaping closure may outlive this updateProgress method(?)
+                //see note 10.20 in app delegate
                 handle(actionType, for: item, in: &progressArray) { error in
                     if error != nil { completed(error); return }
                 }

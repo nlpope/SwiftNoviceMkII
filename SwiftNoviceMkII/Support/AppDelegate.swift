@@ -106,6 +106,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate
  ... this is more like GHFollowers where the base VC is type UIVC, where the coll.ViewCell needs to be registered (configCollectionView) before dequeuing it in (configDataSource)
  > Finally got it, I never called 'updateData(with:)' after appending the test course
  --------------------------
+ * 10.20 pointer to inout item param in PersistenceManager > updateProgress() not working
+ why wouldn't 'item: inout T' and the '&' pointer work? - you're referencing a pointer defined above the scope of the func that was just consumed?
+ I see now - fetchProgress' completion handler can outlive the updateProgress() it was passed to...
+ this leaves the reference to the pointer &item in a potentially nil state should the completion execute after the mother func is finished
+ in fact, leaving item as an inout and moving the handle call outside of fetchProgress() works just fine b/c it's not within a consumed func
+ source: https://duckduckgo.com/?q=can+a+completion+handler+outlive+a+method+2+scopes+above+it&ia=web
+ --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------
  TECHNOLOGIES USED / LEARNED:
