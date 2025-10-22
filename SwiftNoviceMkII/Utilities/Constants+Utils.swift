@@ -46,7 +46,7 @@ enum PersistenceKeys
 
     enum VCVisitStatusType: Codable
     {
-        case isFirstVisit, isFirstVisitPostDismissal
+        case isFirstVisit, isFirstVisitPostDismissal, isNormalVisit
         static let homeVCVisitStatusKey = "homeVCVisitStatusKey"
         static let projectsVCVisitStatusKey = "projectsVCVisitStatusKey"
     }

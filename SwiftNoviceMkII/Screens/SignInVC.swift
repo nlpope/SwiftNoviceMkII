@@ -178,8 +178,6 @@ class SignInVC: UIViewController, UITextFieldDelegate
             
             // AFTER THIS INCORPORATE REST OF KEYS IN THE POST SET PWD ENTRY METHOD
             KeychainWrapper.standard.set(pwd, forKey: PersistenceKeys.SecretKeys.password)
-            self?.isFirstLoad   = false
-            self?.revealAuthButton()
         }
         
         ac.addAction(action1)

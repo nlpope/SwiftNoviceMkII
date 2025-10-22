@@ -17,7 +17,7 @@ enum PersistenceManager
     //-------------------------------------//
     // MARK: - SAVE / FETCH VC VISIT STATUS
     
-    static func saveVCVisitStatus(for vc: UIViewController, status: PersistenceKeys.VCVisitStatusType)
+    static func saveVCVisitStatus(for vc: UIViewController, status: PersistenceKeys.VCVisitStatusType) //.isFirstVisit || .isFirstVisitPostDismissal
     {
         switch vc {
         case is HomeCoursesVC:
@@ -50,7 +50,7 @@ enum PersistenceManager
     }
     
     
-    static func fetchVCVisitStatus(for vc: UIViewController) -> PersistenceKeys.VCVisitStatusType
+    static func fetchVCVisitStatus(for vc: UIViewController) -> PersistenceKeys.VCVisitStatusType //.isFirstVisit || .isFirstVisitPostDismissal
     {
         switch vc {
         case is HomeCoursesVC:

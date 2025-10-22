@@ -23,11 +23,12 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     private var courseListDataSource: UICollectionViewDiffableDataSource<Section, Course.ID>!
     var logoLauncher: SNLogoLauncher!
     
-    
+    //keep this as the first vc loaded
+    //but if first visit since closing app is true - change root vc to sign in screen
+    //change back (reverse the above) after finished signing in.
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        vcVisitStatus = PersistenceManager.fetchVCVisitStatus(for: self)
         configNavBar()
         configSearchController()
         configCollectionView()
@@ -38,17 +39,19 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     override func viewWillAppear(_ animated: Bool)
     {
-        if vcVisitStatus == .isFirstVisitPostDismissal {
+        if vcVisitStatus == .isFirstVisit || vcVisitStatus == .isFirstVisitPostDismissal {
             logoLauncher = SNLogoLauncher(targetVC: self)
             logoLauncher.configLogoLauncher()
         }
-        else {
-            loadProgressFromCloudKit()
-        }
+        
+        loadProgressFromCloudKit()
     }
     
     
-    override func viewWillDisappear(_ animated: Bool) { logoLauncher = nil }
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        logoLauncher = nil
+    }
     
     //-------------------------------------//
     // MARK: - CONFIGURATION
@@ -187,7 +190,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         let activeArray = isSearching ? filteredCourses : courses
         let selectedCourse = activeArray[indexPath.item]
         
-        let destVC = CourseProjectsVC(selectedCourse: selectedCourse, delegate: self)
+        let destVC = CourseProjectsVC(selectedCourse: selectedCourse)
         
         navigationController?.pushViewController(destVC, animated: true)
     }
