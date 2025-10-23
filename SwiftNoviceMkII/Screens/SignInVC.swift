@@ -162,12 +162,12 @@ class SignInVC: UIViewController, UITextFieldDelegate
     @objc func setPassword()
     {
         let ac                          = UIAlertController(title: "Set Password",
-                                                            message: "Set password",
+                                                            message: "Set your secure password",
                                                             preferredStyle: .alert)
         for _ in 0 ... 1 { ac.addTextField() }
         for i in 0 ... 1 { ac.textFields?[i].isSecureTextEntry = true }
-        ac.textFields?[0].placeholder   = "Set your password"
-        ac.textFields?[1].placeholder   = "Confirm your password"
+        ac.textFields?[0].placeholder   = "enter password"
+        ac.textFields?[1].placeholder   = "confirm password"
         
         let action1 = UIAlertAction(title: "Confirm", style: .default) { [weak self] _ in
             guard let pwd = ac.textFields?[0].text
