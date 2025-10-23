@@ -206,12 +206,10 @@ enum PersistenceManager
     //-------------------------------------//
     // MARK: - LOGIN PERSISTENCE
     
-    static func updateLoggedInStatus(loggedIn: Bool)
-    { defaults.set(loggedIn, forKey: PersistenceKeys.loginStatusKey) }
+    static func updateLoggedInStatus(loggedIn: Bool) { defaults.set(loggedIn, forKey: PersistenceKeys.loginStatusKey) }
     
     
-    static func fetchLoggedInStatus() -> Bool
-    { return defaults.bool(forKey: PersistenceKeys.loginStatusKey) }
+    static func fetchLoggedInStatus() -> Bool { return defaults.bool(forKey: PersistenceKeys.loginStatusKey) }
     // defaults.bool(forKey:) auto returns false if key doesn't yet exist
 }
 

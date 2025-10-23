@@ -11,10 +11,7 @@ enum APIKeys
     static let playgrounds1 = ""
 }
 
-enum ColorKeys
-{
-    static let oldGold = UIColor(red: 207/255, green: 181/255, blue: 59/255, alpha: 1.0)
-}
+enum ColorKeys { static let oldGold = UIColor(red: 207/255, green: 181/255, blue: 59/255, alpha: 1.0) }
 
 enum ImageKeys
 {
@@ -28,15 +25,9 @@ enum PersistenceKeys
     
     static let flickerStatusKey = "flickerStatusKey"
     
-    enum SecretKeys
-    {
-        static let password = "passwordKey"
-    }
+    enum SecretKeys { static let password = "passwordKey" }
     
-    enum FetchType
-    {
-        case courses, projects
-    }
+    enum FetchType { case courses, projects }
         
     enum ProgressType
     {
@@ -56,10 +47,7 @@ enum PersistenceKeys
     }
 }
 
-enum SaveKeys
-{
-    static let isFirstVisit = "isFirstVisitStatus"
-}
+enum SaveKeys { static let isFirstVisit = "isFirstVisitStatus" }
 
 enum SFSymbolsKeys
 {

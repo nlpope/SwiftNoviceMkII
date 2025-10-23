@@ -130,9 +130,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
     }
     
     
-    func updateLoggedinStatus(withStatus status: Bool) {
-        PersistenceManager.updateLoggedInStatus(loggedIn: status)
-    }
+    func updateLoggedinStatus(withStatus status: Bool) { PersistenceManager.updateLoggedInStatus(loggedIn: status) }
     
     
     @objc func resetRootVC()

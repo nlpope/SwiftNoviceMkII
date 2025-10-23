@@ -38,18 +38,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
     }
     
     
-    func configNavBar()
-    { UINavigationBar.appearance().tintColor = ColorKeys.oldGold }
+    func configNavBar() { UINavigationBar.appearance().tintColor = ColorKeys.oldGold }
     
     func sceneDidDisconnect(_ scene: UIScene) {}
     
     func sceneDidBecomeActive(_ scene: UIScene) {}
     
-    func sceneWillResignActive(_ scene: UIScene)
-    { PersistenceManager.logoDidFlickerThisSession = false }
+    func sceneWillResignActive(_ scene: UIScene) { PersistenceManager.logoDidFlickerThisSession = false }
     
     func sceneWillEnterForeground(_ scene: UIScene) {}
     
-    func sceneDidEnterBackground(_ scene: UIScene)
-    { (UIApplication.shared.delegate as? AppDelegate)?.saveContext() }
+    func sceneDidEnterBackground(_ scene: UIScene) { (UIApplication.shared.delegate as? AppDelegate)?.saveContext() }
 }
