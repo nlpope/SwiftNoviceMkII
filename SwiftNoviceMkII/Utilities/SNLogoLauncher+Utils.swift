@@ -20,7 +20,6 @@ class SNLogoLauncher
     func configLogoLauncher()
     {
         print("launching logo")
-        PersistenceManager.isFirstVisitToHomePostDismissal = false
         maskHomeVCForIntro()
         configNotifications()
         
@@ -82,13 +81,14 @@ class SNLogoLauncher
         targetVC.collectionView.isHidden = false
         targetVC.view.backgroundColor = .systemBackground
         
-        targetVC.vcVisitStatus = .isFirstVisitPostDismissal
-        removeAllAVPlayerLayers()
+        targetVC.vcVisitStatus = .isNotFirstVisit
         
         self.removeNotifications()
     
         targetVC.fetchCoursesFromServer()
         targetVC.loadProgressFromCloudKit()
+        
+        removeAllAVPlayerLayers()
     }
     
     
@@ -107,7 +107,8 @@ class SNLogoLauncher
     
     @objc func reinitializePlayerLayer()
     {
-        guard PersistenceManager.isFirstVisitToHomePostDismissal else { return }
+        let vcVisitStatus = PersistenceManager.fetchVCVisitStatus(for: targetVC)
+        guard vcVisitStatus != .isNotFirstVisit else { return }
         if let player = player {
             playerLayer = AVPlayerLayer(player: player)
             playerLayer?.name = VideoKeys.playerLayerName

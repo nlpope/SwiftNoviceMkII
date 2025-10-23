@@ -14,10 +14,43 @@ enum PersistenceManager
 {
     static private let defaults = UserDefaults.standard
     
+    static var logoDidFlickerThisSession: Bool = fetchLogoDidFlickerStatus() {
+        didSet { saveLogoDidFlickerStatus(status: logoDidFlickerThisSession) }
+    }
+    
+    //-------------------------------------//
+    // MARK: - SAVE / FETCH LOGO FLICKER STATUS
+    
+    static func saveLogoDidFlickerStatus(status: Bool)
+    {
+        do {
+            let encoder = JSONEncoder()
+            let encodedStatus = try encoder.encode(status)
+            defaults.set(encodedStatus, forKey: PersistenceKeys.flickerStatusKey)
+        } catch {
+            print("failed to save ficker status")
+        }
+    }
+    
+    
+    static func fetchLogoDidFlickerStatus() -> Bool
+    {
+        guard let statusToDecode = defaults.object(forKey: PersistenceKeys.flickerStatusKey) as? Data else { return false }
+        
+        do {
+            let decoder = JSONDecoder()
+            let decodedStatus = try decoder.decode(Bool.self, from: statusToDecode)
+            return decodedStatus
+        } catch {
+            print("failed to load flicker status")
+            return false
+        }
+    }
+        
     //-------------------------------------//
     // MARK: - SAVE / FETCH VC VISIT STATUS
     
-    static func saveVCVisitStatus(for vc: UIViewController, status: PersistenceKeys.VCVisitStatusType) //.isFirstVisit || .isFirstVisitPostDismissal
+    static func saveVCVisitStatus(for vc: UIViewController, status: PersistenceKeys.VCVisitStatusType) //.isFirstVisit || .isNotFirstVisit
     {
         switch vc {
         case is HomeCoursesVC:
@@ -50,16 +83,16 @@ enum PersistenceManager
     }
     
     
-    static func fetchVCVisitStatus(for vc: UIViewController) -> PersistenceKeys.VCVisitStatusType //.isFirstVisit || .isFirstVisitPostDismissal
+    static func fetchVCVisitStatus(for vc: UIViewController) -> PersistenceKeys.VCVisitStatusType //.isFirstVisit || .isNotFirstVisit
     {
         switch vc {
         case is HomeCoursesVC:
-            guard let encodedStatus = defaults.object(forKey: PersistenceKeys.VCVisitStatusType.homeVCVisitStatusKey) as? Data
+            guard let statusToDecode = defaults.object(forKey: PersistenceKeys.VCVisitStatusType.homeVCVisitStatusKey) as? Data
             else { return .isFirstVisit }
             
             do {
                 let decoder = JSONDecoder()
-                let fetchedStatus = try decoder.decode(PersistenceKeys.VCVisitStatusType.self, from: encodedStatus)
+                let fetchedStatus = try decoder.decode(PersistenceKeys.VCVisitStatusType.self, from: statusToDecode)
                 return fetchedStatus
             } catch {
                 print("failed to load home courses vc visit status")
@@ -127,12 +160,12 @@ enum PersistenceManager
             break
         }
         
-        guard let progressData = defaults.object(forKey: key) as? Data
+        guard let progressToDecode = defaults.object(forKey: key) as? Data
         else { completed(.success([])); return }
         
         do {
             let decoder = JSONDecoder()
-            let decodedProgress = try decoder.decode([T].self, from: progressData)
+            let decodedProgress = try decoder.decode([T].self, from: progressToDecode)
             completed(.success(decodedProgress))
         } catch {
             completed(.failure(.failedToLoadProgress))

@@ -26,6 +26,8 @@ enum PersistenceKeys
 {
     static let loginStatusKey = "loggedInStatusKey"
     
+    static let flickerStatusKey = "flickerStatusKey"
+    
     enum SecretKeys
     {
         static let password = "passwordKey"
@@ -44,9 +46,11 @@ enum PersistenceKeys
 
     }
 
+    // isFirstVisit, isNotFirstVisit
+    // then logoPlayedThisSession: Bool = false
     enum VCVisitStatusType: Codable
     {
-        case isFirstVisit, isFirstVisitPostDismissal, isNormalVisit
+        case isFirstVisit, isNotFirstVisit
         static let homeVCVisitStatusKey = "homeVCVisitStatusKey"
         static let projectsVCVisitStatusKey = "projectsVCVisitStatusKey"
     }

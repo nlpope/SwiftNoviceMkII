@@ -39,9 +39,10 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     override func viewWillAppear(_ animated: Bool)
     {
-        if vcVisitStatus == .isFirstVisit || vcVisitStatus == .isFirstVisitPostDismissal {
+        if vcVisitStatus == .isFirstVisit || vcVisitStatus == .isNotFirstVisit {
             logoLauncher = SNLogoLauncher(targetVC: self)
             logoLauncher.configLogoLauncher()
+            vcVisitStatus = PersistenceManager.saveVCVisitStatus(for: self, status: .isFirstVisitPostDismissal)
         }
         
         loadProgressFromCloudKit()
