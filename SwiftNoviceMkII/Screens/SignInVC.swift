@@ -6,14 +6,14 @@ import UIKit
 
 class SignInVC: UIViewController, UITextFieldDelegate
 {
-    let logoImageView       = UIImageView()
-    let usernameTextField   = SNTextField(placeholder: "username")
-    let passwordTextField   = SNTextField(placeholder: "password")
-    let signInLabel         = SNInteractiveLabel(textToDisplay: "Sign in", fontSize: 18)
-    let signUpLabel         = SNInteractiveLabel(textToDisplay: "Don't have an account?", fontSize: 18)
-    let forgotLabel         = SNInteractiveLabel(textToDisplay: "Forgot username/password?", fontSize: 18)
-    var userExists          = false
-    var passwordIsCorrect   = false
+    let logoImageView = UIImageView()
+    let usernameTextField = SNTextField(placeholder: "username")
+    let passwordTextField = SNTextField(placeholder: "password")
+    let signInLabel = SNInteractiveLabel(textToDisplay: "Sign in", fontSize: 18)
+    let signUpLabel = SNInteractiveLabel(textToDisplay: "Don't have an account?", fontSize: 18)
+    let forgotLabel = SNInteractiveLabel(textToDisplay: "Forgot username/password?", fontSize: 18)
+    var userExists: Bool!
+    var passwordIsCorrect: Bool!
     var isUsernameEntered: Bool { return !usernameTextField.text!.isEmpty }
     var isPasswordEntered: Bool { return !passwordTextField.text!.isEmpty }
 
@@ -133,31 +133,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
     }
     
     //-------------------------------------//
-    // MARK: - SUPPORTING SIGN IN METHODS
-    
-    func updateLoggedinStatus(withStatus status: Bool) { PersistenceManager.updateLoggedInStatus(loggedIn: status) }
-
-    
-    @objc func resetRootVC()
-    {
-        guard isUsernameEntered, isPasswordEntered else {
-            presentSNAlertOnMainThread(alertTitle: "Empty username/password", message: "The username or password field has been left blank. Please enter a value or sign up if you do not have an account.", buttonTitle: "Ok")
-            return
-        }
-
-        guard userExists, passwordIsCorrect else {
-            presentSNAlertOnMainThread(alertTitle: "Wrong username/password", message: "The username or password is incorrect. Please try again or sign up if you do not have an account", buttonTitle: "Ok")
-            return
-        }
-        
-        updateLoggedinStatus(withStatus: true)
-        usernameTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
-        
-        let tabBarController = SNTabBarController()
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(tabBarController)
-    }
-    
+    // MARK: - PASSWORD CREATION (SIGN UP) METHODS
     
     @objc func setPassword()
     {
@@ -180,7 +156,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
             else { self?.presentSNAlertOnMainThread(alertTitle: "Mismatch detected", message: SNError.mismatchOnCreation.rawValue, buttonTitle: "Ok"); return }
             
             // AFTER THIS INCORPORATE REST OF KEYS IN THE POST SET PWD ENTRY METHOD
-            KeychainWrapper.standard.set(pwd, forKey: PersistenceKeys.SecretKeys.password)
+            KeychainWrapper.standard.set(pwd, forKey: PersistenceKeys.passwordKey)
         }
         
         ac.addAction(action1)
@@ -199,10 +175,40 @@ class SignInVC: UIViewController, UITextFieldDelegate
         print("it works")
     }
     
+    //-------------------------------------//
+    // MARK: - PASSWORD ACCEPTED BEHAVIOR METHODS
+    
+    @objc func resetRootVC()
+    {
+        guard isUsernameEntered, isPasswordEntered else {
+            presentSNAlertOnMainThread(alertTitle: "Empty username/password", message: "The username or password field has been left blank. Please enter a value or sign up if you do not have an account.", buttonTitle: "Ok")
+            return
+        }
+
+        guard userExists, passwordIsCorrect else {
+            presentSNAlertOnMainThread(alertTitle: "Wrong username/password", message: "The username or password is incorrect. Please try again or sign up if you do not have an account", buttonTitle: "Ok")
+            return
+        }
+        
+        updateLoggedinStatus(withStatus: true)
+        usernameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        
+        let tabBarController = SNTabBarController()
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(tabBarController)
+    }
+    
+    //-------------------------------------//
+    // MARK: - LOGIN STATUS UPDATER
+    
+    func updateLoggedinStatus(withStatus status: Bool) { PersistenceManager.updateLoggedInStatus(loggedIn: status) }
+
+    
+    //-------------------------------------//
+    // MARK: - KEYBOARD METHODS
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
-        #warning("replace later w something that doesn't always reset the root if pwd is incorrect")
         resetRootVC()
         return true
     }

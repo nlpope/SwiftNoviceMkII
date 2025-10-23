@@ -10,6 +10,25 @@ protocol CourseItem
     var isCompleted: Bool { get set }
 }
 
+enum FetchType { case courses, projects }
+    
+enum ProgressType
+{
+    case addBookmark, removeBookmark, markComplete, markIncomplete
+    static let coursesProgressBinKey = "coursesProgressBinKey"
+    static let projectsProgressBinKey = "projectsProgressBinKey"
+
+}
+
+// isFirstVisit, isNotFirstVisit
+// then logoPlayedThisSession: Bool = false
+enum VCVisitStatusType: Codable
+{
+    case isFirstVisit, isNotFirstVisit
+    static let homeVCVisitStatusKey = "homeVCVisitStatusKey"
+    static let projectsVCVisitStatusKey = "projectsVCVisitStatusKey"
+}
+
 enum PersistenceManager
 {
     static private let defaults = UserDefaults.standard
@@ -18,6 +37,23 @@ enum PersistenceManager
         didSet { saveLogoDidFlickerStatus(status: logoDidFlickerThisSession) }
     }
     
+    static func doesThisUserExist(username: String) -> Bool
+    {
+        let users = fetchExistingUsersOnThisDevice()
+        for user in users {
+            if user.username == username { return true }
+        }
+    }
+    
+    static func updateExistingUsersOnThisDevice(with user: User)
+    {
+        
+    }
+    
+    static func fetchExistingUsersOnThisDevice() -> [User]
+    {
+        return [User]()
+    }
     //-------------------------------------//
     // MARK: - SAVE / FETCH LOGO FLICKER STATUS
     
@@ -46,6 +82,20 @@ enum PersistenceManager
             return false
         }
     }
+    
+    //-------------------------------------//
+    // MARK: - PASSWORD PERSISTENCE (KEYS ONLY - STORAGE = KEYCHAIN)
+    
+    
+    
+    //-------------------------------------//
+    // MARK: - LOGIN PERSISTENCE
+    
+    static func updateLoggedInStatus(loggedIn: Bool) { defaults.set(loggedIn, forKey: PersistenceKeys.loginStatusKey) }
+    
+    
+    static func fetchLoggedInStatus() -> Bool { return defaults.bool(forKey: PersistenceKeys.loginStatusKey) }
+    // defaults.bool(forKey:) auto returns false if key doesn't yet exist
         
     //-------------------------------------//
     // MARK: - SAVE / FETCH VC VISIT STATUS
@@ -202,14 +252,5 @@ enum PersistenceManager
             array.append(tmpItem)
         }
     }
-    
-    //-------------------------------------//
-    // MARK: - LOGIN PERSISTENCE
-    
-    static func updateLoggedInStatus(loggedIn: Bool) { defaults.set(loggedIn, forKey: PersistenceKeys.loginStatusKey) }
-    
-    
-    static func fetchLoggedInStatus() -> Bool { return defaults.bool(forKey: PersistenceKeys.loginStatusKey) }
-    // defaults.bool(forKey:) auto returns false if key doesn't yet exist
 }
 

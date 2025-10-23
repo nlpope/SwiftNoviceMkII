@@ -21,30 +21,13 @@ enum ImageKeys
 
 enum PersistenceKeys
 {
-    static let loginStatusKey = "loggedInStatusKey"
-    
     static let flickerStatusKey = "flickerStatusKey"
     
-    enum SecretKeys { static let password = "passwordKey" }
+    static let existingUsersKey = "existingUsersKey"
     
-    enum FetchType { case courses, projects }
-        
-    enum ProgressType
-    {
-        case addBookmark, removeBookmark, markComplete, markIncomplete
-        static let coursesProgressBinKey = "coursesProgressBinKey"
-        static let projectsProgressBinKey = "projectsProgressBinKey"
+    static let passwordKey = "passwordKey" //key only, storage = Keychain
 
-    }
-
-    // isFirstVisit, isNotFirstVisit
-    // then logoPlayedThisSession: Bool = false
-    enum VCVisitStatusType: Codable
-    {
-        case isFirstVisit, isNotFirstVisit
-        static let homeVCVisitStatusKey = "homeVCVisitStatusKey"
-        static let projectsVCVisitStatusKey = "projectsVCVisitStatusKey"
-    }
+    static let loginStatusKey = "loginStatusKey"
 }
 
 enum SaveKeys { static let isFirstVisit = "isFirstVisitStatus" }
