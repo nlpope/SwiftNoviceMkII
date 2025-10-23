@@ -45,7 +45,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
     
     func sceneDidBecomeActive(_ scene: UIScene) {}
     
-    func sceneWillResignActive(_ scene: UIScene) {}
+    func sceneWillResignActive(_ scene: UIScene)
+    { PersistenceManager.logoDidFlickerThisSession = false }
     
     func sceneWillEnterForeground(_ scene: UIScene) {}
     
