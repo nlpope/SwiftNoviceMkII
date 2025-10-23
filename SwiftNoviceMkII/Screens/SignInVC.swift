@@ -12,8 +12,8 @@ class SignInVC: UIViewController, UITextFieldDelegate
     let signInLabel         = SNInteractiveLabel(textToDisplay: "Sign in", fontSize: 18)
     let signUpLabel         = SNInteractiveLabel(textToDisplay: "Don't have an account?", fontSize: 18)
     let forgotLabel         = SNInteractiveLabel(textToDisplay: "Forgot username/password?", fontSize: 18)
-    var userExists          = true
-    var passwordIsCorrect   = true
+    var userExists          = false
+    var passwordIsCorrect   = false
     var isUsernameEntered: Bool { return !usernameTextField.text!.isEmpty }
     var isPasswordEntered: Bool { return !passwordTextField.text!.isEmpty }
 
@@ -26,6 +26,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
         configurePasswordTextField()
         configureSignInLabel()
         configureSignUpLabel()
+        configureForgotLabel()
         createDismissKeyboardTapGesture()
     }
     
@@ -52,6 +53,8 @@ class SignInVC: UIViewController, UITextFieldDelegate
         view.addGestureRecognizer(tap)
     }
     
+    //-------------------------------------//
+    // MARK: - CONFIGURATION
     
     func configureLogoImageView()
     {
@@ -129,21 +132,23 @@ class SignInVC: UIViewController, UITextFieldDelegate
         ])
     }
     
+    //-------------------------------------//
+    // MARK: - SUPPORTING SIGN IN METHODS
     
     func updateLoggedinStatus(withStatus status: Bool) { PersistenceManager.updateLoggedInStatus(loggedIn: status) }
-    
+
     
     @objc func resetRootVC()
     {
-//        guard isUsernameEntered, isPasswordEntered else {
-//            presentSNAlertOnMainThread(alertTitle: "Empty username/password", message: "The username or password field has been left blank. Please enter a value or sign up if you do not have an account.", buttonTitle: "Ok")
-//            return
-//        }
-//
-//        guard userExists, passwordIsCorrect else {
-//            presentSNAlertOnMainThread(alertTitle: "Wrong username/password", message: "The username or password is incorrect. Please try again or sign up if you do not have an account", buttonTitle: "Ok")
-//            return
-//        }
+        guard isUsernameEntered, isPasswordEntered else {
+            presentSNAlertOnMainThread(alertTitle: "Empty username/password", message: "The username or password field has been left blank. Please enter a value or sign up if you do not have an account.", buttonTitle: "Ok")
+            return
+        }
+
+        guard userExists, passwordIsCorrect else {
+            presentSNAlertOnMainThread(alertTitle: "Wrong username/password", message: "The username or password is incorrect. Please try again or sign up if you do not have an account", buttonTitle: "Ok")
+            return
+        }
         
         updateLoggedinStatus(withStatus: true)
         usernameTextField.resignFirstResponder()
