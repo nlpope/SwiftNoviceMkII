@@ -4,6 +4,9 @@
 
 import UIKit
 
+//-------------------------------------//
+// MARK: - KEYS AND PROTOCOL & TYPE DEFINITIONS
+
 protocol CourseItem
 {
     var isBookmarked: Bool { get set }
@@ -20,8 +23,6 @@ enum ProgressType
 
 }
 
-// isFirstVisit, isNotFirstVisit
-// then logoPlayedThisSession: Bool = false
 enum VCVisitStatusType: Codable
 {
     case isFirstVisit, isNotFirstVisit
@@ -29,12 +30,45 @@ enum VCVisitStatusType: Codable
     static let projectsVCVisitStatusKey = "projectsVCVisitStatusKey"
 }
 
+//-------------------------------------//
+// MARK: - MAIN PERSISTENCE MANAGER
+
 enum PersistenceManager
 {
     static private let defaults = UserDefaults.standard
     
+    static private var existingUsers: [User] = fetchExistingUsersOnThisDevice()
+    
     static var logoDidFlickerThisSession: Bool = fetchLogoDidFlickerStatus() {
         didSet { saveLogoDidFlickerStatus(status: logoDidFlickerThisSession) }
+    }
+    
+    static func updateExistingUsersOnThisDevice(with user: User)
+    {
+        fetchProgress(forType: type(of: item)) { result in
+            switch result {
+            case .success(var progressArray):
+                //see note 10.20 in app delegate
+                handle(actionType, for: item, in: &progressArray) { error in
+                    if error != nil { completed(error); return }
+                }
+            /**--------------------------------------------------------------------------**/
+            case.failure(let error):
+                completed(error)
+            }
+        }
+    }
+    
+    static func fetchExistingUsersOnThisDevice(completed: @escaping (Result<[User], SNError>) -> Void) -> [User]
+    {
+        guard let usersToDecode = defaults.object(forKey: PersistenceKeys.existingUsersKey) as? Data
+        else { completed(.success([])) }
+        
+        do {
+            
+        } catch {
+            
+        }
     }
     
     static func doesThisUserExist(username: String) -> Bool
@@ -43,17 +77,9 @@ enum PersistenceManager
         for user in users {
             if user.username == username { return true }
         }
+        return false
     }
     
-    static func updateExistingUsersOnThisDevice(with user: User)
-    {
-        
-    }
-    
-    static func fetchExistingUsersOnThisDevice() -> [User]
-    {
-        return [User]()
-    }
     //-------------------------------------//
     // MARK: - SAVE / FETCH LOGO FLICKER STATUS
     
@@ -100,7 +126,7 @@ enum PersistenceManager
     //-------------------------------------//
     // MARK: - SAVE / FETCH VC VISIT STATUS
     
-    static func saveVCVisitStatus(for vc: UIViewController, status: PersistenceKeys.VCVisitStatusType) //.isFirstVisit || .isNotFirstVisit
+    static func saveVCVisitStatus(for vc: UIViewController, status: VCVisitStatusType) //.isFirstVisit || .isNotFirstVisit
     {
         switch vc {
         case is HomeCoursesVC:
@@ -108,7 +134,7 @@ enum PersistenceManager
             do {
                 let encoder = JSONEncoder()
                 let encodedStatus = try encoder.encode(status)
-                defaults.set(encodedStatus, forKey: PersistenceKeys.VCVisitStatusType.homeVCVisitStatusKey)
+                defaults.set(encodedStatus, forKey: VCVisitStatusType.homeVCVisitStatusKey)
             } catch {
                 print("failed to save home courses vc visit status")
             }
@@ -120,7 +146,7 @@ enum PersistenceManager
             do {
                 let encoder = JSONEncoder()
                 let encodedStatus = try encoder.encode(status)
-                defaults.set(encodedStatus, forKey: PersistenceKeys.VCVisitStatusType.projectsVCVisitStatusKey)
+                defaults.set(encodedStatus, forKey: VCVisitStatusType.projectsVCVisitStatusKey)
             } catch {
                 print("failed to save course projects vc vist status")
             }
@@ -133,16 +159,16 @@ enum PersistenceManager
     }
     
     
-    static func fetchVCVisitStatus(for vc: UIViewController) -> PersistenceKeys.VCVisitStatusType //.isFirstVisit || .isNotFirstVisit
+    static func fetchVCVisitStatus(for vc: UIViewController) -> VCVisitStatusType //.isFirstVisit || .isNotFirstVisit
     {
         switch vc {
         case is HomeCoursesVC:
-            guard let statusToDecode = defaults.object(forKey: PersistenceKeys.VCVisitStatusType.homeVCVisitStatusKey) as? Data
+            guard let statusToDecode = defaults.object(forKey: VCVisitStatusType.homeVCVisitStatusKey) as? Data
             else { return .isFirstVisit }
             
             do {
                 let decoder = JSONDecoder()
-                let fetchedStatus = try decoder.decode(PersistenceKeys.VCVisitStatusType.self, from: statusToDecode)
+                let fetchedStatus = try decoder.decode(VCVisitStatusType.self, from: statusToDecode)
                 return fetchedStatus
             } catch {
                 print("failed to load home courses vc visit status")
@@ -152,12 +178,12 @@ enum PersistenceManager
         /**--------------------------------------------------------------------------**/
 
         case is CourseProjectsVC:
-            guard let vcVisitStatusData = defaults.object(forKey: PersistenceKeys.VCVisitStatusType.projectsVCVisitStatusKey) as? Data
+            guard let vcVisitStatusData = defaults.object(forKey: VCVisitStatusType.projectsVCVisitStatusKey) as? Data
             else { return .isFirstVisit }
             
             do {
                 let decoder = JSONDecoder()
-                let fetchedStatus = try decoder.decode(PersistenceKeys.VCVisitStatusType.self, from: vcVisitStatusData)
+                let fetchedStatus = try decoder.decode(VCVisitStatusType.self, from: vcVisitStatusData)
                 return fetchedStatus
             } catch {
                 print("failed to load course projects vc visit status")
@@ -176,7 +202,7 @@ enum PersistenceManager
     //-------------------------------------//
     // MARK: - SAVE / FETCH BOOKMARKS & COURSE COMPLETION
    
-    static func updateProgress<T>(with item: T, actionType: PersistenceKeys.ProgressType, completed: @escaping (SNError?) -> Void) -> Void
+    static func updateProgress<T>(with item: T, actionType: ProgressType, completed: @escaping (SNError?) -> Void) -> Void
     where T: Codable, T: Identifiable, T: CourseItem
     {
         fetchProgress(forType: type(of: item)) { result in
@@ -201,17 +227,18 @@ enum PersistenceManager
         
         switch fetchType {
         case is Course.Type:
-            key = PersistenceKeys.ProgressType.coursesProgressBinKey
+            key = ProgressType.coursesProgressBinKey
         /**--------------------------------------------------------------------------**/
         case is CourseProject.Type:
-            key = PersistenceKeys.ProgressType.projectsProgressBinKey
+            key = ProgressType.projectsProgressBinKey
         /**--------------------------------------------------------------------------**/
         default:
             break
         }
         
+        #warning("I removed a '; return' after the 'else { completed(.success([]))' below. Was this okay?")
         guard let progressToDecode = defaults.object(forKey: key) as? Data
-        else { completed(.success([])); return }
+        else { completed(.success([])) }
         
         do {
             let decoder = JSONDecoder()
@@ -223,7 +250,7 @@ enum PersistenceManager
     }
     
     
-    static func handle<T>(_ actionType: PersistenceKeys.ProgressType, for item: T, in array: inout [T], completed: @escaping (SNError?) -> Void)
+    static func handle<T>(_ actionType: ProgressType, for item: T, in array: inout [T], completed: @escaping (SNError?) -> Void)
     where T: Codable, T: Identifiable, T: CourseItem
     {
         switch actionType {
