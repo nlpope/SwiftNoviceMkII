@@ -37,11 +37,16 @@ enum PersistenceManager
 {
     static private let defaults = UserDefaults.standard
     
-    static private var existingUsers: [User] = fetchExistingUsersOnThisDevice()
+    static private var existingUsers: [User] = fetchExistingUsersOnThisDevice() { error in
+        #warning("handle error")
+    }
     
     static var logoDidFlickerThisSession: Bool = fetchLogoDidFlickerStatus() {
         didSet { saveLogoDidFlickerStatus(status: logoDidFlickerThisSession) }
     }
+    
+    //-------------------------------------//
+    // MARK: - USER PERSISTENCE
     
     static func updateExistingUsersOnThisDevice(with user: User)
     {
@@ -65,7 +70,8 @@ enum PersistenceManager
         else { completed(.success([])) }
         
         do {
-            
+            let decoder = JSONDecoder()
+            let decodedUsers = decoder.decode([User].self, from: usersToDecode)
         } catch {
             
         }
@@ -73,7 +79,9 @@ enum PersistenceManager
     
     static func doesThisUserExist(username: String) -> Bool
     {
-        let users = fetchExistingUsersOnThisDevice()
+        let users = fetchExistingUsersOnThisDevice { _ in
+            #warning("handle this completion")
+        }
         for user in users {
             if user.username == username { return true }
         }
@@ -212,10 +220,42 @@ enum PersistenceManager
                 handle(actionType, for: item, in: &progressArray) { error in
                     if error != nil { completed(error); return }
                 }
+                completed(saveAllProgress(for: progressArray))
             /**--------------------------------------------------------------------------**/
             case.failure(let error):
                 completed(error)
             }
+        }
+    }
+    
+    
+    static func handle<T>(_ actionType: ProgressType, for item: T, in array: inout [T], completed: @escaping (SNError?) -> Void)
+    where T: Codable, T: Identifiable, T: CourseItem
+    {
+        switch actionType {
+        case .addBookmark:
+            var tmpItem = item
+            array.removeAll { $0.id == item.id }
+            tmpItem.isBookmarked = true
+            array.append(tmpItem)
+        /**--------------------------------------------------------------------------**/
+        case .removeBookmark:
+            var tmpItem = item
+            array.removeAll { $0.id == item.id }
+            tmpItem.isBookmarked = false
+            array.append(tmpItem)
+        /**--------------------------------------------------------------------------**/
+        case .markComplete:
+            var tmpItem = item
+            array.removeAll { $0.id == item.id }
+            tmpItem.isCompleted = true
+            array .append(tmpItem)
+        /**--------------------------------------------------------------------------**/
+        case .markIncomplete:
+            var tmpItem = item
+            array.removeAll { $0.id == item.id }
+            tmpItem.isCompleted = false
+            array.append(tmpItem)
         }
     }
     
@@ -250,33 +290,29 @@ enum PersistenceManager
     }
     
     
-    static func handle<T>(_ actionType: ProgressType, for item: T, in array: inout [T], completed: @escaping (SNError?) -> Void)
-    where T: Codable, T: Identifiable, T: CourseItem
+    static func saveAllProgress<T>(for items: [T]) -> SNError?
+    where T: Codable
     {
-        switch actionType {
-        case .addBookmark:
-            var tmpItem = item
-            array.removeAll { $0.id == item.id }
-            tmpItem.isBookmarked = true
-            array.append(tmpItem)
+        var key: String!
+        
+        switch T.self {
+        case is Course.Type:
+            key = ProgressType.coursesProgressBinKey
         /**--------------------------------------------------------------------------**/
-        case .removeBookmark:
-            var tmpItem = item
-            array.removeAll { $0.id == item.id }
-            tmpItem.isBookmarked = false
-            array.append(tmpItem)
+        case is CourseProject.Type:
+            key = ProgressType.projectsProgressBinKey
         /**--------------------------------------------------------------------------**/
-        case .markComplete:
-            var tmpItem = item
-            array.removeAll { $0.id == item.id }
-            tmpItem.isCompleted = true
-            array .append(tmpItem)
-        /**--------------------------------------------------------------------------**/
-        case .markIncomplete:
-            var tmpItem = item
-            array.removeAll { $0.id == item.id }
-            tmpItem.isCompleted = false
-            array.append(tmpItem)
+        default:
+            break
+        }
+        
+        do {
+            let encoder = JSONEncoder()
+            let encodedCourseProgress = try encoder.encode(items)
+            defaults.set(encodedCourseProgress, forKey: key)
+            return nil
+        } catch {
+            return .failedToSaveProgress
         }
     }
 }
