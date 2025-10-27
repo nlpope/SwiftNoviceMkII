@@ -13,15 +13,9 @@ protocol CourseItem
     var isCompleted: Bool { get set }
 }
 
-enum FetchType { case courses, projects }
-    
-enum ProgressType
-{
-    case addBookmark, removeBookmark, markComplete, markIncomplete
-    static let coursesProgressBinKey = "coursesProgressBinKey"
-    static let projectsProgressBinKey = "projectsProgressBinKey"
+enum UserActionType { case addUser, removeUser}
 
-}
+enum FetchType { case courses, projects }
 
 enum VCVisitStatusType: Codable
 {
@@ -29,6 +23,15 @@ enum VCVisitStatusType: Codable
     static let homeVCVisitStatusKey = "homeVCVisitStatusKey"
     static let projectsVCVisitStatusKey = "projectsVCVisitStatusKey"
 }
+    
+enum ProgressActionType
+{
+    case addBookmark, removeBookmark, markComplete, markIncomplete
+    static let coursesProgressBinKey = "coursesProgressBinKey"
+    static let projectsProgressBinKey = "projectsProgressBinKey"
+}
+
+
 
 //-------------------------------------//
 // MARK: - MAIN PERSISTENCE MANAGER
@@ -46,23 +49,39 @@ enum PersistenceManager
     }
     
     //-------------------------------------//
-    // MARK: - USER PERSISTENCE
+    // MARK: - EXISTING USERS PERSISTENCE
     
-    static func updateExistingUsersOnThisDevice(with user: User)
+    static func doesThisUserExist(username: String) -> Bool
     {
-        fetchProgress(forType: type(of: item)) { result in
+        
+        let users = fetchExistingUsersOnThisDevice { result in
             switch result {
-            case .success(var progressArray):
-                //see note 10.20 in app delegate
-                handle(actionType, for: item, in: &progressArray) { error in
-                    if error != nil { completed(error); return }
-                }
+            case .success(var userArray):
+                break
+            case .failure(let error):
+                break
+            }
+            
+        }
+        
+        
+        return false
+    }
+    
+    
+    static func updateExistingUsersOnThisDevice(with user: User, actionType: UserActionType)
+    {
+        fetchExistingUsersOnThisDevice { result in
+            switch result {
+            case .success(var usersArray):
+                break
             /**--------------------------------------------------------------------------**/
-            case.failure(let error):
-                completed(error)
+            case .failure(let error):
+                break
             }
         }
     }
+    
     
     static func fetchExistingUsersOnThisDevice(completed: @escaping (Result<[User], SNError>) -> Void) -> [User]
     {
@@ -71,21 +90,16 @@ enum PersistenceManager
         
         do {
             let decoder = JSONDecoder()
-            let decodedUsers = decoder.decode([User].self, from: usersToDecode)
+            let decodedUsers = try decoder.decode([User].self, from: usersToDecode)
         } catch {
             
         }
     }
     
-    static func doesThisUserExist(username: String) -> Bool
+    
+    static func handle()
     {
-        let users = fetchExistingUsersOnThisDevice { _ in
-            #warning("handle this completion")
-        }
-        for user in users {
-            if user.username == username { return true }
-        }
-        return false
+        
     }
     
     //-------------------------------------//
@@ -167,50 +181,40 @@ enum PersistenceManager
     }
     
     
-    static func fetchVCVisitStatus(for vc: UIViewController) -> VCVisitStatusType //.isFirstVisit || .isNotFirstVisit
+    static func fetchVCVisitStatus(for vc: UIViewController) -> VCVisitStatusType
     {
+        var key: String!
+        
+        /**--------------------------------------------------------------------------**/
+        
         switch vc {
         case is HomeCoursesVC:
-            guard let statusToDecode = defaults.object(forKey: VCVisitStatusType.homeVCVisitStatusKey) as? Data
-            else { return .isFirstVisit }
-            
-            do {
-                let decoder = JSONDecoder()
-                let fetchedStatus = try decoder.decode(VCVisitStatusType.self, from: statusToDecode)
-                return fetchedStatus
-            } catch {
-                print("failed to load home courses vc visit status")
-                return .isFirstVisit
-            }
-            
-        /**--------------------------------------------------------------------------**/
-
+            key = VCVisitStatusType.homeVCVisitStatusKey
         case is CourseProjectsVC:
-            guard let vcVisitStatusData = defaults.object(forKey: VCVisitStatusType.projectsVCVisitStatusKey) as? Data
-            else { return .isFirstVisit }
-            
-            do {
-                let decoder = JSONDecoder()
-                let fetchedStatus = try decoder.decode(VCVisitStatusType.self, from: vcVisitStatusData)
-                return fetchedStatus
-            } catch {
-                print("failed to load course projects vc visit status")
-                return .isFirstVisit
-            }
-            
-        /**--------------------------------------------------------------------------**/
-
+            key = VCVisitStatusType.projectsVCVisitStatusKey
         default:
             break
         }
         
-        return .isFirstVisit
+        /**--------------------------------------------------------------------------**/
+        
+        guard let statusToDecode = defaults.object(forKey: key) as? Data
+        else { return .isFirstVisit }
+        
+        do {
+            let decoder = JSONDecoder()
+            let fetchedStatus = try decoder.decode(VCVisitStatusType.self, from: statusToDecode)
+            return fetchedStatus
+        } catch {
+            print("failed to load visitation status for this view controller")
+            return .isFirstVisit
+        }
     }
     
     //-------------------------------------//
     // MARK: - SAVE / FETCH BOOKMARKS & COURSE COMPLETION
    
-    static func updateProgress<T>(with item: T, actionType: ProgressType, completed: @escaping (SNError?) -> Void) -> Void
+    static func updateProgress<T>(with item: T, actionType: ProgressActionType, completed: @escaping (SNError?) -> Void) -> Void
     where T: Codable, T: Identifiable, T: CourseItem
     {
         fetchProgress(forType: type(of: item)) { result in
@@ -218,7 +222,7 @@ enum PersistenceManager
             case .success(var progressArray):
                 //see note 10.20 in app delegate
                 handle(actionType, for: item, in: &progressArray) { error in
-                    if error != nil { completed(error); return }
+                    if error != nil { completed(error) }
                 }
                 completed(saveAllProgress(for: progressArray))
             /**--------------------------------------------------------------------------**/
@@ -229,7 +233,37 @@ enum PersistenceManager
     }
     
     
-    static func handle<T>(_ actionType: ProgressType, for item: T, in array: inout [T], completed: @escaping (SNError?) -> Void)
+    static func fetchProgress<T>(forType fetchType: T.Type, completed: @escaping (Result<[T], SNError>) -> Void) -> Void
+    where T: Codable, T: Identifiable, T: CourseItem
+    {
+        var key: String!
+        
+        switch fetchType {
+        case is Course.Type:
+            key = ProgressActionType.coursesProgressBinKey
+        /**--------------------------------------------------------------------------**/
+        case is CourseProject.Type:
+            key = ProgressActionType.projectsProgressBinKey
+        /**--------------------------------------------------------------------------**/
+        default:
+            break
+        }
+        
+        
+        guard let progressToDecode = defaults.object(forKey: key) as? Data
+        else { completed(.success([])) }
+        
+        do {
+            let decoder = JSONDecoder()
+            let decodedProgress = try decoder.decode([T].self, from: progressToDecode)
+            completed(.success(decodedProgress))
+        } catch {
+            completed(.failure(.failedToLoadProgress))
+        }
+    }
+    
+    
+    static func handle<T>(_ actionType: ProgressActionType, for item: T, in array: inout [T], completed: @escaping (SNError?) -> Void)
     where T: Codable, T: Identifiable, T: CourseItem
     {
         switch actionType {
@@ -260,36 +294,6 @@ enum PersistenceManager
     }
     
     
-    static func fetchProgress<T>(forType fetchType: T.Type, completed: @escaping (Result<[T], SNError>) -> Void) -> Void
-    where T: Codable, T: Identifiable, T: CourseItem
-    {
-        var key: String!
-        
-        switch fetchType {
-        case is Course.Type:
-            key = ProgressType.coursesProgressBinKey
-        /**--------------------------------------------------------------------------**/
-        case is CourseProject.Type:
-            key = ProgressType.projectsProgressBinKey
-        /**--------------------------------------------------------------------------**/
-        default:
-            break
-        }
-        
-        #warning("I removed a '; return' after the 'else { completed(.success([]))' below. Was this okay?")
-        guard let progressToDecode = defaults.object(forKey: key) as? Data
-        else { completed(.success([])) }
-        
-        do {
-            let decoder = JSONDecoder()
-            let decodedProgress = try decoder.decode([T].self, from: progressToDecode)
-            completed(.success(decodedProgress))
-        } catch {
-            completed(.failure(.failedToLoadProgress))
-        }
-    }
-    
-    
     static func saveAllProgress<T>(for items: [T]) -> SNError?
     where T: Codable
     {
@@ -297,10 +301,12 @@ enum PersistenceManager
         
         switch T.self {
         case is Course.Type:
-            key = ProgressType.coursesProgressBinKey
+            print("save key = coursesProgressBinKey")
+            key = ProgressActionType.coursesProgressBinKey
         /**--------------------------------------------------------------------------**/
         case is CourseProject.Type:
-            key = ProgressType.projectsProgressBinKey
+            print("save key = projectsProgressBinKey")
+            key = ProgressActionType.projectsProgressBinKey
         /**--------------------------------------------------------------------------**/
         default:
             break
@@ -316,4 +322,3 @@ enum PersistenceManager
         }
     }
 }
-
