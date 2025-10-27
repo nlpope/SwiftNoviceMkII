@@ -148,35 +148,29 @@ enum PersistenceManager
     //-------------------------------------//
     // MARK: - SAVE / FETCH VC VISIT STATUS
     
-    static func saveVCVisitStatus(for vc: UIViewController, status: VCVisitStatusType) //.isFirstVisit || .isNotFirstVisit
+    static func saveVCVisitStatus(for vc: UIViewController, status: VCVisitStatusType)
     {
+        var key: String!
+        
+        /**--------------------------------------------------------------------------**/
+        
         switch vc {
         case is HomeCoursesVC:
-            print("saving home vc visit status")
-            do {
-                let encoder = JSONEncoder()
-                let encodedStatus = try encoder.encode(status)
-                defaults.set(encodedStatus, forKey: VCVisitStatusType.homeVCVisitStatusKey)
-            } catch {
-                print("failed to save home courses vc visit status")
-            }
-            
-        /**--------------------------------------------------------------------------**/
-
+            key = VCVisitStatusType.homeVCVisitStatusKey
         case is CourseProjectsVC:
-            print("saving projects vc visit status")
-            do {
-                let encoder = JSONEncoder()
-                let encodedStatus = try encoder.encode(status)
-                defaults.set(encodedStatus, forKey: VCVisitStatusType.projectsVCVisitStatusKey)
-            } catch {
-                print("failed to save course projects vc vist status")
-            }
-            
-        /**--------------------------------------------------------------------------**/
-
+            key = VCVisitStatusType.projectsVCVisitStatusKey
         default:
             break
+        }
+        
+        /**--------------------------------------------------------------------------**/
+        
+        do {
+            let encoder = JSONEncoder()
+            let encodedStatus = try encoder.encode(status)
+            defaults.set(encodedStatus, forKey: key)
+        } catch {
+            print("Error: failed to save visitation status for this view controller")
         }
     }
     
