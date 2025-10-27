@@ -232,20 +232,21 @@ enum PersistenceManager
     {
         var key: String!
         
+        /**--------------------------------------------------------------------------**/
+        
         switch fetchType {
         case is Course.Type:
             key = ProgressActionType.coursesProgressBinKey
-        /**--------------------------------------------------------------------------**/
         case is CourseProject.Type:
             key = ProgressActionType.projectsProgressBinKey
-        /**--------------------------------------------------------------------------**/
         default:
             break
         }
         
+        /**--------------------------------------------------------------------------**/
         
         guard let progressToDecode = defaults.object(forKey: key) as? Data
-        else { completed(.success([])) }
+        else { completed(.success([])); return }
         
         do {
             let decoder = JSONDecoder()
