@@ -16,6 +16,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
     var passwordIsCorrect: Bool!
     var isUsernameEntered: Bool { return !usernameTextField.text!.isEmpty }
     var isPasswordEntered: Bool { return !passwordTextField.text!.isEmpty }
+    var logoLauncher: SNLogoLauncher!
 
     override func viewDidLoad()
     {
@@ -27,7 +28,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
         configureSignInLabel()
         configureSignUpLabel()
         configureForgotLabel()
-        configKeyboardBehavior()
+      
     }
     
     
@@ -37,6 +38,15 @@ class SignInVC: UIViewController, UITextFieldDelegate
         usernameTextField.text = ""
         passwordTextField.text = ""
         navigationController?.setNavigationBarHidden(true, animated: true)
+        configKeyboardBehavior()
+        print("gesture recognizers = \(view.gestureRecognizers!)")
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        logoLauncher = nil
+        view.gestureRecognizers?.removeAll()
     }
     
     

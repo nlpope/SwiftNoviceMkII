@@ -53,6 +53,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     override func viewWillDisappear(_ animated: Bool)
     {
         logoLauncher = nil
+        view.gestureRecognizers?.removeAll()
     }
     
     //-------------------------------------//
