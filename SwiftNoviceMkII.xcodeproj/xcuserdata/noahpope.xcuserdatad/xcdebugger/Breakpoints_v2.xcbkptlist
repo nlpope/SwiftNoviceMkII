@@ -80,7 +80,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "64"
             endingLineNumber = "64"
-            landmarkName = "fetchExistingUsersOnThisDevice()"
+            landmarkName = "fetchExistingUsersOnThisDevice(completed:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

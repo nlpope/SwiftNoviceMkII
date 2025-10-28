@@ -61,17 +61,17 @@ enum PersistenceManager
     }
     
     
-    static func fetchExistingUsersOnThisDevice() ->  (Result<[User], SNError>)
+    static func fetchExistingUsersOnThisDevice(completed: @escaping (Result<[User], SNError>) -> Void) ->  Void
     {
         guard let usersToDecode = defaults.object(forKey: PersistenceKeys.existingUsersKey) as? Data
-        else { return .success([]) }
+        else { completed(.success([])); return }
         
         do {
             let decoder = JSONDecoder()
             let decodedUsers = try decoder.decode([User].self, from: usersToDecode)
-            return .success(decodedUsers)
+            completed(.success(decodedUsers))
         } catch {
-            return .failure(.failedToLoadExistingUsers)
+            completed(.failure(.failedToLoadExistingUsers))
         }
     }
     

@@ -7,6 +7,7 @@ import SafariServices
 
 extension UIViewController
 {
+    #warning("consider condensing this to take an SNError type then switch on msgs based on that")
     func presentSNAlertOnMainThread(alertTitle: String, message: String, buttonTitle: String) {
         DispatchQueue.main.async {
             let alertVC = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)

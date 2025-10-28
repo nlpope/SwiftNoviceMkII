@@ -12,23 +12,27 @@ class SignInVC: UIViewController, UITextFieldDelegate
     let signInLabel = SNInteractiveLabel(textToDisplay: "Sign in", fontSize: 18)
     let signUpLabel = SNInteractiveLabel(textToDisplay: "Don't have an account?", fontSize: 18)
     let forgotLabel = SNInteractiveLabel(textToDisplay: "Forgot username/password?", fontSize: 18)
+    
+    var existingUsers: [User]!
     var userExists: Bool!
+    
     var passwordIsCorrect: Bool!
     var isUsernameEntered: Bool { return !usernameTextField.text!.isEmpty }
     var isPasswordEntered: Bool { return !passwordTextField.text!.isEmpty }
+    
     var logoLauncher: SNLogoLauncher!
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
         configureVC()
-        configureLogoImageView()
-        configureUsernameTextField()
-        configurePasswordTextField()
-        configureSignInLabel()
-        configureSignUpLabel()
-        configureForgotLabel()
-      
+        configLogoImageView()
+        configUsernameTextField()
+        configPasswordTextField()
+        configSignInLabel()
+        configSignUpLabel()
+        configForgotLabel()
+        fetchExistingUsers()
     }
     
     
@@ -49,6 +53,8 @@ class SignInVC: UIViewController, UITextFieldDelegate
         view.gestureRecognizers?.removeAll()
     }
     
+    //-------------------------------------//
+    // MARK: - CONFIGURATION
     
     func configureVC()
     {
@@ -56,10 +62,8 @@ class SignInVC: UIViewController, UITextFieldDelegate
         view.addSubviews(logoImageView, usernameTextField, passwordTextField, signInLabel, signUpLabel, forgotLabel)
     }
     
-    //-------------------------------------//
-    // MARK: - CONFIGURATION
     
-    func configureLogoImageView()
+    func configLogoImageView()
     {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.image = ImageKeys.placeholder
@@ -74,7 +78,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
     }
     
     
-    func configureUsernameTextField()
+    func configUsernameTextField()
     {
         usernameTextField.delegate = self
         
@@ -87,7 +91,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
     }
     
     
-    func configurePasswordTextField()
+    func configPasswordTextField()
     {
         passwordTextField.delegate = self
         passwordTextField.isSecureTextEntry = true
@@ -101,7 +105,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
     }
     
     
-    func configureSignInLabel()
+    func configSignInLabel()
     {
         let tap = UITapGestureRecognizer(target: self, action: #selector(resetRootVC))
         signInLabel.addGestureRecognizer(tap)
@@ -113,7 +117,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
     }
     
     
-    func configureSignUpLabel()
+    func configSignUpLabel()
     {
         let tap = UITapGestureRecognizer(target: self, action: #selector(presentSignUpVC))
         signUpLabel.addGestureRecognizer(tap)
@@ -125,7 +129,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
     }
     
     
-    func configureForgotLabel() {
+    func configForgotLabel() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(presentSignUpVC))
         forgotLabel.addGestureRecognizer(tap)
         
@@ -136,11 +140,26 @@ class SignInVC: UIViewController, UITextFieldDelegate
     }
     
     //-------------------------------------//
+    // MARK: - EXISTING USER FETCHING
+    
+    func fetchExistingUsers()
+    {
+        PersistenceManager.fetchExistingUsersOnThisDevice { result in
+            switch result {
+            case .success(var existingUsers):
+                self.existingUsers = existingUsers
+            case .failure(let error):
+                self.presentSNAlertOnMainThread(alertTitle: "No users found", message: "error fetching existing users", buttonTitle: "Ok")
+            }
+        }
+    }
+    
+    //-------------------------------------//
     // MARK: - PASSWORD CREATION (SIGN UP) METHODS
     
     @objc func setPassword()
     {
-        let ac                          = UIAlertController(title: "Set Password",
+        let ac = UIAlertController(title: "Set Password",
                                                             message: "Set your secure password",
                                                             preferredStyle: .alert)
         for _ in 0 ... 1 { ac.addTextField() }
