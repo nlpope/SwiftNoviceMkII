@@ -28,6 +28,7 @@ enum SNError: String, Error
     
     case failedToSaveUser = "Failed to save this new user. Please try signing up again."
     case failedToLoadUser = "Failed to find this user. Please try signing in again."
+    case failedToLoadExistingUsers = "Failed to find a set of existing users on this device."
     
     case badURL = "Invalid URL, please try again."
     case badResponse = "Failed to get a valid response from the server. Please try again."

@@ -48,6 +48,7 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
         configSearchController()
         configDiffableDataSource()
         configTableView()
+        configKeyboardBehavior()
         vcVisitStatus = PersistenceManager.fetchVCVisitStatus(for: self)
     }
     

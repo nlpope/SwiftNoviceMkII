@@ -33,6 +33,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         configSearchController()
         configCollectionView()
         configDataSource()
+        configKeyboardBehavior()
         vcVisitStatus = PersistenceManager.fetchVCVisitStatus(for: self)
     }
     

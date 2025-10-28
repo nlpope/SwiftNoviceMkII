@@ -62,8 +62,8 @@
             filePath = "SwiftNoviceMkII/Screens/HomeCoursesVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "fetchCoursesFromServer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,9 +78,9 @@
             filePath = "SwiftNoviceMkII/Managers/PersistenceManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "fetchExistingUsersOnThisDevice(completed:)"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "fetchExistingUsersOnThisDevice()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -94,25 +94,9 @@
             filePath = "SwiftNoviceMkII/Managers/PersistenceManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "updateProgress(with:actionType:completed:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2928B8A9-6E38-455D-9D06-26ECA84D774F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwiftNoviceMkII/Managers/PersistenceManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "doesThisUserExist(username:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -126,8 +110,8 @@
             filePath = "SwiftNoviceMkII/Managers/PersistenceManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "updateExistingUsersOnThisDevice(with:actionType:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,8 +126,8 @@
             filePath = "SwiftNoviceMkII/Managers/PersistenceManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "fetchVCVisitStatus(for:)"
             landmarkType = "7">
          </BreakpointContent>

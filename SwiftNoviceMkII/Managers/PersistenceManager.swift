@@ -13,7 +13,7 @@ protocol CourseItem
     var isCompleted: Bool { get set }
 }
 
-enum UserActionType { case addUser, removeUser}
+enum UserActionType { case addUser, removeUser }
 
 enum FetchType { case courses, projects }
 
@@ -31,8 +31,6 @@ enum ProgressActionType
     static let projectsProgressBinKey = "projectsProgressBinKey"
 }
 
-
-
 //-------------------------------------//
 // MARK: - MAIN PERSISTENCE MANAGER
 
@@ -40,34 +38,14 @@ enum PersistenceManager
 {
     static private let defaults = UserDefaults.standard
     
-    static private var existingUsers: [User] = fetchExistingUsersOnThisDevice() { error in
-        #warning("handle error")
-    }
-    
     static var logoDidFlickerThisSession: Bool = fetchLogoDidFlickerStatus() {
         didSet { saveLogoDidFlickerStatus(status: logoDidFlickerThisSession) }
     }
     
+    static var existingUsers: [User]!
+    
     //-------------------------------------//
     // MARK: - EXISTING USERS PERSISTENCE
-    
-    static func doesThisUserExist(username: String) -> Bool
-    {
-        
-        let users = fetchExistingUsersOnThisDevice { result in
-            switch result {
-            case .success(var userArray):
-                break
-            case .failure(let error):
-                break
-            }
-            
-        }
-        
-        
-        return false
-    }
-    
     
     static func updateExistingUsersOnThisDevice(with user: User, actionType: UserActionType)
     {
@@ -83,17 +61,17 @@ enum PersistenceManager
     }
     
     
-    static func fetchExistingUsersOnThisDevice(completed: @escaping (Result<[User], SNError>) -> Void) -> Void
+    static func fetchExistingUsersOnThisDevice() ->  (Result<[User], SNError>)
     {
         guard let usersToDecode = defaults.object(forKey: PersistenceKeys.existingUsersKey) as? Data
-        else { completed(.success([])) }
+        else { return .success([]) }
         
         do {
             let decoder = JSONDecoder()
             let decodedUsers = try decoder.decode([User].self, from: usersToDecode)
-            completed(.success(decodedUsers))
+            return .success(decodedUsers)
         } catch {
-            completed(.failure(.failedToLoadUser))
+            return .failure(.failedToLoadExistingUsers)
         }
     }
     

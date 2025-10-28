@@ -27,7 +27,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
         configureSignInLabel()
         configureSignUpLabel()
         configureForgotLabel()
-        createDismissKeyboardTapGesture()
+        configKeyboardBehavior()
     }
     
     
@@ -44,13 +44,6 @@ class SignInVC: UIViewController, UITextFieldDelegate
     {
         view.backgroundColor = .systemBackground
         view.addSubviews(logoImageView, usernameTextField, passwordTextField, signInLabel, signUpLabel, forgotLabel)
-    }
-    
-    
-    func createDismissKeyboardTapGesture()
-    {
-        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
-        view.addGestureRecognizer(tap)
     }
     
     //-------------------------------------//

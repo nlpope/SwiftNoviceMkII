@@ -29,11 +29,13 @@ extension UIViewController
     //-------------------------------------//
     // MARK: - SOLVE FOR KEYBOARD BLOCKING TEXTFIELD (by SwiftArcade)
     
-    func setupKeyboardHiding()
+    func configKeyboardBehavior()
     {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        createDismissKeyboardTapGesture()
     }
     
     
@@ -61,4 +63,11 @@ extension UIViewController
     
     
     @objc func keyboardWillHide(sender: NSNotification) { view.frame.origin.y = 0 }
+    
+    
+    func createDismissKeyboardTapGesture()
+    {
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        view.addGestureRecognizer(tap)
+    }
 }

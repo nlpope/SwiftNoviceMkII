@@ -11,6 +11,7 @@ class BookmarksVC: SNDataLoadingVC
     override func viewDidLoad()
     {
         configNavBar()
+        configKeyboardBehavior()
     }
     
     private func configNavBar()
