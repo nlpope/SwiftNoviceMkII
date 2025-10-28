@@ -41,9 +41,7 @@ enum PersistenceManager
     static var logoDidFlickerThisSession: Bool = fetchLogoDidFlickerStatus() {
         didSet { saveLogoDidFlickerStatus(status: logoDidFlickerThisSession) }
     }
-    
-    static var existingUsers: [User]!
-    
+        
     //-------------------------------------//
     // MARK: - EXISTING USERS PERSISTENCE
     
@@ -71,7 +69,7 @@ enum PersistenceManager
             let decodedUsers = try decoder.decode([User].self, from: usersToDecode)
             completed(.success(decodedUsers))
         } catch {
-            completed(.failure(.failedToLoadExistingUsers))
+            completed(.failure(.failedToFetchUser))
         }
     }
     

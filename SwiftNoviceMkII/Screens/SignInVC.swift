@@ -14,7 +14,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
     let forgotLabel = SNInteractiveLabel(textToDisplay: "Forgot username/password?", fontSize: 18)
     
     var existingUsers: [User]!
-    var userExists: Bool!
+    var userExists: Bool = false
     
     var passwordIsCorrect: Bool!
     var isUsernameEntered: Bool { return !usernameTextField.text!.isEmpty }
@@ -205,6 +205,12 @@ class SignInVC: UIViewController, UITextFieldDelegate
     {
         guard isUsernameEntered, isPasswordEntered
         else { presentSNAlertOnMainThread(forError: .emptyFields); return }
+        
+        for user in existingUsers {
+            if user.username.lowercased() == usernameTextField.text?.lowercased() {
+                userExists = true; break
+            }
+        }
 
         guard userExists, passwordIsCorrect
         else { presentSNAlertOnMainThread(forError: .wrongUsernameOrPwd); return }
