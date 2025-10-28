@@ -83,7 +83,7 @@ enum PersistenceManager
     }
     
     
-    static func fetchExistingUsersOnThisDevice(completed: @escaping (Result<[User], SNError>) -> Void) -> [User]
+    static func fetchExistingUsersOnThisDevice(completed: @escaping (Result<[User], SNError>) -> Void) -> Void
     {
         guard let usersToDecode = defaults.object(forKey: PersistenceKeys.existingUsersKey) as? Data
         else { completed(.success([])) }
@@ -91,8 +91,9 @@ enum PersistenceManager
         do {
             let decoder = JSONDecoder()
             let decodedUsers = try decoder.decode([User].self, from: usersToDecode)
+            completed(.success(decodedUsers))
         } catch {
-            
+            completed(.failure(.failedToLoadUser))
         }
     }
     
@@ -206,7 +207,7 @@ enum PersistenceManager
     }
     
     //-------------------------------------//
-    // MARK: - SAVE / FETCH BOOKMARKS & COURSE COMPLETION
+    // MARK: - SAVE / FETCH PROGRESS (BOOKMARKS & COMPLETION)
    
     static func updateProgress<T>(with item: T, actionType: ProgressActionType, completed: @escaping (SNError?) -> Void) -> Void
     where T: Codable, T: Identifiable, T: CourseItem
@@ -261,31 +262,27 @@ enum PersistenceManager
     static func handle<T>(_ actionType: ProgressActionType, for item: T, in array: inout [T], completed: @escaping (SNError?) -> Void)
     where T: Codable, T: Identifiable, T: CourseItem
     {
+        var tmpItem = item
+        array.removeAll { $0.id == item.id }
+        
+        /**--------------------------------------------------------------------------**/
         switch actionType {
         case .addBookmark:
-            var tmpItem = item
-            array.removeAll { $0.id == item.id }
             tmpItem.isBookmarked = true
-            array.append(tmpItem)
-        /**--------------------------------------------------------------------------**/
+        
         case .removeBookmark:
-            var tmpItem = item
-            array.removeAll { $0.id == item.id }
             tmpItem.isBookmarked = false
-            array.append(tmpItem)
-        /**--------------------------------------------------------------------------**/
+        
         case .markComplete:
-            var tmpItem = item
-            array.removeAll { $0.id == item.id }
             tmpItem.isCompleted = true
-            array .append(tmpItem)
-        /**--------------------------------------------------------------------------**/
+        
         case .markIncomplete:
-            var tmpItem = item
-            array.removeAll { $0.id == item.id }
             tmpItem.isCompleted = false
-            array.append(tmpItem)
         }
+        
+        /**--------------------------------------------------------------------------**/
+        
+        array.append(tmpItem)
     }
     
     
@@ -294,18 +291,20 @@ enum PersistenceManager
     {
         var key: String!
         
+        /**--------------------------------------------------------------------------**/
+        
         switch T.self {
         case is Course.Type:
-            print("save key = coursesProgressBinKey")
             key = ProgressActionType.coursesProgressBinKey
-        /**--------------------------------------------------------------------------**/
+        
         case is CourseProject.Type:
-            print("save key = projectsProgressBinKey")
             key = ProgressActionType.projectsProgressBinKey
-        /**--------------------------------------------------------------------------**/
+        
         default:
             break
         }
+        
+        /**--------------------------------------------------------------------------**/
         
         do {
             let encoder = JSONEncoder()
