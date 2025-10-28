@@ -149,7 +149,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
             case .success(var existingUsers):
                 self.existingUsers = existingUsers
             case .failure(let error):
-                self.presentSNAlertOnMainThread(alertTitle: "No users found", message: "error fetching existing users", buttonTitle: "Ok")
+                self.presentSNAlertOnMainThread(forError: error)
             }
         }
     }
@@ -169,14 +169,15 @@ class SignInVC: UIViewController, UITextFieldDelegate
         
         let action1 = UIAlertAction(title: "Confirm", style: .default) { [weak self] _ in
             guard let pwd = ac.textFields?[0].text
-            else { self?.presentSNAlertOnMainThread(alertTitle: "Empty field detected", message: SNError.emptyPwdOnCreation.rawValue, buttonTitle: "Ok"); return }
+            else { self?.presentSNAlertOnMainThread(forError: .emptyFields); return }
             
             guard let cPwd = ac.textFields?[1].text
-            else { self?.presentSNAlertOnMainThread(alertTitle: "Empty field detected", message: SNError.emptyCPwdOnCreation.rawValue, buttonTitle: "Ok"); return }
+            else { self?.presentSNAlertOnMainThread(forError: .emptyFields); return }
             
             guard pwd == cPwd
-            else { self?.presentSNAlertOnMainThread(alertTitle: "Mismatch detected", message: SNError.mismatchOnCreation.rawValue, buttonTitle: "Ok"); return }
-            
+            else { self?.presentSNAlertOnMainThread(forError: .pwdAndCpwdMismatch); return }
+
+            #warning("what did i mean by the below comment?")
             // AFTER THIS INCORPORATE REST OF KEYS IN THE POST SET PWD ENTRY METHOD
             KeychainWrapper.standard.set(pwd, forKey: PersistenceKeys.passwordKey)
         }
@@ -202,16 +203,13 @@ class SignInVC: UIViewController, UITextFieldDelegate
     
     @objc func resetRootVC()
     {
-        guard isUsernameEntered, isPasswordEntered else {
-            presentSNAlertOnMainThread(alertTitle: "Empty username/password", message: "The username or password field has been left blank. Please enter a value or sign up if you do not have an account.", buttonTitle: "Ok")
-            return
-        }
+        guard isUsernameEntered, isPasswordEntered
+        else { presentSNAlertOnMainThread(forError: .emptyFields); return }
 
-        guard userExists, passwordIsCorrect else {
-            presentSNAlertOnMainThread(alertTitle: "Wrong username/password", message: "The username or password is incorrect. Please try again or sign up if you do not have an account", buttonTitle: "Ok")
-            return
-        }
+        guard userExists, passwordIsCorrect
+        else { presentSNAlertOnMainThread(forError: .wrongUsernameOrPwd); return }
         
+        #warning("look into the below - is it what you want in the final version?")
         updateLoggedinStatus(withStatus: true)
         usernameTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()

@@ -7,33 +7,65 @@ import SafariServices
 
 extension UIViewController
 {
-    func presentSNAlertOnMainThreadz(forError error: SNError?)
+    func presentSNAlertOnMainThread(forError error: SNError?)
     {
         let title: String!
         let message: String!
         
-        /**--------------------------------------------------------------------------**/
-        
+    /**--------------------------------------------------------------------------**/
         switch error {
             
         case .emptyFields:
             title = "Empty username or password"
             message = SNError.emptyFields.rawValue
-            
         case .pwdAndCpwdMismatch:
             title = "Mismatch detected"
             message = SNError.pwdAndCpwdMismatch.rawValue
-            
         case .wrongUsernameOrPwd:
             title = "Wrong username or password"
             message = SNError.wrongUsernameOrPwd.rawValue
+        case .noBiometry:
+            title = "No biometry detected"
+            message = SNError.noBiometry.rawValue
+        case .authFail:
+            title = "Authentication failure"
+            message = SNError.authFail.rawValue
             
+        /**--------------------------------------------------------------------------**/
+        case .failedToFetchUser:
+            title = "Failed to find user"
+            message = SNError.failedToFetchUser.rawValue
+        case .failedToSaveUser:
+            title = "Failed to save user"
+            message = SNError.failedToSaveUser.rawValue
+        case .failedToSaveProgress:
+            title = "Failed to save progress"
+            message = SNError.failedToSaveProgress.rawValue
+        case .failedToFetchProgress:
+            title = "Failed to fetch progress"
+            message = SNError.failedToFetchProgress.rawValue
+            
+        /**--------------------------------------------------------------------------**/
+        case .badURL:
+            title = "Bad URL"
+            message = SNError.badURL.rawValue
+        case .badResponse:
+            title = "Bad response"
+            message = SNError.badResponse.rawValue
+        case .badData:
+            title = "Bad data"
+            message = SNError.badData.rawValue
+        case .errorDecodingData:
+            title = "Error decoding data"
+            message = SNError.errorDecodingData.rawValue
+            
+        /**--------------------------------------------------------------------------**/
         default:
             title = "Bad stuff happened"
-            message = "something went wrong"
+            message = "Something went wrong. Please try again."
         }
         
-        /**--------------------------------------------------------------------------**/
+    /**--------------------------------------------------------------------------**/
         
         DispatchQueue.main.async {
             let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)

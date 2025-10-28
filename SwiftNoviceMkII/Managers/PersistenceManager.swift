@@ -232,7 +232,7 @@ enum PersistenceManager
             let decodedProgress = try decoder.decode([T].self, from: progressToDecode)
             completed(.success(decodedProgress))
         } catch {
-            completed(.failure(.failedToLoadProgress))
+            completed(.failure(.failedToFetchProgress))
         }
     }
     

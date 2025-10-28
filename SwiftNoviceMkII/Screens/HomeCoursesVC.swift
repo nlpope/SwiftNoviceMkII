@@ -127,7 +127,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
                 print("just fetched, now courses.count = \(courses.count)")
                 updateDataSource(with: courses)
             case .failure(let error):
-                self.presentSNAlertOnMainThread(alertTitle: "Bad Stuff Happened", message: error.rawValue, buttonTitle: "Ok")
+                self.presentSNAlertOnMainThread(forError: error)
             }
         }
     }
