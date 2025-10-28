@@ -7,10 +7,36 @@ import SafariServices
 
 extension UIViewController
 {
-    #warning("consider condensing this to take an SNError type then switch on msgs based on that")
-    func presentSNAlertOnMainThread(alertTitle: String, message: String, buttonTitle: String) {
+    func presentSNAlertOnMainThreadz(forError error: SNError?)
+    {
+        let title: String!
+        let message: String!
+        
+        /**--------------------------------------------------------------------------**/
+        
+        switch error {
+            
+        case .emptyFields:
+            title = "Empty username or password"
+            message = SNError.emptyFields.rawValue
+            
+        case .pwdAndCpwdMismatch:
+            title = "Mismatch detected"
+            message = SNError.pwdAndCpwdMismatch.rawValue
+            
+        case .wrongUsernameOrPwd:
+            title = "Wrong username or password"
+            message = SNError.wrongUsernameOrPwd.rawValue
+            
+        default:
+            title = "Bad stuff happened"
+            message = "something went wrong"
+        }
+        
+        /**--------------------------------------------------------------------------**/
+        
         DispatchQueue.main.async {
-            let alertVC = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)
+            let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .default))
             alertVC.modalPresentationStyle = .overFullScreen
             alertVC.modalTransitionStyle = .crossDissolve
