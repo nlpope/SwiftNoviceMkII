@@ -11,7 +11,16 @@ class BookmarksVC: SNDataLoadingVC
     override func viewDidLoad()
     {
         configNavBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
         configKeyboardBehavior()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        view.gestureRecognizers?.removeAll()
     }
     
     private func configNavBar()

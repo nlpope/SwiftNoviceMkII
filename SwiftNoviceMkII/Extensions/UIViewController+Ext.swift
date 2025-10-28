@@ -29,6 +29,7 @@ extension UIViewController
     //-------------------------------------//
     // MARK: - SOLVE FOR KEYBOARD BLOCKING TEXTFIELD (by SwiftArcade)
     
+    #warning("make sure these are working on each vc via the view.gestureRecognizers call after the below is called. Have a sneaking suspicion this may need to be defined per vc instead of just here... or sumn more condensed")
     func configKeyboardBehavior()
     {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)

@@ -33,11 +33,10 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         configSearchController()
         configCollectionView()
         configDataSource()
-        configKeyboardBehavior()
         vcVisitStatus = PersistenceManager.fetchVCVisitStatus(for: self)
     }
     
-    
+    #warning("consider setting up the logo launcher in just the signin vc and then taking an existing signed in user into acct when determing what loads when the player is finished.")
     override func viewWillAppear(_ animated: Bool)
     {
         if vcVisitStatus == .isFirstVisit || vcVisitStatus == .isNotFirstVisit {
@@ -45,7 +44,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
             logoLauncher.configLogoLauncher()
             vcVisitStatus = PersistenceManager.saveVCVisitStatus(for: self, status: .isFirstVisitPostDismissal)
         }
-        
+        configKeyboardBehavior()
         loadProgressFromCloudKit()
     }
     

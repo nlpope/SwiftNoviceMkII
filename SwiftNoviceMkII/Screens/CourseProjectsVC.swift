@@ -48,8 +48,13 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
         configSearchController()
         configDiffableDataSource()
         configTableView()
-        configKeyboardBehavior()
         vcVisitStatus = PersistenceManager.fetchVCVisitStatus(for: self)
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        configKeyboardBehavior()
     }
     
     
@@ -59,6 +64,12 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
         // if first time visiting - show alerts for nav instructions
         // fetchCourseProjects(withUrl url: String)
         // { url = selectedCourse.apiUrl }
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        view.gestureRecognizers?.removeAll()
     }
     
     
