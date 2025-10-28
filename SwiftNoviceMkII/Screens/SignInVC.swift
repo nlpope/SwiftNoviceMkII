@@ -160,18 +160,18 @@ class SignInVC: UIViewController, UITextFieldDelegate
     @objc func setPassword()
     {
         let ac = UIAlertController(title: "Set Password",
-                                                            message: "Set your secure password",
-                                                            preferredStyle: .alert)
+                                   message: "Set your secure password",
+                                   preferredStyle: .alert)
         for _ in 0 ... 1 { ac.addTextField() }
         for i in 0 ... 1 { ac.textFields?[i].isSecureTextEntry = true }
-        ac.textFields?[0].placeholder   = "enter password"
-        ac.textFields?[1].placeholder   = "confirm password"
+        ac.textFields?[0].placeholder = "enter password"
+        ac.textFields?[1].placeholder = "confirm password"
         
         let action1 = UIAlertAction(title: "Confirm", style: .default) { [weak self] _ in
             guard let pwd = ac.textFields?[0].text
             else { self?.presentSNAlertOnMainThread(alertTitle: "Empty field detected", message: SNError.emptyPwdOnCreation.rawValue, buttonTitle: "Ok"); return }
             
-            guard let cPwd      = ac.textFields?[1].text
+            guard let cPwd = ac.textFields?[1].text
             else { self?.presentSNAlertOnMainThread(alertTitle: "Empty field detected", message: SNError.emptyCPwdOnCreation.rawValue, buttonTitle: "Ok"); return }
             
             guard pwd == cPwd
@@ -188,7 +188,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
     
     @objc func presentSignUpVC()
     {
-        
+        print("it works")
     }
     
     
@@ -225,7 +225,6 @@ class SignInVC: UIViewController, UITextFieldDelegate
     
     func updateLoggedinStatus(withStatus status: Bool) { PersistenceManager.updateLoggedInStatus(loggedIn: status) }
 
-    
     //-------------------------------------//
     // MARK: - KEYBOARD METHODS
     
