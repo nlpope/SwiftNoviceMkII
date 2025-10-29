@@ -118,9 +118,10 @@ enum PersistenceManager
     }
     
     
-    static func savePassword()
+    static func savePassword(_ password: String) -> SNError?
     {
-        
+        KeychainWrapper.standard.set(password, forKey: PersistenceKeys.passwordKey)
+        return nil
     }
     
     

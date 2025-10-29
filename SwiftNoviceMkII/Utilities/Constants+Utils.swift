@@ -69,5 +69,4 @@ enum AlertKeys
     
     // LOGIN PERMISSIONS
     static let touchIDReason = "Your identity must first be confirmed via Touch ID. May we make this attempt now?"
-
 }
