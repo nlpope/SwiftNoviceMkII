@@ -70,36 +70,9 @@ class SignInVC: UIViewController, UITextFieldDelegate
     }
     
     //-------------------------------------//
-    // MARK: - PASSWORD CREATION (SIGN UP) METHODS
+    // MARK: - SIGN UP & PASSWORD RESET METHODS
     
-    @objc func setPassword()
-    {
-        let ac = UIAlertController(title: "Set Password",
-                                   message: "Set your secure password",
-                                   preferredStyle: .alert)
-        for _ in 0 ... 1 { ac.addTextField() }
-        for i in 0 ... 1 { ac.textFields?[i].isSecureTextEntry = true }
-        ac.textFields?[0].placeholder = "enter password"
-        ac.textFields?[1].placeholder = "confirm password"
-        
-        let action1 = UIAlertAction(title: "Confirm", style: .default) { [weak self] _ in
-            guard let pwd = ac.textFields?[0].text
-            else { self?.presentSNAlertOnMainThread(forError: .emptyFields); return }
-            
-            guard let cPwd = ac.textFields?[1].text
-            else { self?.presentSNAlertOnMainThread(forError: .emptyFields); return }
-            
-            guard pwd == cPwd
-            else { self?.presentSNAlertOnMainThread(forError: .pwdAndCpwdMismatch); return }
 
-            #warning("what did i mean by the below comment?")
-            // AFTER THIS INCORPORATE REST OF KEYS IN THE POST SET PWD ENTRY METHOD
-            KeychainWrapper.standard.set(pwd, forKey: PersistenceKeys.passwordKey)
-        }
-        
-        ac.addAction(action1)
-        present(ac, animated: true)
-    }
     
     
     @objc func presentSignUpVC()
