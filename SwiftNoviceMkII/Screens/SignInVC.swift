@@ -14,7 +14,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
     let forgotLabel = SNInteractiveLabel(textToDisplay: "Forgot username/password?", fontSize: 18)
     
     var existingUsers: [User]!
-    var userExists: Bool!
+    var userExists: Bool = false
     
     var passwordIsCorrect: Bool!
     var isUsernameEntered: Bool { return !usernameTextField.text!.isEmpty }
@@ -56,7 +56,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
    
     //-------------------------------------//
     // MARK: - EXISTING USER FETCHING
-    
+    #warning("wouldn't you want the existing users to be bundled w their passwords in the keychain?")
     func fetchExistingUsers()
     {
         PersistenceManager.fetchExistingUsersOnThisDevice { result in
@@ -116,22 +116,16 @@ class SignInVC: UIViewController, UITextFieldDelegate
     //-------------------------------------//
     // MARK: - PASSWORD ACCEPTED BEHAVIOR METHODS
     
-    @objc func verifyAndResetRootVC()
+    @objc func verifyUserAndResetRootVC()
     {
-        PersistenceManager.fetchExistingUsersOnThisDevice { [self] result in
-            switch result {
-            case .success(let users):
-//                self.existingUsers = users
-                for user in users { if user.username.lowercased() == usernameTextField.text?.lowercased() {
-                    userExists = true; break
-                }}
-            case .failure(_):
-                self.presentSNAlertOnMainThread(forError: .failedToFetchUser)
-            }
-        }
-        
         guard isUsernameEntered, isPasswordEntered
         else { presentSNAlertOnMainThread(forError: .emptyFields); return }
+        
+        for user in existingUsers {
+            if user.username.lowercased() == usernameTextField.text?.lowercased() {
+                userExists = true; break
+            }
+        }
 
         guard userExists, passwordIsCorrect
         else { presentSNAlertOnMainThread(forError: .wrongUsernameOrPwd); return }
@@ -155,7 +149,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
-        verifyAndResetRootVC()
+        verifyUserAndResetRootVC()
         return true
     }
 }

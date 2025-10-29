@@ -60,7 +60,7 @@ extension SignInVC
     
     func configSignInLabel()
     {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(verifyAndResetRootVC))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(verifyUserAndResetRootVC))
         signInLabel.addGestureRecognizer(tap)
         
         NSLayoutConstraint.activate([
