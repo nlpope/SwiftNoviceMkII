@@ -37,6 +37,7 @@ enum ProgressActionType
 enum PersistenceManager
 {
     static private let defaults = UserDefaults.standard
+    static private var existingUsers: [User]!
     
     static var logoDidFlickerThisSession: Bool = fetchLogoDidFlickerStatus() {
         didSet { saveLogoDidFlickerStatus(status: logoDidFlickerThisSession) }
@@ -109,18 +110,24 @@ enum PersistenceManager
     }
     
     //-------------------------------------//
-    // MARK: - PASSWORD PERSISTENCE (KEYS ONLY - STORAGE = KEYCHAIN)
-    
-    
-    
-    //-------------------------------------//
     // MARK: - LOGIN PERSISTENCE
+    
+    static func updatePassword()
+    {
+        
+    }
+    
+    
+    static func savePassword()
+    {
+        
+    }
+    
     
     static func updateLoggedInStatus(loggedIn: Bool) { defaults.set(loggedIn, forKey: PersistenceKeys.loginStatusKey) }
     
     
     static func fetchLoggedInStatus() -> Bool { return defaults.bool(forKey: PersistenceKeys.loginStatusKey) }
-    // defaults.bool(forKey:) auto returns false if key doesn't yet exist
         
     //-------------------------------------//
     // MARK: - SAVE / FETCH VC VISIT STATUS
@@ -130,7 +137,6 @@ enum PersistenceManager
         var key: String!
         
         /**--------------------------------------------------------------------------**/
-        
         switch vc {
         case is HomeCoursesVC:
             key = VCVisitStatusType.homeVCVisitStatusKey
@@ -141,7 +147,6 @@ enum PersistenceManager
         }
         
         /**--------------------------------------------------------------------------**/
-        
         do {
             let encoder = JSONEncoder()
             let encodedStatus = try encoder.encode(status)
@@ -157,7 +162,6 @@ enum PersistenceManager
         var key: String!
         
         /**--------------------------------------------------------------------------**/
-        
         switch vc {
         case is HomeCoursesVC:
             key = VCVisitStatusType.homeVCVisitStatusKey
@@ -168,7 +172,6 @@ enum PersistenceManager
         }
         
         /**--------------------------------------------------------------------------**/
-        
         guard let statusToDecode = defaults.object(forKey: key) as? Data
         else { return .isFirstVisit }
         
@@ -210,7 +213,6 @@ enum PersistenceManager
         var key: String!
         
         /**--------------------------------------------------------------------------**/
-        
         switch fetchType {
         case is Course.Type:
             key = ProgressActionType.coursesProgressBinKey
@@ -221,7 +223,6 @@ enum PersistenceManager
         }
         
         /**--------------------------------------------------------------------------**/
-        
         guard let progressToDecode = defaults.object(forKey: key) as? Data
         else { completed(.success([])); return }
         
@@ -245,19 +246,15 @@ enum PersistenceManager
         switch actionType {
         case .addBookmark:
             tmpItem.isBookmarked = true
-        
         case .removeBookmark:
             tmpItem.isBookmarked = false
-        
         case .markComplete:
             tmpItem.isCompleted = true
-        
         case .markIncomplete:
             tmpItem.isCompleted = false
         }
         
         /**--------------------------------------------------------------------------**/
-        
         array.append(tmpItem)
     }
     
@@ -268,7 +265,6 @@ enum PersistenceManager
         var key: String!
         
         /**--------------------------------------------------------------------------**/
-        
         switch T.self {
         case is Course.Type:
             key = ProgressActionType.coursesProgressBinKey
@@ -281,7 +277,6 @@ enum PersistenceManager
         }
         
         /**--------------------------------------------------------------------------**/
-        
         do {
             let encoder = JSONEncoder()
             let encodedCourseProgress = try encoder.encode(items)
