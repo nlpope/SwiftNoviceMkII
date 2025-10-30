@@ -70,12 +70,6 @@ class SignUpVC: UIViewController, UITextFieldDelegate
     }
     
     
-    @objc func resetRootVC()
-    {
-        
-    }
-    
-    
     @objc func setPassword()
     {
         let ac = UIAlertController(title: "Set Password",
