@@ -36,15 +36,30 @@ enum ProgressActionType
 
 enum PersistenceManager
 {
-    static private let defaults = UserDefaults.standard
-    static private var existingUsers: [User]!
+    typealias UsernamePasswordBundle = (username: String, password: String)
     
+    static private let defaults = UserDefaults.standard
+//    static private var existingUsers: [User]! ///keep existing users and match the uuid in a loop then credentials[User.username] = User.password
+    static private var userCredentials = [UUID: UsernamePasswordBundle]()
     static var logoDidFlickerThisSession: Bool = fetchLogoDidFlickerStatus() {
         didSet { saveLogoDidFlickerStatus(status: logoDidFlickerThisSession) }
     }
         
     //-------------------------------------//
     // MARK: - EXISTING USERS PERSISTENCE
+    
+    static func saveNewUser(username: String, password: String)
+    {
+        var newUser = User(username: username, password: password)
+        userCredentials[newUser.id] = UsernamePasswordBundle(username: newUser.username, password: newUser.password)
+        KeychainWrapper.standard.set(password, forKey: username)
+    }
+    
+    
+    static func updateExistingUser(_ user: User)
+    {
+        
+    }
     
     static func updateExistingUsersOnThisDevice(with user: User, actionType: UserActionType)
     {
@@ -72,12 +87,6 @@ enum PersistenceManager
         } catch {
             completed(.failure(.failedToFetchUser))
         }
-    }
-    
-    
-    static func handle()
-    {
-        
     }
     
     //-------------------------------------//

@@ -4,12 +4,10 @@
 
 import Foundation
 
-struct User: Codable, Hashable
+struct User: Codable, Identifiable
 {
-    var avatarURL: String
+    var id: UUID = UUID()
+    var avatarURL: String?
     var username: String
     var password: String
-    
-    
-    func hash(into hasher: inout Hasher) { hasher.combine(username) }
 }

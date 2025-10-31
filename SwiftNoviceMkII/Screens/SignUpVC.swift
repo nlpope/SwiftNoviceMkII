@@ -3,10 +3,7 @@
 //  Created by: Noah Pope on 10/29/25.
 
 import UIKit
-
-// to be presented not pushed
-// saves the user account to user defaults on completion  (check for duplicates)
-// ... then sets the rootVC back to sign in once complete
+import LocalAuthentication
 
 protocol SignUpVCDelegate: AnyObject
 {
@@ -15,24 +12,27 @@ protocol SignUpVCDelegate: AnyObject
 
 class SignUpVC: UIViewController, UITextFieldDelegate
 {
-    let usernameTextField           = SNTextField(placeholder: "username")
-    let passwordTextField           = SNTextField(placeholder: "password")
-    let confirmPasswordTextField    = SNTextField(placeholder: "confirm password")
-    let signInLabel                 = SNInteractiveLabel(textToDisplay: "Sign in", fontSize: 18)
+    let usernameTextField = SNTextField(placeholder: "username")
+    let passwordTextField = SNTextField(placeholder: "password")
+    let confirmPasswordTextField = SNTextField(placeholder: "confirm password")
+    let createAccountLabel = SNInteractiveLabel(textToDisplay: "Create Account", fontSize: 18)
     
     weak var delegate: SignUpVCDelegate!
     let padding: CGFloat = 20
-
+    
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        view.backgroundColor = .systemBackground
-        configureVC()
+        configVC()
+        configUsernameTextField()
+        configPasswordTextField()
+        configConfirmPasswordTextField()
+        configCreateAccountLabel()
     }
     
     
+    #warning("test your taps on each vc and if it cancels the keyboard b/c it may not given the scope of all this")
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
@@ -40,20 +40,13 @@ class SignUpVC: UIViewController, UITextFieldDelegate
         passwordTextField.text = ""
         confirmPasswordTextField.text = ""
         navigationController?.setNavigationBarHidden(true, animated: true)
+        configKeyboardBehavior()
     }
     
     
-    func configureVC()
+    override func viewWillDisappear(_ animated: Bool)
     {
-        view.backgroundColor = .systemBackground
-        view.addSubviews(usernameTextField, passwordTextField, confirmPasswordTextField, signInLabel)
-    }
-    
-    
-    func createDismissKeyboardTapGesture()
-    {
-        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
-        view.addGestureRecognizer(tap)
+        view.gestureRecognizers?.removeAll()
     }
     
     
@@ -72,9 +65,13 @@ class SignUpVC: UIViewController, UITextFieldDelegate
     
     @objc func setPassword()
     {
+        /**
+         1. create a keychain item for each username-pasword pair
+         */
         let ac = UIAlertController(title: "Set Password",
                                    message: "Set your secure password",
                                    preferredStyle: .alert)
+        
         for _ in 0 ... 1 { ac.addTextField() }
         for i in 0 ... 1 { ac.textFields?[i].isSecureTextEntry = true }
         ac.textFields?[0].placeholder = "enter password"
@@ -100,36 +97,8 @@ class SignUpVC: UIViewController, UITextFieldDelegate
     }
     
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        resetRootVC()
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
         return true
     }
 }
-
-//extension SignUpVC: UITableViewDelegate, UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return menuOptions.count
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell                = tableView.dequeueReusableCell(withIdentifier: "cell")!
-//        let menuOption          = menuOptions[indexPath.row]
-//        cell.textLabel?.text    = menuOption
-//        if menuOption == "Delete Account" { cell.textLabel?.textColor = .systemRed }
-//
-//        return cell
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        let selectedOption = menuOptions[indexPath.row]
-//
-//        if selectedOption == "Sign Out" { delegate.signOut() }
-//        else if selectedOption == "Edit password" { delegate.editPassword() }
-//        else if selectedOption == "See instructions" { delegate.seeInstructions() }
-//        else if selectedOption == "Delete Account" { delegate.deleteAccount() }
-//    }
-//}
-
