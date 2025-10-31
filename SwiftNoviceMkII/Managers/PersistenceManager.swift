@@ -52,7 +52,8 @@ enum PersistenceManager
     {
         var newUser = User(username: username, password: password)
         userCredentials[newUser.id] = UsernamePasswordBundle(username: newUser.username, password: newUser.password)
-        KeychainWrapper.standard.set(password, forKey: username)
+        #warning("return to 10.31")
+        KeychainWrapper.standard.set("hello", forKey: newUser.id.uuidString)
     }
     
     
