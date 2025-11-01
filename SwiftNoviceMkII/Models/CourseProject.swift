@@ -6,7 +6,7 @@ import Foundation
 
 struct CourseProject: Identifiable, Codable, CourseItem
 {
-    var id: UUID?
+    var id = UUID()
     let index: Int
     let motherCourse: String
     let title: String

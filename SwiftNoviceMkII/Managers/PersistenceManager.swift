@@ -36,11 +36,8 @@ enum ProgressActionType
 
 enum PersistenceManager
 {
-    typealias UsernamePasswordBundle = (username: String, password: String)
-    
     static private let defaults = UserDefaults.standard
-//    static private var existingUsers: [User]! ///keep existing users and match the uuid in a loop then credentials[User.username] = User.password
-    static private var userCredentials = [UUID: UsernamePasswordBundle]()
+//    static private var userCredentials = [UUID: CredentialBundle]()
     static var logoDidFlickerThisSession: Bool = fetchLogoDidFlickerStatus() {
         didSet { saveLogoDidFlickerStatus(status: logoDidFlickerThisSession) }
     }
@@ -50,15 +47,12 @@ enum PersistenceManager
     
     static func saveNewUser(username: String, password: String)
     {
-        //pseudo: for each user in userCredentials (enumerated? no, dont need the number), add a password value for the corresponding key
-        var newUser = User(username: username, password: password)
-        userCredentials[newUser.id] = UsernamePasswordBundle(username: newUser.username, password: newUser.password)
+        var newUser = User(username: username, password: password) //needs to be stroed in keychain
         
-        for key in userCredentials.keys {
-            //pseudo: I wanna cast the UsernamePasswordBundle typealias to type 'Data' to store in uuidString key
-            KeychainWrapper.standard.set(, forKey: key.uuidString)
+        for cred in userCredentials {
+            //pseudo: I wanna cast the UsernamePasswordBundle typealias to type 'Data' (- i cant, not allowed) to store in uuidString key
+            KeychainWrapper.standard.set(cred.value.password, forKey: cred.key.uuidString)
         }
-        KeychainWrapper.standard.set(newUser.password, forKey: newUser.id.uuidString)
     }
     
     
