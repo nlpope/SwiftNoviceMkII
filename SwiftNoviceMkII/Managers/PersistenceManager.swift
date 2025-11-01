@@ -50,10 +50,15 @@ enum PersistenceManager
     
     static func saveNewUser(username: String, password: String)
     {
+        //pseudo: for each user in userCredentials (enumerated? no, dont need the number), add a password value for the corresponding key
         var newUser = User(username: username, password: password)
         userCredentials[newUser.id] = UsernamePasswordBundle(username: newUser.username, password: newUser.password)
-        #warning("return to 10.31")
-        KeychainWrapper.standard.set("hello", forKey: newUser.id.uuidString)
+        
+        for key in userCredentials.keys {
+            //pseudo: I wanna cast the UsernamePasswordBundle typealias to type 'Data' to store in uuidString key
+            KeychainWrapper.standard.set(, forKey: key.uuidString)
+        }
+        KeychainWrapper.standard.set(newUser.password, forKey: newUser.id.uuidString)
     }
     
     
