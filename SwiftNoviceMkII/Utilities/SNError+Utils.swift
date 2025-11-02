@@ -26,6 +26,8 @@ enum SNError: String, Error
         
     case failedToSaveUser = "Failed to save this new user. Please try signing up again."
     
+    case userAlreadyExists = "This username was already detected and cannot be signed up again."
+    
     case failedToSaveProgress = "We failed to save your progress. Please try toggling the completion slider again."
     
     case failedToFetchProgress = "We failed to retrieve your progress. Please try signing out and signing in again."

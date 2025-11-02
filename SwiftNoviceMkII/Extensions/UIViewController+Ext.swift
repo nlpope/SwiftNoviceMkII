@@ -66,7 +66,6 @@ extension UIViewController
         }
         
     /**--------------------------------------------------------------------------**/
-        
         DispatchQueue.main.async {
             let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .default))

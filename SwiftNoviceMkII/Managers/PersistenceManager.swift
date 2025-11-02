@@ -37,7 +37,8 @@ enum ProgressActionType
 enum PersistenceManager
 {
     static private let defaults = UserDefaults.standard
-//    static private var userCredentials = [UUID: CredentialBundle]()
+    static private let keychain = KeychainWrapper.standard
+    
     static var logoDidFlickerThisSession: Bool = fetchLogoDidFlickerStatus() {
         didSet { saveLogoDidFlickerStatus(status: logoDidFlickerThisSession) }
     }
@@ -45,13 +46,18 @@ enum PersistenceManager
     //-------------------------------------//
     // MARK: - EXISTING USERS PERSISTENCE
     
-    static func saveNewUser(username: String, password: String)
+    static func saveNewUser(username: String, password: String) -> SNError?
     {
-        var newUser = User(username: username, password: password) //needs to be stroed in keychain
+        //keychain (pwd) and defaults (avatar) can use username as the key
+        var newUser = User(username: username, password: password)
+        guard keychain.string(forKey: username) == nil else { return . }
+        keychain.set(password, forKey: username)
         
-        for cred in userCredentials {
-            //pseudo: I wanna cast the UsernamePasswordBundle typealias to type 'Data' (- i cant, not allowed) to store in uuidString key
-            KeychainWrapper.standard.set(cred.value.password, forKey: cred.key.uuidString)
+        do {
+            let encoder = JSONEncoder()
+            let encodedAvatar = try encoder.encode(<#T##value: Encodable##Encodable#>)
+        } catch {
+            
         }
     }
     
