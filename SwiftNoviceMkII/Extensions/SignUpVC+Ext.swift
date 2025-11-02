@@ -18,7 +18,14 @@ extension SignUpVC
     
     func configUsernameTextField()
     {
+        usernameTextField.delegate = self
         
+        NSLayoutConstraint.activate([
+            usernameTextField.topAnchor.constraint(equalTo: view.centerYAnchor),
+            usernameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            usernameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            usernameTextField.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
     

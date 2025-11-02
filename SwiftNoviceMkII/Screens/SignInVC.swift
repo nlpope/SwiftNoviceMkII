@@ -59,7 +59,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
     #warning("wouldn't you want the existing users to be bundled w their passwords in the keychain?")
     func fetchExistingUsers()
     {
-        PersistenceManager.fetchExistingUsersOnThisDevice { result in
+        PersistenceManager.fetchExistingUsers { result in
             switch result {
             case .success(var existingUsers):
                 self.existingUsers = existingUsers

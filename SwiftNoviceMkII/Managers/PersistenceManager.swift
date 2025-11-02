@@ -44,57 +44,56 @@ enum PersistenceManager
     }
         
     //-------------------------------------//
-    // MARK: - EXISTING USERS PERSISTENCE
+    // MARK: - USER PERSISTENCE
     
-    static func saveNewUser(username: String, password: String) -> SNError?
-    {
-        //keychain (pwd) and defaults (avatar) can use username as the key
-        var newUser = User(username: username, password: password)
-        guard keychain.string(forKey: username) == nil else { return . }
-        keychain.set(password, forKey: username)
-        
-        do {
-            let encoder = JSONEncoder()
-            let encodedAvatar = try encoder.encode(<#T##value: Encodable##Encodable#>)
-        } catch {
-            
-        }
-    }
+    //why have a User struct if im just divying up the avatarUrl and password among the username keys in defaults & keychain
     
-    
-    static func updateExistingUser(_ user: User)
-    {
-        
-    }
-    
-    static func updateExistingUsersOnThisDevice(with user: User, actionType: UserActionType)
-    {
-        fetchExistingUsersOnThisDevice { result in
-            switch result {
-            case .success(var usersArray):
-                break
-            /**--------------------------------------------------------------------------**/
-            case .failure(let error):
-                break
-            }
-        }
-    }
-    
-    
-    static func fetchExistingUsersOnThisDevice(completed: @escaping (Result<[User], SNError>) -> Void) ->  Void
-    {
-        guard let usersToDecode = defaults.object(forKey: PersistenceKeys.existingUsersKey) as? Data
-        else { completed(.success([])); return }
-        
-        do {
-            let decoder = JSONDecoder()
-            let decodedUsers = try decoder.decode([User].self, from: usersToDecode)
-            completed(.success(decodedUsers))
-        } catch {
-            completed(.failure(.failedToFetchUser))
-        }
-    }
-    
+//    static func saveNewUser(username: String, password: String) -> SNError?
+//    {
+//        //keychain (pwd) and defaults (avatar) can use username as the key
+//        guard keychain.string(forKey: username) == nil else { return .userAlreadyExists }
+//        var newUser = User(username: username, password: password)
+//        keychain.set(password, forKey: username)
+//        
+//        do {
+//            let encoder = JSONEncoder()
+//            let encodedData = try encoder.encode(newUser.avatarURL)
+//            defaults.set(encodedData, forKey: username)
+//            return nil
+//        } catch {
+//            return .failedToSaveUserAvatar
+//        }        
+//    }
+//    
+//    
+//    static func updateExistingUsers(with user: User, actionType: UserActionType, completed: @escaping (SNError?) -> Void) -> Void
+//    {
+//        fetchExistingUsers { result in
+//            switch result {
+//            case .success(var usersArray):
+//                break
+//            /**--------------------------------------------------------------------------**/
+//            case .failure(let error):
+//                break
+//            }
+//        }
+//    }
+//    
+//    
+//    static func fetchExistingUsers(completed: @escaping (Result<[String], SNError>) -> Void) ->  Void
+//    {
+//        guard let usernamesToDecode = defaults.object(forKey: PersistenceKeys.existingUsernamesKey) as? Data
+//        else { completed(.success([])); return }
+//        
+//        do {
+//            let decoder = JSONDecoder()
+//            let decodedUsers = try decoder.decode([User].self, from: usersToDecode)
+//            completed(.success(decodedUsers))
+//        } catch {
+//            completed(.failure(.failedToFetchUser))
+//        }
+//    }
+//    
     //-------------------------------------//
     // MARK: - SAVE / FETCH LOGO FLICKER STATUS
     

@@ -50,46 +50,42 @@ class SignUpVC: UIViewController, UITextFieldDelegate
     }
     
     
-    func configureUsernameTextField()
-    {
-        usernameTextField.delegate = self
-        
-        NSLayoutConstraint.activate([
-            usernameTextField.topAnchor.constraint(equalTo: view.centerYAnchor),
-            usernameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            usernameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            usernameTextField.heightAnchor.constraint(equalToConstant: 50)
-        ])
-    }
-    
-    
     @objc func setPassword()
     {
         /**
          1. create a keychain item for each username-pasword pair
          */
-        let ac = UIAlertController(title: "Set Password",
-                                   message: "Set your secure password",
+        let ac = UIAlertController(title: "Sign Up",
+                                   message: "Set your username and secure password",
                                    preferredStyle: .alert)
         
-        for _ in 0 ... 1 { ac.addTextField() }
-        for i in 0 ... 1 { ac.textFields?[i].isSecureTextEntry = true }
-        ac.textFields?[0].placeholder = "enter password"
-        ac.textFields?[1].placeholder = "confirm password"
+        for _ in 0 ... 2 { ac.addTextField() }
+        for i in 1 ... 2 { ac.textFields?[i].isSecureTextEntry = true }
+        ac.textFields?[0].placeholder = "enter username"
+        ac.textFields?[1].placeholder = "enter password"
+        ac.textFields?[2].placeholder = "confirm password"
         
-        let action1 = UIAlertAction(title: "Confirm", style: .default) { [weak self] _ in
-            guard let pwd = ac.textFields?[0].text
+        let action1 = UIAlertAction(title: "Create Account", style: .default) { [weak self] _ in
+            guard let username = ac.textFields?[0].text
             else { self?.presentSNAlertOnMainThread(forError: .emptyFields); return }
             
-            guard let cPwd = ac.textFields?[1].text
+            guard let password = ac.textFields?[1].text
             else { self?.presentSNAlertOnMainThread(forError: .emptyFields); return }
             
-            guard pwd == cPwd
+            guard let confirmedPassword = ac.textFields?[2].text
+            else { self?.presentSNAlertOnMainThread(forError: .emptyFields); return }
+            
+            guard password == confirmedPassword
             else { self?.presentSNAlertOnMainThread(forError: .pwdAndCpwdMismatch); return }
+            
+            PersistenceManager.updateExistingUsersOnThisDevice(with: <#T##User#>, actionType: <#T##UserActionType#>)
+            
+            guard PersistenceManager.saveNewUser(username: username, password: password) == nil
+            else { presentSNAlertOnMainThread(forError: error)}
 
-            #warning("what did i mean by the below comment?")
-            // AFTER THIS INCORPORATE REST OF KEYS IN THE POST SET PWD ENTRY METHOD
-            KeychainWrapper.standard.set(pwd, forKey: PersistenceKeys.passwordKey)
+//            #warning("what did i mean by the below comment?")
+//            // AFTER THIS INCORPORATE REST OF KEYS IN THE POST SET PWD ENTRY METHOD
+//            KeychainWrapper.standard.set(pwd, forKey: PersistenceKeys.passwordKey)
         }
         
         ac.addAction(action1)

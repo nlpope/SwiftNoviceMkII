@@ -23,10 +23,9 @@ enum PersistenceKeys
 {
     static let flickerStatusKey = "flickerStatusKey"
     
-    static let existingUsersKey = "existingUsersKey"
+//    static let existingUsernamesKey = "existingUsernamesKey"
+    //don't need this for the username always being supplied by the first field in the sign in vc
     
-    static let passwordKey = "passwordKey" //key only, storage = Keychain
-
     static let loginStatusKey = "loginStatusKey"
 }
 

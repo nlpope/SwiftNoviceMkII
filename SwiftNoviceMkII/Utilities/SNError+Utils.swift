@@ -26,7 +26,9 @@ enum SNError: String, Error
         
     case failedToSaveUser = "Failed to save this new user. Please try signing up again."
     
-    case userAlreadyExists = "This username was already detected and cannot be signed up again."
+    case failedToSaveUserAvatar = "Failed to save avatar for this user. Please try again."
+    
+    case userAlreadyExists = "This username was already detected and cannot be signed up again. Try signing in instead."
     
     case failedToSaveProgress = "We failed to save your progress. Please try toggling the completion slider again."
     

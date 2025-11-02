@@ -7,5 +7,5 @@ import Foundation
 struct User: Codable
 {
     var username, password: String //unique identifier for keychain (value = password)
-    var avatarURL: String?
+    var avatarURL: String? = ""
 }
