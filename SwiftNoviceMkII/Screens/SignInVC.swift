@@ -13,12 +13,11 @@ class SignInVC: UIViewController, UITextFieldDelegate
     let signUpLabel = SNInteractiveLabel(textToDisplay: "Don't have an account?", fontSize: 18)
     let forgotLabel = SNInteractiveLabel(textToDisplay: "Forgot username/password?", fontSize: 18)
     
-    var existingUsers: [User]!
-    var userExists: Bool = false
-    
     var passwordIsCorrect: Bool!
     var isUsernameEntered: Bool { return !usernameTextField.text!.isEmpty }
     var isPasswordEntered: Bool { return !passwordTextField.text!.isEmpty }
+    
+    var loggedInUser: User! 
     
     var logoLauncher: SNLogoLauncher!
 

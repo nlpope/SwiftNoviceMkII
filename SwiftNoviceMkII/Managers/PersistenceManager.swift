@@ -7,6 +7,9 @@ import UIKit
 //-------------------------------------//
 // MARK: - KEYS AND PROTOCOL & TYPE DEFINITIONS
 
+var progressTuple:
+var userProgressDict[String: Any]
+
 protocol CourseItem
 {
     var isBookmarked: Bool { get set }
@@ -49,8 +52,42 @@ enum PersistenceManager
     /**
      1. save new user's password and avatarUrl via the username key - do this in an updateUsers(with:) func
      2. add existing username to existingUsernames (on device)  array in Persistence mgr - then save that to user defaults
-     3.
      */
+    
+    static func createNewUser(withUsername username: String, password: String) -> SNError?
+    {
+        guard keychain.string(forKey: username) == nil else { return .userAlreadyExists }
+        keychain.set(password, forKey: username)
+    }
+    
+    
+    static func fetchUser(withUsername username: String, password: String, completed: @escaping (Result<User, SNError>) -> Void) -> Void
+    {
+        guard keychain.string(forKey: username) != nil else { return completed(.failure(.failedToFetchUser))}
+        //pull it out the defaults based on uuid
+        
+        var loggedInUser = User(username: username,
+                                completedCourses: defaults.object(forKey: username),
+                                completedCourseProjects: defaults.object(forKey: username)
+        )
+        
+        completed(.success(loggedInUser))
+    }
+    
+    
+    static func updateUserCredentials(for username: String, password: String)
+    {
+        
+    }
+    
+    
+    static func updateUserProgress()
+    
+    
+    static func deleteUserCredentials(username: String, password: String)
+    {
+        
+    }
     
 //    static func saveNewUser(username: String, password: String) -> SNError?
 //    {
