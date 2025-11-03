@@ -46,7 +46,11 @@ enum PersistenceManager
     //-------------------------------------//
     // MARK: - USER PERSISTENCE
     
-    //why have a User struct if im just divying up the avatarUrl and password among the username keys in defaults & keychain
+    /**
+     1. save new user's password and avatarUrl via the username key - do this in an updateUsers(with:) func
+     2. add existing username to existingUsernames (on device)  array in Persistence mgr - then save that to user defaults
+     3.
+     */
     
 //    static func saveNewUser(username: String, password: String) -> SNError?
 //    {

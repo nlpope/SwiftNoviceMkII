@@ -6,6 +6,9 @@ import Foundation
 
 struct User: Codable
 {
-    var username, password: String //unique identifier for keychain (value = password)
+    //never stored but values injected from user defaults
+    var username: String
     var avatarURL: String? = ""
+    var completedCourses: [Course]
+    var completedCourseProjects:[CourseProject]
 }
