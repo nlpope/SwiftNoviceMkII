@@ -7,8 +7,7 @@ import UIKit
 //-------------------------------------//
 // MARK: - KEYS AND PROTOCOL & TYPE DEFINITIONS
 
-var progressTuple:
-var userProgressDict[String: Any]
+typealias ProgressTuple = (bookmarkedCoursesKey: String, completedCoursesKey: String)
 
 protocol CourseItem
 {
@@ -58,13 +57,35 @@ enum PersistenceManager
     {
         guard keychain.string(forKey: username) == nil else { return .userAlreadyExists }
         keychain.set(password, forKey: username)
+
+        var newUser = User(username: username)
+        do {
+            let encoder = JSONEncoder()
+            let encodedUser = try encoder.encode(newUser)
+            defaults.set(encodedUser, forKey: username)
+        } catch {
+            return .failedToSaveUser
+        }
     }
     
     
     static func fetchUser(withUsername username: String, password: String, completed: @escaping (Result<User, SNError>) -> Void) -> Void
     {
-        guard keychain.string(forKey: username) != nil else { return completed(.failure(.failedToFetchUser))}
-        //pull it out the defaults based on uuid
+        guard var keychainPassword: String = keychain.string(forKey: username)
+        else { return completed(.failure(.failedToFetchUser)) }
+        if keychainPassword != password { completed(.failure(.authFail)) }
+        
+        guard let userToDecode = defaults.object(forKey: username) as? Data
+        else { completed(.failure(.failedToFetchUser)) }
+        
+        do {
+            let decoder = JSONDecoder()
+            let decodedUser = de
+        } catch {
+            
+        }
+        
+        
         
         var loggedInUser = User(username: username,
                                 completedCourses: defaults.object(forKey: username),
@@ -77,11 +98,15 @@ enum PersistenceManager
     
     static func updateUserCredentials(for username: String, password: String)
     {
-        
+        var userProgressDict: [String: ProgressTuple]!
+        userProgressDict[username] =
     }
     
     
     static func updateUserProgress()
+    {
+        
+    }
     
     
     static func deleteUserCredentials(username: String, password: String)
