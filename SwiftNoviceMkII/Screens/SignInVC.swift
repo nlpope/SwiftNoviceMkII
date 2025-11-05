@@ -92,6 +92,16 @@ class SignInVC: UIViewController, UITextFieldDelegate
     {
         guard isUsernameEntered, isPasswordEntered
         else { presentSNAlertOnMainThread(forError: .emptyFields); return }
+                
+        PersistenceManager.fetchUser(withUsername: <#T##String#>, password: <#T##String#>) { result in
+            switch result {
+            case .success(let user):
+                //reset the root vc (see og app)
+                //send this user struct to loggedInUser prop
+            case .failure(let error):
+                break
+            }
+        }
         
         for user in existingUsers {
             if user.username.lowercased() == usernameTextField.text?.lowercased() {

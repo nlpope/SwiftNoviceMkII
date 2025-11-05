@@ -43,7 +43,12 @@ extension SignUpVC
     
     func configCreateAccountLabel()
     {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(createNewUser))
+        createAccountLabel.addGestureRecognizer(tap)
         
+        NSLayoutConstraint.activate([
+            createAccountLabel.topAnchor.constraint(equalTo: confirmPasswordTextField.bottomAnchor, constant: 50),
+            createAccountLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
-    
 }

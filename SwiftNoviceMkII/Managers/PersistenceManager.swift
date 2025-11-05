@@ -13,7 +13,7 @@ protocol CourseItem
     var isCompleted: Bool { get set }
 }
 
-enum UserActionType { case addUser, removeUser }
+enum UserActionType { case addUser, removeUser, changePassword }
 
 enum FetchType { case courses, projects }
 
@@ -51,25 +51,43 @@ enum PersistenceManager
      2. add existing username to existingUsernames (on device)  array in Persistence mgr - then save that to user defaults
      */
     
-    static func createNewUser(withUsername username: String, password: String) -> SNError?
+    //handle create and delete in same func (list of users in the keychain)
+    static func updateUsers(username: String, password: String, actionType: UserActionType, completed: @escaping (SNError?) -> Void) -> Void
     {
-        guard keychain.string(forKey: username) == nil else { return .userAlreadyExists }
-        keychain.set(password, forKey: username)
+        //if user exists, handle a password change after a prompt
+        //if user does not exist, sign them up
+        
+        switch actionType {
+        case .addUser:
+            guard keychain.string(forKey: username) == nil else { completed(.userAlreadyExists) }
+            keychain.set(password, forKey: username)
 
-        var newUser = User(username: username)
-        do {
-            let encoder = JSONEncoder()
-            let encodedUser = try encoder.encode(newUser)
-            defaults.set(encodedUser, forKey: username)
-        } catch {
-            return .failedToSaveUser
+            let newUser = User(username: username)
+            do {
+                let encoder = JSONEncoder()
+                let encodedUser = try encoder.encode(newUser)
+                defaults.set(encodedUser, forKey: username)
+            } catch {
+                completed(.failedToSaveUser)
+            }
+        /**--------------------------------------------------------------------------**/
+        case .removeUser:
+            guard keychain.string(forKey: username) != nil else { completed(.failedToFetchUser) }
+            keychain.removeObject(forKey: username)
+            
+            
+        /**--------------------------------------------------------------------------**/
+            
+        case .changePassword:
+          break
         }
+        //save (necessary?)
     }
     
     
     static func fetchUser(withUsername username: String, password: String, completed: @escaping (Result<User, SNError>) -> Void) -> Void
     {
-        guard var keychainPassword: String = keychain.string(forKey: username)
+        guard let keychainPassword: String = keychain.string(forKey: username)
         else { return completed(.failure(.failedToFetchUser)) }
         if keychainPassword != password { completed(.failure(.authFail)) }
         

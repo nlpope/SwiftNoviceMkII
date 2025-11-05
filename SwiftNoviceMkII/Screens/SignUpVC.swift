@@ -50,11 +50,8 @@ class SignUpVC: UIViewController, UITextFieldDelegate
     }
     
     
-    @objc func setPassword()
+    @objc func createNewUser()
     {
-        /**
-         1. create a keychain item for each username-pasword pair
-         */
         let ac = UIAlertController(title: "Sign Up",
                                    message: "Set your username and secure password",
                                    preferredStyle: .alert)
@@ -78,23 +75,10 @@ class SignUpVC: UIViewController, UITextFieldDelegate
             guard password == confirmedPassword
             else { self?.presentSNAlertOnMainThread(forError: .pwdAndCpwdMismatch); return }
             
-            PersistenceManager.updateExistingUsersOnThisDevice(with: <#T##User#>, actionType: <#T##UserActionType#>)
-            
-            guard PersistenceManager.saveNewUser(username: username, password: password) == nil
-            else { presentSNAlertOnMainThread(forError: error)}
-
-//            #warning("what did i mean by the below comment?")
-//            // AFTER THIS INCORPORATE REST OF KEYS IN THE POST SET PWD ENTRY METHOD
-//            KeychainWrapper.standard.set(pwd, forKey: PersistenceKeys.passwordKey)
+            PersistenceManager.createNewUser(withUsername: username, password: password)
         }
         
         ac.addAction(action1)
         present(ac, animated: true)
-    }
-    
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool
-    {
-        return true
     }
 }
