@@ -7,8 +7,6 @@ import UIKit
 //-------------------------------------//
 // MARK: - KEYS AND PROTOCOL & TYPE DEFINITIONS
 
-typealias ProgressTuple = (bookmarkedCoursesKey: String, completedCoursesKey: String)
-
 protocol CourseItem
 {
     var isBookmarked: Bool { get set }
@@ -22,15 +20,15 @@ enum FetchType { case courses, projects }
 enum VCVisitStatusType: Codable
 {
     case isFirstVisit, isNotFirstVisit
-    static let homeVCVisitStatusKey = "homeVCVisitStatusKey"
-    static let projectsVCVisitStatusKey = "projectsVCVisitStatusKey"
+//    static let homeVCVisitStatusKey = "homeVCVisitStatusKey"
+//    static let projectsVCVisitStatusKey = "projectsVCVisitStatusKey"
 }
     
 enum ProgressActionType
 {
     case addBookmark, removeBookmark, markComplete, markIncomplete
-    static let coursesProgressBinKey = "coursesProgressBinKey"
-    static let projectsProgressBinKey = "projectsProgressBinKey"
+//    static let coursesProgressBinKey = "coursesProgressBinKey"
+//    static let projectsProgressBinKey = "projectsProgressBinKey"
 }
 
 //-------------------------------------//
@@ -80,30 +78,24 @@ enum PersistenceManager
         
         do {
             let decoder = JSONDecoder()
-            let decodedUser = de
+            let decodedUser = try decoder.decode(User.self, from: userToDecode)
+            completed(.success(decodedUser))
         } catch {
-            
+            completed(.failure(.failedToFetchUser))
         }
-        
-        
-        
-        var loggedInUser = User(username: username,
-                                completedCourses: defaults.object(forKey: username),
-                                completedCourseProjects: defaults.object(forKey: username)
-        )
-        
-        completed(.success(loggedInUser))
     }
     
     
-    static func updateUserCredentials(for username: String, password: String)
+    static func updateUserCredentials(for username: String, newPassword: String) -> SNError?
     {
-        var userProgressDict: [String: ProgressTuple]!
-        userProgressDict[username] =
+        guard let keychainPassword = keychain.object(forKey: username) as? String
+        else { return .failedToChangePassword }
+        
+        if newPassword == keychainPassword { return .identicalPasswordDetected }
     }
     
     
-    static func updateUserProgress()
+    static func updateUserProgress(withProject: CourseProject, inCourse: Course)
     {
         
     }

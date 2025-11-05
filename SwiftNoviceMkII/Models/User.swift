@@ -13,4 +13,6 @@ struct User: Codable
     var bookmarkedCourses: [Course] = []
     var completedCourses: [Course] = []
     var completedCourseProjects:[CourseProject] = []
+    var firstTimeInHomeVC: Bool = true
+    var firstTimeInProjectsVC: Bool = true
 }

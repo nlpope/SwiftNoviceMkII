@@ -34,6 +34,10 @@ enum SNError: String, Error
     
     case failedToFetchProgress = "We failed to retrieve your progress. Please try signing out and signing in again."
     
+    case failedToChangePassword = "Failed to change your password. Please try again."
+    
+    case identicalPasswordDetected = "Password must differ from your existing one. Please try again."
+    
     //-------------------------------------//
     // MARK: - API FETCHING ERROR MESSAGES
 
