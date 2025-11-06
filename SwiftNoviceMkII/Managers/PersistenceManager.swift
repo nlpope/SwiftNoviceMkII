@@ -36,6 +36,7 @@ enum ProgressActionType
 
 enum PersistenceManager
 {
+    static var activeUser: User!
     static private let defaults = UserDefaults.standard
     static private let keychain = KeychainWrapper.standard
     
@@ -70,11 +71,11 @@ enum PersistenceManager
             } catch {
                 completed(.failedToSaveUser)
             }
+            
         /**--------------------------------------------------------------------------**/
         case .removeUser:
             guard keychain.string(forKey: username) != nil else { completed(.failedToFetchUser) }
             keychain.removeObject(forKey: username)
-            
             
         /**--------------------------------------------------------------------------**/
             

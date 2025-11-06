@@ -13,9 +13,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
         didSet { PersistenceManager.saveVCVisitStatus(for: self, status: vcVisitStatus) }
     }
 
-    var loggedInUser: User! {
-        didSet { bookmarkedCourses = loggedInUser.bookmarkedCourses}
-    }
+    var activeUser = PersistenceManager.activeUser
     var courses = [Course]()
     var bookmarkedCourses = [Course]()
     var completedCourses = [Course]()

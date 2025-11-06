@@ -93,46 +93,24 @@ class SignInVC: UIViewController, UITextFieldDelegate
         guard isUsernameEntered, isPasswordEntered
         else { presentSNAlertOnMainThread(forError: .emptyFields); return }
         
-        guard let username = usernameTextField.text
-        else { presentSNAlertOnMainThread(forError: .emptyFields)}
-        
-        guard let password = passwordTextField.text
-        else { presentSNAlertOnMainThread(forError: .emptyFields) }
+        let username = usernameTextField.text!
+        let password = passwordTextField.text!
                 
         PersistenceManager.fetchUser(withUsername: username, password: password) { [self] result in
             switch result {
             case .success(let user):
-                //reset the root vc (see og app)
-                //send this user struct to loggedInUser prop
+                PersistenceManager.activeUser = user
                 usernameTextField.resignFirstResponder()
                 passwordTextField.resignFirstResponder()
+                let tabBarController = SNTabBarController()
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(tabBarController)
+                
+            /**--------------------------------------------------------------------------**/
             case .failure(let error):
-                break
+                presentSNAlertOnMainThread(forError: error)
             }
         }
-        
-        for user in existingUsers {
-            if user.username.lowercased() == usernameTextField.text?.lowercased() {
-                userExists = true; break
-            }
-        }
-
-        guard userExists, passwordIsCorrect
-        else { presentSNAlertOnMainThread(forError: .wrongUsernameOrPwd); return }
-        
-        #warning("look into the below - is it what you want in the final version?")
-        updateLoggedinStatus(withStatus: true)
-        usernameTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
-        
-        let tabBarController = SNTabBarController()
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(tabBarController)
     }
-    
-    //-------------------------------------//
-    // MARK: - LOGIN STATUS UPDATER
-    
-    func updateLoggedinStatus(withStatus status: Bool) { PersistenceManager.updateLoggedInStatus(loggedIn: status) }
 
     //-------------------------------------//
     // MARK: - KEYBOARD METHODS
