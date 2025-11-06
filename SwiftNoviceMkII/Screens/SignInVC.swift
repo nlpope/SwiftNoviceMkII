@@ -52,27 +52,8 @@ class SignInVC: UIViewController, UITextFieldDelegate
         view.gestureRecognizers?.removeAll()
     }
     
-   
-    //-------------------------------------//
-    // MARK: - EXISTING USER FETCHING
-    #warning("wouldn't you want the existing users to be bundled w their passwords in the keychain?")
-    func fetchExistingUsers()
-    {
-        PersistenceManager.fetchExistingUsers { result in
-            switch result {
-            case .success(var existingUsers):
-                self.existingUsers = existingUsers
-            case .failure(let error):
-                self.presentSNAlertOnMainThread(forError: error)
-            }
-        }
-    }
-    
     //-------------------------------------//
     // MARK: - SIGN UP & PASSWORD RESET METHODS
-    
-
-    
     
     @objc func presentSignUpVC()
     {

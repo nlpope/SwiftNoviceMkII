@@ -23,8 +23,6 @@ class CourseProjectsVC: SNDataLoadingVC, UITableViewDataSource, UITableViewDeleg
     var selectedCourse: Course!
     var editModeOn: Bool = false
     var projects = [CourseProject]()
-    var bookMarkedProjects = [CourseProject]()
-    var completedProjects = [CourseProject]()
     var filteredProjects = [CourseProject]()
     
     var isSearching = false

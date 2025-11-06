@@ -9,24 +9,15 @@ import MobileCoreServices
 
 class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating, UICollectionViewDelegate
 {
-    var vcVisitStatus: PersistenceKeys.VCVisitStatusType! {
-        didSet { PersistenceManager.saveVCVisitStatus(for: self, status: vcVisitStatus) }
-    }
-
     var activeUser = PersistenceManager.activeUser
     var courses = [Course]()
-    var bookmarkedCourses = [Course]()
-    var completedCourses = [Course]()
     var filteredCourses = [Course]()
 
     var isSearching = false
     var collectionView: UICollectionView!
     private var courseListDataSource: UICollectionViewDiffableDataSource<Section, Course.ID>!
     var logoLauncher: SNLogoLauncher!
-    
-    //keep this as the first vc loaded
-    //but if first visit since closing app is true - change root vc to sign in screen
-    //change back (reverse the above) after finished signing in.
+       
     override func viewDidLoad()
     {
         super.viewDidLoad()

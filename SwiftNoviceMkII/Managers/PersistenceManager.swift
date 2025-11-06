@@ -36,7 +36,7 @@ enum ProgressActionType
 
 enum PersistenceManager
 {
-    static var activeUser: User!
+    static var activeUser: User?
     static private let defaults = UserDefaults.standard
     static private let keychain = KeychainWrapper.standard
     
@@ -75,14 +75,14 @@ enum PersistenceManager
         /**--------------------------------------------------------------------------**/
         case .removeUser:
             guard keychain.string(forKey: username) != nil else { completed(.failedToFetchUser) }
+            //now remove the struct from defaults before removing it from keychain
+            guard defaults.object(forKey: username) != nil else { completed(.failedToFetchUser) }
             keychain.removeObject(forKey: username)
             
         /**--------------------------------------------------------------------------**/
-            
         case .changePassword:
           break
         }
-        //save (necessary?)
     }
     
     
