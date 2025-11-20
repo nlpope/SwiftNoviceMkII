@@ -1,4 +1,4 @@
-//  File: SNLogoLauncher+Utils.swift
+//  File: SNLogoLauncher.swift
 //  Project: Project32-SwiftSearcher
 //  Created by: Noah Pope on 6/3/25.
 

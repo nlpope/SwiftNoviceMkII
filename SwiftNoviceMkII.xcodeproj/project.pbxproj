@@ -42,7 +42,7 @@
 		40D19ECC2E30D6D1008D9669 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ECB2E30D6D1008D9669 /* User.swift */; };
 		40D19ECE2E30D6DF008D9669 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ECD2E30D6DF008D9669 /* Course.swift */; };
 		40D19ED02E30D6FD008D9669 /* CourseProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ECF2E30D6FD008D9669 /* CourseProject.swift */; };
-		40D19ED42E30F60C008D9669 /* SNLogoLauncher+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ED32E30F60C008D9669 /* SNLogoLauncher+Utils.swift */; };
+		40D19ED42E30F60C008D9669 /* SNLogoLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ED32E30F60C008D9669 /* SNLogoLauncher.swift */; };
 		40D19ED62E30F827008D9669 /* launchscreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 40D19ED52E30F827008D9669 /* launchscreen.mp4 */; };
 		40D19ED82E30F899008D9669 /* Constants+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ED72E30F899008D9669 /* Constants+Utils.swift */; };
 		40D19EDA2E30F983008D9669 /* AVPlayer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D19ED92E30F983008D9669 /* AVPlayer+Ext.swift */; };
@@ -105,7 +105,7 @@
 		40D19ECB2E30D6D1008D9669 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		40D19ECD2E30D6DF008D9669 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		40D19ECF2E30D6FD008D9669 /* CourseProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseProject.swift; sourceTree = "<group>"; };
-		40D19ED32E30F60C008D9669 /* SNLogoLauncher+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SNLogoLauncher+Utils.swift"; sourceTree = "<group>"; };
+		40D19ED32E30F60C008D9669 /* SNLogoLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNLogoLauncher.swift; sourceTree = "<group>"; };
 		40D19ED52E30F827008D9669 /* launchscreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = launchscreen.mp4; sourceTree = "<group>"; };
 		40D19ED72E30F899008D9669 /* Constants+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constants+Utils.swift"; sourceTree = "<group>"; };
 		40D19ED92E30F983008D9669 /* AVPlayer+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayer+Ext.swift"; sourceTree = "<group>"; };
@@ -269,6 +269,7 @@
 		40D19EBD2E30D115008D9669 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				40D19ED32E30F60C008D9669 /* SNLogoLauncher.swift */,
 				40B3D82B2E9EC4C600CCA85D /* SignInVC.swift */,
 				40D19EB12E30CFBF008D9669 /* HomeCoursesVC.swift */,
 				408D6CE42E41421000E3B2E2 /* CourseProjectsVC.swift */,
@@ -329,7 +330,6 @@
 			children = (
 				40D19ED72E30F899008D9669 /* Constants+Utils.swift */,
 				4096DACF2E385CAD00E6C5F5 /* SNError+Utils.swift */,
-				40D19ED32E30F60C008D9669 /* SNLogoLauncher+Utils.swift */,
 				40BFB2062E3A22B200A3E83E /* UIHelper+Utils.swift */,
 			);
 			path = Utilities;
@@ -507,7 +507,7 @@
 				40D19ECA2E30D3E7008D9669 /* UIViewController+Ext.swift in Sources */,
 				408116982E3B7D2100515626 /* SNAvatarImageView.swift in Sources */,
 				408D6CE52E41421000E3B2E2 /* CourseProjectsVC.swift in Sources */,
-				40D19ED42E30F60C008D9669 /* SNLogoLauncher+Utils.swift in Sources */,
+				40D19ED42E30F60C008D9669 /* SNLogoLauncher.swift in Sources */,
 				40D19ECE2E30D6DF008D9669 /* Course.swift in Sources */,
 				4096DAD02E385CAD00E6C5F5 /* SNError+Utils.swift in Sources */,
 				40BE3C012EB3D57500C5C981 /* SignUpVC+Ext.swift in Sources */,
