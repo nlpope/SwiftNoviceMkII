@@ -31,7 +31,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
         configSignInLabel()
         configSignUpLabel()
         configForgotLabel()
-        fetchExistingUsers()
+//        fetchExistingUsers()
     }
     
     
