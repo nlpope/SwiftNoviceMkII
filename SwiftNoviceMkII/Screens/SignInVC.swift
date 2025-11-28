@@ -37,13 +37,13 @@ class SignInVC: UIViewController, UITextFieldDelegate
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-        logoLauncher = SNLogoLauncher(targetVC: self)
-        logoLauncher.configLogoLauncher()
         usernameTextField.text = ""
         passwordTextField.text = ""
+        
         navigationController?.setNavigationBarHidden(true, animated: true)
         configKeyboardBehavior()
-        print("gesture recognizers = \(view.gestureRecognizers!)")
+        logoLauncher = SNLogoLauncher(targetVC: self)
+        logoLauncher.configLogoLauncher()
     }
     
     
