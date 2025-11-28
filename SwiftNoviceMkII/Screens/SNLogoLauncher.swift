@@ -19,7 +19,6 @@ class SNLogoLauncher
     
     func configLogoLauncher()
     {
-        print("launching logo")
         maskHomeVCForIntro()
         configNotifications()
         

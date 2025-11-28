@@ -24,6 +24,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
     
     func determineRootVC() -> UIViewController
     {
+        //make signInVC the root vc always
+        //then in playerDidFinishPlaying() check persMgr for signin status
+        //if signed in change root vc to tabBarVC
+        //then change rootVC based on that every time.
         let userIsLoggedIn = PersistenceManager.fetchLoggedInStatus()
         guard userIsLoggedIn else { return SignInVC() }
         return SNTabBarController()

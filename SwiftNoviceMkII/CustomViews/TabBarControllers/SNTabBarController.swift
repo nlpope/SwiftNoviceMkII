@@ -22,7 +22,9 @@ class SNTabBarController: UITabBarController
     
     
     func configVCs()
-    { viewControllers = [createCoursesNC(), createBookmarksNC()] }
+    {
+        viewControllers = [createCoursesNC(), createBookmarksNC()]
+    }
     
     
     func createCoursesNC() -> UINavigationController
