@@ -17,8 +17,7 @@ class SignInVC: UIViewController, UITextFieldDelegate
     var isUsernameEntered: Bool { return !usernameTextField.text!.isEmpty }
     var isPasswordEntered: Bool { return !passwordTextField.text!.isEmpty }
     
-    var loggedInUser: User! 
-    
+    var loggedInUser: User!
     var logoLauncher: SNLogoLauncher!
 
     override func viewDidLoad()
@@ -38,6 +37,8 @@ class SignInVC: UIViewController, UITextFieldDelegate
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
+        logoLauncher = SNLogoLauncher(targetVC: self)
+        logoLauncher.configLogoLauncher()
         usernameTextField.text = ""
         passwordTextField.text = ""
         navigationController?.setNavigationBarHidden(true, animated: true)
@@ -48,7 +49,9 @@ class SignInVC: UIViewController, UITextFieldDelegate
     
     override func viewWillDisappear(_ animated: Bool)
     {
+        super.viewWillDisappear(animated)
         logoLauncher = nil
+        navigationController?.setNavigationBarHidden(false, animated: true)
         view.gestureRecognizers?.removeAll()
     }
     

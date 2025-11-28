@@ -15,7 +15,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = determineRootVC()
+//        window?.rootViewController = determineRootVC()
+        window?.rootViewController = SignInVC()
         window?.makeKeyAndVisible()
         
         configNavBar()
@@ -24,10 +25,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
     
     func determineRootVC() -> UIViewController
     {
-        //make signInVC the root vc always
+        //make the root vc = signInVC always
         //then in playerDidFinishPlaying() check persMgr for signin status
         //if signed in change root vc to tabBarVC
-        //then change rootVC based on that every time.
+        //if not signed in keep root vc as signinVC
         let userIsLoggedIn = PersistenceManager.fetchLoggedInStatus()
         guard userIsLoggedIn else { return SignInVC() }
         return SNTabBarController()

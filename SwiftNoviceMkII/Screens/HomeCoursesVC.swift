@@ -16,7 +16,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     var isSearching = false
     var collectionView: UICollectionView!
     private var courseListDataSource: UICollectionViewDiffableDataSource<Section, Course.ID>!
-    var logoLauncher: SNLogoLauncher!
+//    var logoLauncher: SNLogoLauncher!
        
     override func viewDidLoad()
     {
@@ -32,8 +32,8 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     override func viewWillAppear(_ animated: Bool)
     {
         if vcVisitStatus == .isFirstVisit || vcVisitStatus == .isNotFirstVisit {
-            logoLauncher = SNLogoLauncher(targetVC: self)
-            logoLauncher.configLogoLauncher()
+//            logoLauncher = SNLogoLauncher(targetVC: self)
+//            logoLauncher.configLogoLauncher()
             vcVisitStatus = PersistenceManager.saveVCVisitStatus(for: self, status: .isFirstVisitPostDismissal)
         }
         configKeyboardBehavior()
@@ -43,7 +43,7 @@ class HomeCoursesVC: SNDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdati
     
     override func viewWillDisappear(_ animated: Bool)
     {
-        logoLauncher = nil
+//        logoLauncher = nil
         view.gestureRecognizers?.removeAll()
     }
     
