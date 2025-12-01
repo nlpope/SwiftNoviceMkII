@@ -8,13 +8,13 @@ import AVFoundation
 
 class SNLogoLauncher
 {
-    var targetVC: HomeCoursesVC!
+    var targetVC: UIViewController!
     var player: AVPlayer!
     var playerLayer: AVPlayerLayer!
     var animationDidPause = false
 
     
-    init(targetVC: UIViewController) { self.targetVC = targetVC as? HomeCoursesVC }
+    init(targetVC: UIViewController) { self.targetVC = targetVC as UIViewController }
     
     
     func configLogoLauncher()
@@ -51,7 +51,7 @@ class SNLogoLauncher
         targetVC.navigationController?.isNavigationBarHidden = true
         targetVC.tabBarController?.isTabBarHidden = true
         targetVC.view.backgroundColor = .black
-        targetVC.collectionView.isHidden = true
+//        targetVC.collectionView.isHidden = true
     }
     
     
@@ -75,12 +75,13 @@ class SNLogoLauncher
     
     @objc func playerDidFinishPlaying()
     {
+        PersistenceManager.
         targetVC.navigationController?.isNavigationBarHidden = false
         targetVC.tabBarController?.isTabBarHidden = false
-        targetVC.collectionView.isHidden = false
+//        targetVC.collectionView.isHidden = false
         targetVC.view.backgroundColor = .systemBackground
         
-        targetVC.vcVisitStatus = .isNotFirstVisit
+//        targetVC.vcVisitStatus = .isNotFirstVisit
         
         self.removeNotifications()
     

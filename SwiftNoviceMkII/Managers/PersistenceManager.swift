@@ -37,6 +37,10 @@ enum ProgressActionType
 enum PersistenceManager
 {
     static var activeUser: User?
+    static var userIsSignedIn: Bool = false {
+        didSet { }
+    }
+    //active user needs to store cmpletion data and favorites/bookmarks
     static private let defaults = UserDefaults.standard
     static private let keychain = KeychainWrapper.standard
     

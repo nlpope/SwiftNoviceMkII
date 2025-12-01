@@ -24,8 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
     
     
     func determineRootVC() -> UIViewController
-    {
-        //make the root vc = signInVC always
+    {        
         //then in playerDidFinishPlaying() check persMgr for signin status
         //if signed in change root vc to tabBarVC
         //if not signed in keep root vc as signinVC
