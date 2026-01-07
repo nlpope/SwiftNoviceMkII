@@ -2,6 +2,8 @@
 //  Project: SwiftNoviceMkII
 //  Created by: Noah Pope on 10/14/25.
 
+#warning("consider using stack views like in what's that whistle2 project 33")
+
 import UIKit
 
 class SignInVC: UIViewController, UITextFieldDelegate
